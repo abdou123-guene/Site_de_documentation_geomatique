@@ -30,6 +30,5 @@ Le site s’organise en différentes thématiques essentielles :
 **GUENE Abdou Lahat**  
 Géomaticien – AUDC Châlons-en-Champagne  
 Site développé dans le cadre de l’amélioration continue des outils internes.
-
 ---
 
