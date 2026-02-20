@@ -1,4 +1,4 @@
-risite_name: Site de documentation CPGEOM
+Site_name: Site de documentation AUDC 
 
 theme:
   name: material
@@ -7,6 +7,8 @@ nav:
 
   - Accueil: index.md
   - Source de données à AUDC: Readme.md
+  - Interopérabilité de données en géomatique: Interoperabilite.md
   - ESRI et base de données PostgreSQL/PostGIS: esri.md
   
+
 
