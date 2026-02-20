@@ -1,4 +1,4 @@
-### 📌 Auteur : **GUENE Abdou Lahat**, géomaticien — AUDC Châlons-en-Champagne  
+****Auteur :** GUENE Abdou Lahat**, géomaticien - AUDC Châlons-en-Champagne
 ---
 
 # <span style="color:blue;">1) Pourquoi les sources de données et les métadonnées sont indissociables</span>
@@ -10,8 +10,8 @@ En géomatique, une donnée n’existe vraiment que si l’on connaît :
 - **comment elle a été produite** (méthodes, traitements)
 - **comment on peut la réutiliser** (licence, droits, formats)
 
-👉 Les **sources de données** définissent *le QUOI*.  
-👉 Les **métadonnées** définissent *le COMMENT et le POURQUOI*.
+-> Les **sources de données** définissent *le QUOI*.  
+->Les **métadonnées** définissent *le COMMENT et le POURQUOI*.
 
 Bien gérés, ces deux volets assurent :
 - traçabilité,
