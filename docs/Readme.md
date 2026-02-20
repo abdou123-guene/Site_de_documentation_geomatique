@@ -1,4 +1,4 @@
-****Auteur:** GUENE Abdou Lahat**, géomaticien - AUDC Châlons-en-Champagne
+****Auteur:** GUENE Abdou Lahat** , géomaticien - AUDC Châlons-en-Champagne
 ---
 
 # <span style="color:blue;">1) Pourquoi les sources de données et les métadonnées sont indissociables</span>
