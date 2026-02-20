@@ -1,4 +1,7 @@
-# <span style="color:blue;">Documentation Géomatique — AUDC</span>
+<p align="center">
+  <img src="logo_CPGEOM.png" alt="Logo CPGEOM" width="200">
+</p>
+# <span style="color:blue;">Documentation Géomatique - AUDC</span>
 ## <span style="color:blue;">Sources de données & métadonnées</span>
 
 ### 📌 Auteur : **GUENE Abdou Lahat**, géomaticien — AUDC Châlons-en-Champagne  
@@ -124,43 +127,43 @@ Bien gérés, ces deux volets assurent :
 
 ---
 
-# <span style="color:blue;">3) Panorama général des sources</span>
+# <span style="color:pink;">3) Panorama général des sources</span>
 *(Référentiels, télédétection, données terrain, sources privées, etc.)*  
 → version réorganisée identique à ton texte initial mais clarifiée.
 
 ---
 
-# <span style="color:blue;">4) Métadonnées : principes</span>
+# <span style="color:pink;">4) Métadonnées : principes</span>
 *(Découvrabilité, ISO 19115, INSPIRE, DCAT, FAIR…)*
 
 ---
 
-# <span style="color:blue;">5) Exemple complet de fiche métadonnées (YAML)</span>
+# <span style="color:pink;">5) Exemple complet de fiche métadonnées (YAML)</span>
 *(Version nettoyée et bien indentée — prête à intégrer dans un repository)*
 
 ---
 
-# <span style="color:blue;">6) Publication & Recherche documentaire</span>
+# <span style="color:pink;">6) Publication & Recherche documentaire</span>
 *(Catalogues internes, GitHub Pages…)*
 
 ---
 
-# <span style="color:blue;">7) Licences & Droits</span>
+# <span style="color:pink;">7) Licences & Droits</span>
 
 ---
 
-# <span style="color:blue;">8) Qualité & Contrôle</span>
+# <span style="color:pink;">8) Qualité & Contrôle</span>
 
 ---
 
-# <span style="color:blue;">9) Automatisation & Traçabilité</span>
+# <span style="color:pink;">9) Automatisation & Traçabilité</span>
 
 ---
 
-# <span style="color:blue;">10) Pièges fréquents</span>
+# <span style="color:pink;">10) Pièges fréquents</span>
 
 ---
 
-# <span style="color:blue;">11) Modèle de schéma attributaire</span>
+# <span style="color:pink;">11) Modèle de schéma attributaire</span>
 
 ---
