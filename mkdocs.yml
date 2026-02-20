@@ -1,0 +1,11 @@
+site_name: Site de documentation CPGEOM
+
+theme:
+  name: material
+
+nav:
+
+  - Accueil: index.md
+  - Source de données à AUDC: Readme.md
+  - Interopérabilité en géomatique: Interoperabilite.md
+  
