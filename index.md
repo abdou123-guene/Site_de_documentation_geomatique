@@ -1,48 +1,44 @@
-# Documentation Géomatique – CPGEOM
+# Bienvenue sur la Documentation Géomatique du CPGEOM
 
-Bienvenue sur le site de documentation géomatique de l’AUDC.
-
-Ce site a pour objectif de centraliser les informations, ressources, procédures et guides pratiques utilisés dans le cadre des travaux SIG, analyses territoriales et traitements de données.
+Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques au sein du CPGEOM.  
+Il a été conçu pour offrir un cadre clair, structuré et facilement accessible aux agents et partenaires travaillant sur des projets SIG.
 
 ---
 
 ## 🎯 Objectifs du site
 
-- Faciliter l’accès aux connaissances géomatiques internes.  
-- Offrir des guides simples et opérationnels.  
-- Assurer la traçabilité et la qualité des données produites.  
-- Favoriser la cohérence entre les projets SIG.  
-- Documenter les méthodes et les outils utilisés (QGIS, QField, GitHub, Python…).  
+- Centraliser les connaissances et outils géomatiques de l’AUDC.
+- Améliorer l’accès aux données, aux procédures et aux référentiels.
+- Garantir la qualité, la traçabilité et la cohérence des traitements.
+- Faciliter le partage d’informations entre les différents projets.
+- Servir de guide aux nouveaux utilisateurs des outils SIG.
 
 ---
 
-## 📚 Pages disponibles
+## 📚 Contenu disponible
 
-### 🔹 Interopérabilité
-Comprendre l’échange de données entre formats et outils SIG.  
-➡️ Voir la page *Interopérabilité* dans le menu.
+Le site s’organise en différentes thématiques essentielles :
 
-*(D’autres pages seront ajoutées progressivement.)*
-
----
-
-## 🏢 À propos
-
-**Auteur :** GUENE Abdou Lahat  
-**Fonction :** Géomaticien  
-**Structure :** AUDC – Châlons-en-Champagne
+- **Accueil** — Présentation générale de la démarche et des objectifs.
+- **Interopérabilité** — Comprendre l’échange de données entre logiciels, formats SIG et environnements techniques.
+- *(D’autres rubriques seront ajoutées progressivement : QGIS, QField, sources de données, traitements Python, métadonnées, etc.)*
 
 ---
 
-## ✨ Prochaines évolutions
+## 🏢 À propos du CPGEOM
 
-- Guides QGIS (styles, attributaires, formulaires).  
-- Méthodes QField (collecte terrain).  
-- Scripts Python pour la donnée géographique.  
-- Standards internes : nommage, métadonnées, formats.  
-- Présentation des sources de données (INSEE, IGN, BPE…).  
+Le CPGEOM (Centre de Production Géomatique) accompagne l’AUDC dans la création, la maintenance et la valorisation des données territoriales.  
+Les missions principales incluent la cartographie, l’analyse spatiale, la gestion de bases de données, la veille territoriale et l’appui technique aux études d’aménagement.
 
 ---
 
-Merci de votre visite.  
-Pour proposer des améliorations : utiliser l’onglet *Issues* du dépôt GitHub.
+## ✍️ Auteur
+
+**GUENE Abdou Lahat**  
+Géomaticien – AUDC Châlons-en-Champagne  
+Site développé dans le cadre de l’amélioration continue des outils internes.
+
+---
+
+Merci pour votre visite.  
+N’hésitez pas à proposer des améliorations ou à signaler une correction via le dépôt GitHub du projet.
