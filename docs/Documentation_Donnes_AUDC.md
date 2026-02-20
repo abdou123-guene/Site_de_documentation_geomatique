@@ -1,9 +1,3 @@
-<p align="center">
-  <img src="logo_CPGEOM.png" alt="Logo CPGEOM" width="200">
-</p>
-# <span style="color:blue;">Documentation Géomatique - AUDC</span>
-## <span style="color:blue;">Sources de données & métadonnées</span>
-
 ### 📌 Auteur : **GUENE Abdou Lahat**, géomaticien — AUDC Châlons-en-Champagne  
 ---
 
