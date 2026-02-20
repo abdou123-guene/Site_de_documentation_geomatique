@@ -1,6 +1,6 @@
-# Bienvenue sur la Documentation Géomatique du CPGEOM
+# Bienvenue sur la Documentation Géomatique de l'agence AUDC
 
-Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques au sein du CPGEOM.  
+Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques au sein de l'agence.  
 Il a été conçu pour offrir un cadre clair, structuré et facilement accessible aux agents et partenaires travaillant sur des projets SIG.
 
 ---
@@ -25,13 +25,6 @@ Le site s’organise en différentes thématiques essentielles :
 
 ---
 
-## 🏢 À propos du CPGEOM
-
-Le CPGEOM (Centre de Production Géomatique) accompagne l’AUDC dans la création, la maintenance et la valorisation des données territoriales.  
-Les missions principales incluent la cartographie, l’analyse spatiale, la gestion de bases de données, la veille territoriale et l’appui technique aux études d’aménagement.
-
----
-
 ## ✍️ Auteur
 
 **GUENE Abdou Lahat**  
@@ -40,5 +33,3 @@ Site développé dans le cadre de l’amélioration continue des outils internes
 
 ---
 
-Merci pour votre visite.  
-N’hésitez pas à proposer des améliorations ou à signaler une correction via le dépôt GitHub du projet.
