@@ -13,6 +13,7 @@ Bien gérés, ces deux volets rendent les projets traçables, comparables et ré
 
 
 
+# Auteur: GUENE Abdou Lahat, géomaticien à AUDC de Châlons-en-Champagne
 # 1) Pourquoi ces deux sujets sont indissociables
 En géomatique, une donnée n’existe vraiment que si l’on sait d’où elle vient, ce qu’elle représente, comment elle a été produite et comment on peut la réutiliser.
 
