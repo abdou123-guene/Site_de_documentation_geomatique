@@ -7,9 +7,8 @@ nav:
 
   - Accueil: index.md
   - Source de données à AUDC: Readme.md
+  - Cycle de vie des données: cycle_de_vie_des_donnees.md
   - Interopérabilité de données en géomatique: Interoperabilite.md
-  - ESRI et base de données PostgreSQL/PostGIS: esri.md
-  
 
 
 
