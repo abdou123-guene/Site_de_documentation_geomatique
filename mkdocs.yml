@@ -4,7 +4,7 @@ theme:
   name: readthedocs
 
 extra_css:
-  - extra.css
+  - style.css
 
 nav:
 
@@ -12,6 +12,7 @@ nav:
   - Source de données à AUDC: Readme.md
   - Cycle de vie des données: cycle_de_vie_des_donnees.md
   - Interopérabilité de données en géomatique: Interoperabilite.md
+
 
 
 
