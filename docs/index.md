@@ -1,6 +1,4 @@
 # Bienvenue sur la Documentation Géomatique 
-Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques intéressantes.  
-Il a été conçu pour offrir un cadre clair, structuré et facilement accessible aux agents et partenaires travaillant sur des projets SIG.
 
 ---
 
@@ -9,6 +7,11 @@ Il a été conçu pour offrir un cadre clair, structuré et facilement accessibl
 **GUENE Abdou Lahat**  
 Géomaticien - AUDC Châlons-en-Champagne  
 Site développé dans le cadre de l’amélioration continue des outils en géomatique.
+
+---
+
+Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques intéressantes.  
+Il a été conçu pour offrir un cadre clair, structuré et facilement accessible aux agents et partenaires travaillant sur des projets SIG.
 
 ---
 
