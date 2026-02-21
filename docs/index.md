@@ -4,7 +4,7 @@ Il a été conçu pour offrir un cadre clair, structuré et facilement accessibl
 
 ---
 
-## Auteur
+## Auteur:
 
 **GUENE Abdou Lahat**  
 Géomaticien - AUDC Châlons-en-Champagne  
