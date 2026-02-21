@@ -1,13 +1,12 @@
-# Bienvenue sur la Documentation Géomatique de l'agence AUDC
-
+# Bienvenue sur la Documentation Géomatique 
 Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques au sein de l'agence.  
 Il a été conçu pour offrir un cadre clair, structuré et facilement accessible aux agents et partenaires travaillant sur des projets SIG.
 
 ---
 
-## 🎯 Objectifs du site
+## Objectifs du site
 
-- Centraliser les connaissances et outils géomatiques de l’AUDC.
+- Centraliser les connaissances et outils géomatique.
 - Améliorer l’accès aux données, aux procédures et aux référentiels.
 - Garantir la qualité, la traçabilité et la cohérence des traitements.
 - Faciliter le partage d’informations entre les différents projets.
@@ -15,7 +14,7 @@ Il a été conçu pour offrir un cadre clair, structuré et facilement accessibl
 
 ---
 
-## 📚 Contenu disponible
+## Contenu disponible
 
 Le site s’organise en différentes thématiques essentielles :
 
@@ -25,7 +24,7 @@ Le site s’organise en différentes thématiques essentielles :
 
 ---
 
-## ✍️ Auteur
+## Auteur
 
 **GUENE Abdou Lahat**  
 Géomaticien – AUDC Châlons-en-Champagne  
