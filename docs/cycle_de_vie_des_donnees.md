@@ -1,7 +1,7 @@
 
 # **Cycle de vie des données**
 
-### **Structure:**
+# **Structure:**
 
 1. Acquisition  
 2. Vérification  
