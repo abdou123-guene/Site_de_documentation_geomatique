@@ -15,7 +15,7 @@
 h1, h2, h3 {
     font-family: "Segoe UI", Roboto, sans-serif !important;
     font-weight: 700 !important;
-    color: #333 !important;
+    color: #bebebe !important;
     border-bottom: 3px solid #F5F6F7 !important;
     padding-bottom: 8px !important;
 }
@@ -40,7 +40,7 @@ h1 {
 
 /* Liens */
 a {
-    color: #00D4FF !important;
+    color: #1992bb !important;
 }
 a:hover {
     color: #F5F6F7 !important;
