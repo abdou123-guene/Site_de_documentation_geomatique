@@ -1,7 +1,7 @@
 ## <span style="color:pink;">Exemple des sources de données utilisées à l’AUDC de Châlons-en Champagne</span>
 ---
 
-### 1. <span style="color:red;">INSEE</span> - Institut National de la Statistique et des Études Économiques
+### 1. INSEE - Institut National de la Statistique et des Études Économiques
 Sources mobilisées :
 - Données de **population** (effectifs, âge, indices de vieillissement/jeunesse, évolution).
 - **Revenu médian** et niveaux de vie (FiLoSoFi).
@@ -10,7 +10,7 @@ Sources mobilisées :
   - Mobilités **résidentielles**.
 - Indicateurs socio-économiques : emploi, chômage, ménages, catégories sociales.
 
-### 2. <span style="color:red;">SITADEL</span> - Données sur la construction et le logement
+### 2. SITADEL - Données sur la construction et le logement
 Données utilisées :
 - **Permis de construire**.
 - **Achèvements** de logements et de locaux.
@@ -21,7 +21,7 @@ Données utilisées :
   - Maîtrise d’ouvrage (publique / privée).
   - Suivi des dynamiques à l’échelle commune, EPCI, département, région.
 
-### 3. <span style="color:red;">BPE</span> - Base Permanente des Équipements (INSEE)
+### 3. BPE - Base Permanente des Équipements (INSEE)
 Types d’équipements analysés :
 - **Santé** : médecins, pharmacies, hôpitaux.
 - **Éducation** : écoles, collèges, lycées.
@@ -36,7 +36,7 @@ Données utilisées pour :
 - Déplacements domicile–travail, études, loisirs.
 - Analyse des mobilités et de l’intermodalité.
 
-### 5. <span style="color:red;">IGN</span> - Géoservices
+### 5. IGN - Géoservices
 Données vectorielles de référence :
 - **Limites administratives** :
   - Communes, EPCI, départements, région.
@@ -55,18 +55,18 @@ Données récupérées auprès d'universités :
 - Parfois : réussite, insertion professionnelle.
 - **Données isochrones générées à partir du plugin fourni**
 
-### 7. <span style="color:red;">DREAL</span> / Data.gouv
+### 7. DREAL / Data.gouv
 Pour les données sur les diagnostics et la précarité énergétique (CSV et SHP)
 
-### 8. <span style="color:red;">Atmo GE</span>
+### 8. Atmo GE
 Pour la qualité de l'air
 
-### 9. <span style="color:red;">DDT51</span>
+### 9. DDT51
 - Plans situation dispositifs de production énergétique : éolien, photovoltaïque, méthanisation  
 - Plans des risques naturels  
 - Plans des risques technologiques
 ---
-#### <span style="color:green;">Tableau Synthétique des Sources de Données Utilisées à l’AUDC</span>
+Tableau Synthétique des Sources de Données Utilisées à l’AUDC
 
 **Légende :**  
 - <span style="color:pink;">**INSEE**</span>  
@@ -94,4 +94,5 @@ Pour la qualité de l'air
 | DDT51 | Risques & énergie | Risques naturels, technologiques, éolien/PV | Planification, prévention des risques |
 
 ``
+
 
