@@ -1,19 +1,7 @@
-**Consignes :** 
 
-**\-** A l'aide de l'outil de votre choix,
+# **Cycle de vie des données**
 
-**\-** en reprenant le trame des étapes décrites pendant le cours,
-
-**\=\>** vous restituerez un schéma décrivant les outils et les détails qui semble nécessaires à la description du cycle de vie des données dans les missions que vous remplissez dans votre entreprise. Détaillez quelles sont les actions que vous effectuez à chaque étape.
-
-Le résultat est à déposer dans la zone de dépôt qui suit ces consignes. Il permettra de valider les objectifs d'acquis du cours et aussi d'avoir un regard sur votre vision des missions qu'on vous confie.
-
-En conclusion, nous partagerons nos différentes visions.  
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-# **Cycle de vie des données – Version AUDC (modèle du professeur)**
-
-### **👉 Structure imposée :**
+### **Structure:**
 
 1. Acquisition  
 2. Vérification  
@@ -23,22 +11,20 @@ En conclusion, nous partagerons nos différentes visions.
 6. Planification  
 7. Retour à : Acquisition
 
-Je te détaille **à chaque étape ce que tu fais réellement**.
-
 ---
 
 # **Acquisition**
 
 **Objectif : obtenir les données nécessaires à une mission.**
 
-### **🧰 Outils :**
+### **Outils :**
 
 * QGIS (WFS / WMS / téléchargements)  
 * PostGIS (imports)  
 * Data.gouv.fr, IGN, Etalab  
 * Données envoyées par les collectivités (EPCI, communes, DDT)
 
-### **🧑‍💻 Ce que TU fais à l’AUDC :**
+### **A l’AUDC (exemple):**
 
 * Récupérer les données d’urbanisme (PLU, SCOT, zonages).  
 * Télécharger les données BAN, BD TOPO, cadastre, population.  
@@ -51,12 +37,12 @@ Je te détaille **à chaque étape ce que tu fais réellement**.
 
 **Objectif : s’assurer que les données sont correctes techniquement.**
 
-### **🧰 Outils :**
+### **Outils :**
 
 * QGIS : Validité géométrique, Topologie  
 * PostGIS : `ST_IsValid`, `ST_IsEmpty`, `ST_Area`, `ST_DWithin`
 
-### **🧑‍💻 Tu vérifies :**
+### **Tu vérifies :**
 
 * les géométries valides  
 * les géométries vides ou nulles  
@@ -65,7 +51,7 @@ Je te détaille **à chaque étape ce que tu fais réellement**.
 * les attributs incohérents (nom commune, code INSEE, code postal)
 
 Exemple AUDC :  
-✨ vérifier les différences entre `pertuis_mauvais` et la référence PLU.
+vérifier les différences entre `pertuis_mauvais` et la référence PLU.
 
 ---
 
@@ -73,12 +59,12 @@ Exemple AUDC :
 
 **Objectif : rendre la donnée fiable et utilisable.**
 
-### **🧰 Outils :**
+### **Outils :**
 
 * PostGIS (MakeValid, unions, correctifs)  
 * QGIS (réparations, cleaning)
 
-### **🧑‍💻 Tu fais :**
+### **A faire:**
 
 * correction des géométries invalides  
 * normalisation des champs (format texte, majuscules, codes)  
@@ -86,7 +72,7 @@ Exemple AUDC :
 * validation avec un chef de projet si besoin
 
 Exemple AUDC :  
-✨ nettoyage BAN 2019 → version 2026\.
+Nettoyage BAN 2019 → version 2026\.
 
 ---
 
@@ -94,13 +80,13 @@ Exemple AUDC :
 
 **Objectif : utiliser la donnée pour produire un résultat.**
 
-### **🧰 Outils :**
+### **Outils :**
 
 * QGIS (analyses, mises en page)  
 * PostGIS (analyses spatiales)  
 * R (mapsf, tmap)
 
-### **🧑‍💻 Tu fais :**
+### **A faire :**
 
 * analyses (densité, buffers, intersections)  
 * création de cartes pour les études  
@@ -108,7 +94,7 @@ Exemple AUDC :
 * jointures spatiales (adresses ↔ zonages)
 
 Exemple AUDC :  
-✨ cartes SCOT, cartes mobilité, diagnostics de territoire.
+Cartes SCOT, cartes mobilité, diagnostics de territoire.
 
 ---
 
@@ -116,12 +102,12 @@ Exemple AUDC :
 
 **Objectif : conserver une version stable des données.**
 
-### **🧰 Outils :**
+### **Outils :**
 
 * PostGIS (tables \_archive, schémas versionnés)  
 * Dossiers réseau (archives)
 
-### **🧑‍💻 Tu fais :**
+### **A faire :**
 
 * sauvegarde de la version utilisée  
 * archivage par année ou par projet  
@@ -129,7 +115,7 @@ Exemple AUDC :
 * documentation : source, date, traitement, version
 
 Exemple AUDC :  
-✨ garder des copies des PLU ou des millésimes BAN.
+Garder des copies des PLU ou des millésimes BAN.
 
 ---
 
@@ -137,20 +123,20 @@ Exemple AUDC :
 
 **Objectif : préparer la prochaine mise à jour.**
 
-### **🧰 Outils :**
+### **Outils :**
 
 * Calendrier interne  
 * Discussions avec responsables études  
 * Planning de données partenaires (IGN, INSEE, collectivités)
 
-### **🧑‍💻 Tu fais :**
+### **A faire :**
 
 * identifier les données à actualiser (PLU, adresses, zonages)  
 * estimer le temps de travail  
 * préparer les scripts (SQL, QGIS, modèles)
 
 Exemple AUDC :  
-✨ anticiper la mise à jour annuelle ou la réception d’un nouveau PLU.
+Anticiper la mise à jour annuelle ou la réception d’un nouveau PLU.
 
 ---
 
@@ -163,28 +149,6 @@ Exemple AUDC :
 → Tu valides  
 → etc.
 
----
 
-# **Idée de schéma visuel (prêt à dessiner)**
-
-Tu peux faire un schéma en cercle :
-
-     \[Acquisition\]  
-           ↓  
-    \[Vérification\]  
-           ↓  
-      \[Validation\]  
-           ↓  
-     \[Réutilisation\]  
-           ↓  
-        \[Archives\]  
-           ↓  
-     \[Planification\]  
-           ↓  
-      \[Acquisition\]
-
-Avec dans chaque bloc :
-
-* outils que tu utilises  
 * actions que tu réalises
 
