@@ -17,14 +17,14 @@
 
 **Objectif : obtenir les données nécessaires à une mission.**
 
-#### **Outils :**
+**Outils :**
 
 * QGIS (WFS / WMS / téléchargements)  
 * PostGIS (imports)  
 * Data.gouv.fr, IGN, Etalab  
 * Données envoyées par les collectivités (EPCI, communes, DDT)
 
-#### **A l’AUDC (exemple):**
+**A l’AUDC (exemple):**
 
 * Récupérer les données d’urbanisme (PLU, SCOT, zonages).  
 * Télécharger les données BAN, BD TOPO, cadastre, population.  
@@ -37,12 +37,12 @@
 
 **Objectif : s’assurer que les données sont correctes techniquement.**
 
-### **Outils :**
+**Outils :**
 
 * QGIS : Validité géométrique, Topologie  
 * PostGIS : `ST_IsValid`, `ST_IsEmpty`, `ST_Area`, `ST_DWithin`
 
-### **Tu vérifies :**
+**Tu vérifies :**
 
 * les géométries valides  
 * les géométries vides ou nulles  
@@ -55,16 +55,16 @@ vérifier les différences entre `pertuis_mauvais` et la référence PLU.
 
 ---
 
-## **Validation**
+**Validation**
 
 **Objectif : rendre la donnée fiable et utilisable.**
 
-### **Outils :**
+**Outils :**
 
 * PostGIS (MakeValid, unions, correctifs)  
 * QGIS (réparations, cleaning)
 
-### **A faire:**
+**A faire:**
 
 * correction des géométries invalides  
 * normalisation des champs (format texte, majuscules, codes)  
@@ -76,17 +76,17 @@ Nettoyage BAN 2019 → version 2026\.
 
 ---
 
-## **Réutilisation**
+**Réutilisation**
 
 **Objectif : utiliser la donnée pour produire un résultat.**
 
-### **Outils :**
+**Outils :**
 
 * QGIS (analyses, mises en page)  
 * PostGIS (analyses spatiales)  
 * R (mapsf, tmap)
 
-### **A faire :**
+**A faire :**
 
 * analyses (densité, buffers, intersections)  
 * création de cartes pour les études  
@@ -102,12 +102,12 @@ Cartes SCOT, cartes mobilité, diagnostics de territoire.
 
 **Objectif : conserver une version stable des données.**
 
-### **Outils :**
+**Outils :**
 
 * PostGIS (tables \_archive, schémas versionnés)  
 * Dossiers réseau (archives)
 
-### **A faire :**
+**A faire :**
 
 * sauvegarde de la version utilisée  
 * archivage par année ou par projet  
@@ -123,13 +123,13 @@ Garder des copies des PLU ou des millésimes BAN.
 
 **Objectif : préparer la prochaine mise à jour.**
 
-### **Outils :**
+**Outils :**
 
 * Calendrier interne  
 * Discussions avec responsables études  
 * Planning de données partenaires (IGN, INSEE, collectivités)
 
-### **A faire :**
+**A faire :**
 
 * identifier les données à actualiser (PLU, adresses, zonages)  
 * estimer le temps de travail  
