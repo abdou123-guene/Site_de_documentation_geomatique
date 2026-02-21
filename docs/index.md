@@ -4,6 +4,13 @@ Il a été conçu pour offrir un cadre clair, structuré et facilement accessibl
 
 ---
 
+## Auteur
+
+---
+
+**GUENE Abdou Lahat**  
+Géomaticien – AUDC Châlons-en-Champagne  
+Site développé dans le cadre de l’amélioration continue des outils internes.
 ## Objectifs du site
 
 - Centraliser les connaissances et outils géomatique.
@@ -22,12 +29,4 @@ Le site s’organise en différentes thématiques essentielles :
 - **Interopérabilité** — Comprendre l’échange de données entre logiciels, formats SIG et environnements techniques.
 - *(D’autres rubriques seront ajoutées progressivement : QGIS, QField, sources de données, traitements Python, métadonnées, etc.)*
 
----
-
-## Auteur
-
-**GUENE Abdou Lahat**  
-Géomaticien – AUDC Châlons-en-Champagne  
-Site développé dans le cadre de l’amélioration continue des outils internes.
----
 
