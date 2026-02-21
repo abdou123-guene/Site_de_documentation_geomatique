@@ -1,16 +1,17 @@
 # Bienvenue sur la Documentation Géomatique 
-Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques au sein de l'agence.  
+Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques intéressantes.  
 Il a été conçu pour offrir un cadre clair, structuré et facilement accessible aux agents et partenaires travaillant sur des projets SIG.
 
 ---
 
 ## Auteur
 
+**GUENE Abdou Lahat**  
+Géomaticien - AUDC Châlons-en-Champagne  
+Site développé dans le cadre de l’amélioration continue des outils en géomatique.
+
 ---
 
-**GUENE Abdou Lahat**  
-Géomaticien – AUDC Châlons-en-Champagne  
-Site développé dans le cadre de l’amélioration continue des outils internes.
 ## Objectifs du site
 
 - Centraliser les connaissances et outils géomatique.
@@ -21,12 +22,13 @@ Site développé dans le cadre de l’amélioration continue des outils internes
 
 ---
 
-## Contenu disponible
+## Queleques contenus disponibles
 
 Le site s’organise en différentes thématiques essentielles :
 
-- **Accueil** — Présentation générale de la démarche et des objectifs.
-- **Interopérabilité** — Comprendre l’échange de données entre logiciels, formats SIG et environnements techniques.
-- *(D’autres rubriques seront ajoutées progressivement : QGIS, QField, sources de données, traitements Python, métadonnées, etc.)*
+- **Accueil** - Présentation générale de la démarche et des objectifs.
+- **Interopérabilité** - Comprendre l’échange de données entre logiciels, formats SIG et environnements techniques.
+- **Sources de données à AUDC** - Exemple des sources de données utilisées à l’AUDC de Châlons-en Champagne
+- *D’autres rubriques seront ajoutées progressivement : QGIS, QField, sources de données, traitements Python, métadonnées, etc.*
 
 
