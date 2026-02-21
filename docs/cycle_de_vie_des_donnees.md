@@ -1,7 +1,7 @@
 
 # **Cycle de vie des données**
 
-# **Structure:**
+## **Structure:**
 
 1. Acquisition  
 2. Vérification  
@@ -13,18 +13,18 @@
 
 ---
 
-# **Acquisition**
+## **Acquisition**
 
 **Objectif : obtenir les données nécessaires à une mission.**
 
-### **Outils :**
+#### **Outils :**
 
 * QGIS (WFS / WMS / téléchargements)  
 * PostGIS (imports)  
 * Data.gouv.fr, IGN, Etalab  
 * Données envoyées par les collectivités (EPCI, communes, DDT)
 
-### **A l’AUDC (exemple):**
+#### **A l’AUDC (exemple):**
 
 * Récupérer les données d’urbanisme (PLU, SCOT, zonages).  
 * Télécharger les données BAN, BD TOPO, cadastre, population.  
@@ -33,7 +33,7 @@
 
 ---
 
-# **Vérification**
+## **Vérification**
 
 **Objectif : s’assurer que les données sont correctes techniquement.**
 
@@ -55,7 +55,7 @@ vérifier les différences entre `pertuis_mauvais` et la référence PLU.
 
 ---
 
-# **Validation**
+## **Validation**
 
 **Objectif : rendre la donnée fiable et utilisable.**
 
@@ -76,7 +76,7 @@ Nettoyage BAN 2019 → version 2026\.
 
 ---
 
-# **Réutilisation**
+## **Réutilisation**
 
 **Objectif : utiliser la donnée pour produire un résultat.**
 
@@ -98,7 +98,7 @@ Cartes SCOT, cartes mobilité, diagnostics de territoire.
 
 ---
 
-# **Archivage**
+## **Archivage**
 
 **Objectif : conserver une version stable des données.**
 
@@ -119,7 +119,7 @@ Garder des copies des PLU ou des millésimes BAN.
 
 ---
 
-# **Planification**
+## **Planification**
 
 **Objectif : préparer la prochaine mise à jour.**
 
@@ -140,7 +140,7 @@ Anticiper la mise à jour annuelle ou la réception d’un nouveau PLU.
 
 ---
 
-# **Retour à l’Acquisition**
+## **Retour à l’Acquisition**
 
 **Le cycle recommence.**
 
