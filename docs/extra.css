@@ -1,0 +1,11 @@
+/* Définir la page en pleine largeur */
+.wy-nav-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 20px !important;
+}
+
+/* Le contenu prend toute la place */
+.wy-nav-content-wrap {
+    max-width: 100% !important;
+}
