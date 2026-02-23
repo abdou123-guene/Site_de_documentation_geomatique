@@ -10,5 +10,6 @@ nav:
   - Interopérabilité de données en géomatique: Interoperabilite.md
 
 extra_css:
-  - css/style.css
+  - css/le_style.css
+
 
