@@ -1,4 +1,4 @@
-site_name: Plateforme de Documentation Géomatique
+site_name: Plateforme de documentation Géomatique
 
 theme:
   name: readthedocs
@@ -11,5 +11,6 @@ nav:
 
 extra_css:
   - css/le_style.css
+
 
 
