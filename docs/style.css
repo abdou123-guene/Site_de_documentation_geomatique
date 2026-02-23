@@ -1,7 +1,14 @@
-/* Largeur du contenu */
+/* Étendre le contenu sur toute la largeur */
 .wy-nav-content {
     max-width: 100% !important;
-    width: 100% !important;
-    padding: 20px !important;
-    background: white !important;
+}
+
+/* Optionnel : réduire les marges */
+.wy-nav-content-wrap {
+    padding: 0 !important;
+}
+
+/* Optionnel : largeur totale pour la colonne centrale */
+.rst-content {
+    max-width: 100% !important;
 }
