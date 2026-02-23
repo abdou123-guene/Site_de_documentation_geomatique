@@ -1,14 +1,30 @@
-/* Étendre le contenu sur toute la largeur */
+/* Contenu principal */
 .wy-nav-content {
     max-width: 100% !important;
+    width: 100% !important;
 }
 
-/* Optionnel : réduire les marges */
+/* Wrapper qui limite la largeur */
 .wy-nav-content-wrap {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
     padding: 0 !important;
 }
 
-/* Optionnel : largeur totale pour la colonne centrale */
+/* Contenu interne de la documentation */
 .rst-content {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Conteneur global de RDT */
+.wy-grid-for-nav {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Pour que la sidebar ne pousse pas le contenu */
+.wy-body-for-nav {
     max-width: 100% !important;
 }
