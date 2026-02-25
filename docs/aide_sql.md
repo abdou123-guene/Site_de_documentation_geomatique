@@ -1,3 +1,5 @@
+**Vers documentation PostgreSQL:** https://www.postgresql.org/docs/
+
 **Listes de problématique possible et le fichier d’aide correspondant (fichier de référence)**  
 **\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**  
 **st\_buffer,st\_difference,st\_transform,st\_intersection…se font dans SELECT**  
