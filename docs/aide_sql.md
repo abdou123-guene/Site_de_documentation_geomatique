@@ -1,19 +1,19 @@
 #  Fiche complète PostgreSQL / PostGIS 
 
-# 🔗 Documentation
+### 🔗 Documentation
 - Documentation officielle PostgreSQL : https://www.postgresql.org/docs/
 
 ---
 
-#  1. Fonctions PostGIS dans SELECT et JOIN
+##  1. Fonctions PostGIS dans SELECT et JOIN
 
-###  Fonctions dans **SELECT**
+  Fonctions dans **SELECT**
 - ST_Buffer
 - ST_Difference
 - ST_Transform
 - ST_Intersection
 
-###  Fonctions dans **JOIN / WHERE**
+  Fonctions dans **JOIN / WHERE**
 - ST_Intersects
 - ST_Contains
 - ST_Within
@@ -21,9 +21,9 @@
 
 ---
 
-#  2. Géotraitements
+##  2. Géotraitements
 
-## 2.1 Intersection (Découpe)
+ 2.1 Intersection (Découpe)
 
 ```sql
 WITH req AS (
@@ -46,7 +46,7 @@ FROM req_1;
 
 ---
 
-## 2.2 Différence + Buffer
+### 2.2 Différence + Buffer
 
 ```sql
 WITH req AS (
@@ -61,7 +61,7 @@ WHERE ST_Intersects(commune.geom, req.buffered_union);
 
 ---
 
-## 2.3 ST_Distance (condition)
+### 2.3 ST_Distance (condition)
 
 ```sql
 SELECT DISTINCT e.id, p.commune, p.code_postal,
@@ -76,7 +76,7 @@ LIMIT 5;
 
 ---
 
-#  3. GROUP BY
+##  3. GROUP BY
 
 ```sql
 WITH req AS (
@@ -94,9 +94,9 @@ GROUP BY req.type_flux;
 
 ---
 
-#  4. JOIN Avancés
+##  4. JOIN Avancés
 
-## 4.1 ON TRUE
+### 4.1 ON TRUE
 
 ```sql
 SELECT DISTINCT ON (e.id)
@@ -109,7 +109,7 @@ JOIN public.ecole_elem_matern e
 ORDER BY e.id, distance ASC;
 ```
 
-## 4.2 ST_DWithin
+### 4.2 ST_DWithin
 
 ```sql
 WITH req AS (
@@ -127,7 +127,7 @@ FROM req;
 
 ---
 
-#  5. ST_Intersects vs ST_Intersection
+##  5. ST_Intersects vs ST_Intersection
 
 | Fonction | Rôle |
 |---------|------|
@@ -143,7 +143,7 @@ JOIN public.jour_collect t2
 
 ---
 
-#  6. Découper un linéaire par département
+##  6. Découper un linéaire par département
 
 ```sql
 SELECT d.code_insee, d.nom AS departement, c.nomentiteh AS cours_eau,
@@ -157,7 +157,7 @@ WHERE ST_Intersects(c.geom, d.geom)
 
 ---
 
-#  7. Distance depuis un point
+##  7. Distance depuis un point
 
 ```sql
 WITH req AS (
@@ -173,9 +173,9 @@ FROM req;
 
 ---
 
-#  8. Droits / Rôles / Groupes
+##  8. Droits / Rôles / Groupes
 
-## Création d’un rôle
+### Création d’un rôle
 
 ```sql
 CREATE ROLE Lea LOGIN PASSWORD 'toto';
@@ -184,7 +184,7 @@ ON TABLE cadastre_tlse.parcelles, cadastre_tlse.batiments
 TO Lea;
 ```
 
-## Création de groupes
+### Création de groupes
 
 ```sql
 CREATE ROLE gr_visu;
@@ -194,7 +194,7 @@ CREATE ROLE gr_dessin_cadastre;
 CREATE ROLE gr_maj_type_bati;
 ```
 
-## Affectation
+### Affectation
 
 ```sql
 GRANT SELECT ON ALL TABLES IN SCHEMA cadastre_tlse TO gr_visu;
@@ -204,7 +204,7 @@ GRANT UPDATE (geom) ON cadastre_tlse.parcelles TO gr_dessin_cadastre;
 
 ---
 
-#  9. UPDATE, CAST, ROUND
+##  9. UPDATE, CAST, ROUND
 
 ```sql
 UPDATE public.regions
@@ -213,7 +213,7 @@ SET perimetre_km = ROUND(st_perimeter(geom) / 1000 :: numeric, 2);
 
 ---
 
-#  10. Import Shapefile (GDAL)
+##  10. Import Shapefile (GDAL)
 
 ```
 ogr2ogr -f "PostgreSQL" PG:"dbname=GDAL user=postgres password=XXX host=localhost port=5434" "C:\path\REGION.shp" -nln regions -nlt MULTIPOLYGON
@@ -221,7 +221,7 @@ ogr2ogr -f "PostgreSQL" PG:"dbname=GDAL user=postgres password=XXX host=localhos
 
 ---
 
-#  11. ST_Transform
+##  11. ST_Transform
 
 ```sql
 CREATE TABLE table_reproj AS
@@ -231,7 +231,7 @@ FROM table_originale;
 
 ---
 
-#  12. INSERT INTO
+##  12. INSERT INTO
 
 ```sql
 INSERT INTO public.etat (type)
@@ -240,7 +240,7 @@ VALUES ('sain'), ('malade'), ('casse'), ('mort');
 
 ---
 
-#  13. CREATE TABLE
+##  13. CREATE TABLE
 
 ```sql
 CREATE TABLE arbre (
@@ -253,7 +253,7 @@ CREATE TABLE arbre (
 
 ---
 
-#  14. Import CSV + mise à jour des géométries
+##  14. Import CSV + mise à jour des géométries
 
 ```sql
 COPY faune_auvergne_temp
@@ -286,7 +286,7 @@ WHERE EXISTS (
 
 ---
 
-#  15. Dates disponibles (generate_series)
+##  15. Dates disponibles (generate_series)
 
 ```sql
 SELECT jour
@@ -306,9 +306,9 @@ WHERE jour NOT IN (
 
 ---
 
-#  16. Triggers
+##  16. Triggers
 
-## Date automatique
+### Date automatique
 
 ```sql
 CREATE OR REPLACE FUNCTION fn_set_date_creation()
@@ -325,7 +325,7 @@ FOR EACH ROW
 EXECUTE FUNCTION fn_set_date_creation();
 ```
 
-## Surface automatique
+### Surface automatique
 
 ```sql
 CREATE OR REPLACE FUNCTION update_area()
@@ -344,7 +344,7 @@ EXECUTE FUNCTION update_area();
 
 ---
 
-#  17. INDEX
+##  17. INDEX
 
 ```sql
 CREATE INDEX idx_parcel_numpar_c10436
