@@ -1,6 +1,6 @@
 #  Fiche complète PostgreSQL / PostGIS – Résumé Structuré
 
-## 🔗 Documentation
+# 🔗 Documentation
 - Documentation officielle PostgreSQL : https://www.postgresql.org/docs/
 
 ---
