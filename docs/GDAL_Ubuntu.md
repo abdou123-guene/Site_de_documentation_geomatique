@@ -1,9 +1,9 @@
-**GDAL**  
+# **GDAL**  
 [**VRT \-- GDAL Virtual Format — GDAL documentation**](https://gdal.org/en/stable/drivers/raster/vrt.html)  
 **\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**  
 **NB: Beaucoup de logiciels métiers aujourd’hui utilisent GDAL dont QGIS**
 
-# **Installer GDAL dans Ubuntu / WSL**
+## **Installer GDAL dans Ubuntu / WSL**
 
 **Installation complète (avec outils et drivers) :**
 
@@ -16,12 +16,12 @@ sudo apt install python3-gdal
 gdalinfo \--version  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Test de commande**
+## **Test de commande**
 
 **Source:** [PSQL le client de PostgreSQL en mode CLI \[Le « bas niveau » pour alimenter les données\]](https://supports.idgeo.fr/cpgeom/2025-2027/A2_gdal_cli/co/GDAL_psql.html)  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-## **Exercice : Le mode CLI**
+### **Exercice : Le mode CLI**
 
 ### **Petites instructions et restitution avec une capture d'écran sur Digiforma**
 
@@ -61,7 +61,7 @@ Le chemin est très intéressant et surtout par rapport à là ou on se trouve c
 **idgeo@GS8: /mnt/c/Users/aguene/Downloads/OGR$**  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Connection à une base de données PostgreSQL**
+## **Connection à une base de données PostgreSQL**
 
 ![][image2]  
 **Code:**  
@@ -74,60 +74,60 @@ abdou\_lahat=\> SELECT \*
 FROM address.adresses\_2026  
 LIMIT 5;
 
-# **Important:** Tape Ctrl+Z pour sortir de la base de données
+## **Important:** Tape Ctrl+Z pour sortir de la base de données
 
-# **Attention:** Il faut toujours mettre le point virgule (**;**) à la fin du code SQL
+## **Attention:** Il faut toujours mettre le point virgule (**;**) à la fin du code SQL
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Pour télécharger un MNT dans un dossier bien déterminer:**
+## **Pour télécharger un MNT dans un dossier bien déterminer:**
 
 On se place sur le dossier d’abord avant de faire wget+lien raster  
 **idgeo@GS8: /mnt/d/gdal\_abdou/raster/mnt$** wget [https://data.geopf.fr/telechargement/download/BDALTI/BDALTIV2\_2-0\_25M\_ASC\_LAMB93-IGN69\_D031\_2021-05-12/BDALTIV2\_2-0\_25M\_ASC\_LAMB93-IGN69\_D031\_2021-05-12.7z](https://data.geopf.fr/telechargement/download/BDALTI/BDALTIV2_2-0_25M_ASC_LAMB93-IGN69_D031_2021-05-12/BDALTIV2_2-0_25M_ASC_LAMB93-IGN69_D031_2021-05-12.7z)  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **On dézippe le BDALTI:**
+## **On dézippe le BDALTI:**
 
 **idgeo@GS8: /mnt/d/gdal\_abdou/raster/mnt$** 7z x BDALTIV2\_2-0\_25M\_ASC\_LAMB93-IGN69\_D031\_2021-05-12.7z  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Créer un vrt à partir de nos images.asc**
+## **Créer un vrt à partir de nos images.asc**
 
 **NB:** Le chemin est très intéressant et surtout par rapport à là ou on se trouve car ça peut varier par rapport à notre placement  
 **idgeo@GS8: /mnt/d/gdal\_abdou/raster/mnt$** gdalbuildvrt \-srcnodata 0 \-a\_srs EPSG:2154 mnt31.vrt BDALTIV2\_2-0\_25M\_ASC\_LAMB93-IGN69\_D031\_2021-05-12/BDALTIV2/1\_DONNEES\_LIVRAISON\_2021-10-00008/BDALTIV2\_MNT\_25M\_ASC\_LAMB93\_IGN69\_D031/\*.asc  
 Ci-dessus, à partir de BDALTIV2\_2-0\_25M\_ etc c’est le chemin vers les images puisqu’on est dans déjà dans le dossier mnt qui contient BDALTIV2\_2-0\_25M\_ etc  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Créer un shapefile à partir d’une autre et avec SQL (where)**
+## **Créer un shapefile à partir d’une autre et avec SQL (where)**
 
 **idgeo@GS8: /mnt/d/gdal\_abdou/vecteur$** ogr2ogr \-where "INSEE\_DEP='31'" HG.shp DEPARTEMENT.shp  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Exemple 1: Découper un mnt par un shapefile** 
+## **Exemple 1: Découper un mnt par un shapefile** 
 
 **idgeo@GS8:** gdalwarp \-overwrite \-cutline vecteur/dept09.shp \-cl dept09 \-crop\_to\_cutline \-of VRT raster/mnt/mnt09.vrt raster/mnt/mnt09\_ariege.vrt
 
-# **Exemple 2: Découper un mnt par un shapefile**
+## **Exemple 2: Découper un mnt par un shapefile**
 
 **idgeo@GS8:** gdalwarp \-s\_srs EPSG:2154 \-t\_srs EPSG:2154 \-cutline vecteur/COMMUNE.shp \-cl COMMUNE \-cwhere "INSEE\_COM='31555'" \-crop\_to\_cutline \-overwrite raster/ortho/T31TCJ\_2154.vrt raster/ortho/T31TCJ\_2154\_TOULOUSE.vrt  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Reprojeter en ortho en créant un nouveau fichier vrt avec suppression des nodata (pixel trous)**
+## **Reprojeter en ortho en créant un nouveau fichier vrt avec suppression des nodata (pixel trous)**
 
 **idgeo@GS8:** gdalwarp \-s\_srs EPSG:3857 \-t\_srs EPSG:2154 \-of VRT \-r near \-dstnodata 99999 ortho/T31TCJ.tif ortho/T31TCJ\_2154.vrt  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Créer des courbes de niveau à partir d’un mnt**
+## **Créer des courbes de niveau à partir d’un mnt**
 
 **idgeo@GS8:** **/mnt/d/gdal\_abdou$** gdal\_contour \-a elev \-i 5 raster/mnt/mnt\_TOULOUSE.vrt vecteur/contour\_mnt.shp  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Créer un raster ombrage à partir d’un mnt**
+## **Créer un raster ombrage à partir d’un mnt**
 
 **idgeo@GS8:** **/mnt/d/gdal\_abdou$** gdaldem hillshade raster/mnt/T31TCJ\_2154\_TOULOUSE.vrt raster/mnt/ombrage.tif  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Colorer un mnt avec un fichier .txt contenant niveau altitude et valeurs couleurs RGB**
+## **Colorer un mnt avec un fichier .txt contenant niveau altitude et valeurs couleurs RGB**
 
 touch script.sh  
 **idgeo@GS8:** **/mnt/d/gdal\_abdou$** nano color.txt  
@@ -137,9 +137,9 @@ Ensuite on utilise ce color.txt qui est enregistrer dans le dossier raster pour 
 **idgeo@GS8: /mnt/d/ariege/raster/mnt$** gdaldem color-relief mnt09\_ariege.vrt color09.txt raster/mnt/color\_mnt09.vrt  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **DEUXIÈME JOUR**
+## **DEUXIÈME JOUR**
 
-# **Création de dossier et du fichier de script**
+## **Création de dossier et du fichier de script**
 
 **idgeo@GS8:** **/mnt/d/gdal\_abdou$** touch script.sh  
 **idgeo@GS8:** **/mnt/d/gdal\_abdou$** nano script.sh
@@ -147,13 +147,13 @@ Ensuite on utilise ce color.txt qui est enregistrer dans le dossier raster pour 
 ![][image4]  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Connexion à la base de données et chargement de la couche hg.shp**
+## **Connexion à la base de données et chargement de la couche hg.shp**
 
 **idgeo@GS8:** **/mnt/d/gdal\_abdou$** ogr2ogr \-f "PostgreSQL" PG:"dbname=abdou\_lahat user=editeur password=editeur2026 host=  
 192.168.10.1 port=15432" \-nln hg \-s\_srs EPSG:2154 \-t\_srs EPSG:2154 vecteur/HG.shp  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Charger une couche dans ma base de données depuis un url WFS de la géoplateforme (geoservices)**
+## **Charger une couche dans ma base de données depuis un url WFS de la géoplateforme (geoservices)**
 
 **idgeo@GS8: /mnt/d/gdal\_abdou$** ogr2ogr \-of "PostgreSQL" PG:"dbname=abdou\_lahat user=editeu  
 r password=editeur2026 host=  
@@ -161,7 +161,7 @@ r password=editeur2026 host=
 ://data.geopf.fr/wfs/ows?VERSION=2.0.0 BDTOPO\_V3:departement \-where "code\_insee='09'"  
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# **Pour automatiser toutes ses tâches**
+## **Pour automatiser toutes ses tâches**
 
 On crée ce dossier **“ariege”** avec ces contenus dedans**: [Pour automatiser les taches \- Google Drive](https://drive.google.com/drive/u/0/folders/1qwZU_qZD9Wuy6a0WfoxqNx0nXd9Jrw3H)**  
 Ensuite, rends le script exécutable et lance-le  
