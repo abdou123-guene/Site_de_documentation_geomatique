@@ -11,9 +11,11 @@ nav:
   - Les bases du langage SQL en géomatique: aide_sql.md
   - Manipulation de données raster/vecteur avec commandes GDAL: GDAL_Ubuntu.md
   - Télédétection ett Géomatqiue: teledetection.md
+  Cartographie avec Rstudio: rstudio_geomatique.md
 
 extra_css:
   - css/le_style.css
+
 
 
 
