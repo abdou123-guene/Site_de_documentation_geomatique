@@ -9,11 +9,11 @@ nav:
   - Cycle de vie des données: cycle_de_vie_des_donnees.md
   - Interopérabilité de données en géomatique: Interoperabilite.md
   - Les bases du langage SQL en géomatique: aide_sql.md
-  - Manipulation de données raster/vecteur avec commandes GDAL: gdal_geomatique.md
-  - index.md: GDAL sur Ubuntu
+  - Manipulation de données raster/vecteur avec commandes GDAL: GDAL_Ubuntu.md
 
 extra_css:
   - css/le_style.css
+
 
 
 
