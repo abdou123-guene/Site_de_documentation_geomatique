@@ -4,7 +4,7 @@
 
 ## Auteur:
 
-**GUENE Abdou Lahat**  
+## **GUENE Abdou Lahat**  
 Géomaticien - AUDC Châlons-en-Champagne  
 Site développé dans le cadre de l’amélioration continue des outils en géomatique.
 
