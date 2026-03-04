@@ -1,9 +1,8 @@
 #  Fiche complète PostgreSQL / PostGIS 
 
-### 🔗 Documentation
-- Documentation officielle PostgreSQL :
-https://www.postgresql.org/docs/
+### 🔗 Documentation en base de données PostgreSQL/PostGIS
 
+[Documentation officielle PostgreSQL:](https://www.postgresql.org/docs/)  
 ---
 
 ##  1. Fonctions PostGIS dans SELECT et JOIN
