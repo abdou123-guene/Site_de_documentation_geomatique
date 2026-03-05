@@ -454,7 +454,10 @@ ORDER BY id_mobilier;
 -----------------------------------------------------------
 ## 20 FONCTIONS TEMPORELLES SQL
 -----------------------------------------------------------
-CURRENT_DATE : Date du jour
+```sql 
+CURRENT_DATE
+```
+: Date du jour
 
 CURRENT_TIMESTAMP : Date + heure actuelle
 
@@ -493,6 +496,7 @@ LAST_DAY(date) : Dernier jour du mois
 DAYOFWEEK(date) : Numéro du jour de la semaine
 
 WEEK(date) : Numéro de semaine
+
 
 
 
