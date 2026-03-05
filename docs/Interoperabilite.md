@@ -1,4 +1,6 @@
 # Interopérabilité en géomatique  
+---
+
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_  
 Article sur *L’interopérabilité des données géospatiales : enjeux et solutions*  
 [Interopérabilité des Données Géospatiales : Défis et Innovations](https://geomatique-aln.fr/linteroperabilite-des-donnees-geospatiales-enjeux-et-solutions/)  
@@ -38,6 +40,7 @@ En résumé :
 
 * ISO 19115 \= *le contenu* → quelles métadonnées doivent être renseignées  
 * ISO 19139 \= *la forme* → comment les écrire en XML pour l’échange automatique
+
 
 
 
