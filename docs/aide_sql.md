@@ -357,6 +357,8 @@ FROM pg_catalog.pg_statio_user_tables ORDER BY pg_total_relation_size(relid) DES
 ```
 ## 19: Sauvegarder et restaurer les données de postgreSQL en ligne de commande
 ### Sauver
+### Sur PGAdmin, pour sauvegarder, on fait clic droit + Backup... 
+### Et pour restorer avec ce fichier Back up, on fait clic droit + restore...
 ### Objectif : produire un fichier texte de commandes SQL (« fichier dump »), qui, si on le renvoie au serveur, recrée une base de données identique à celle sauvegardée.
 PostgreSQL™ propose pour cela le programme utilitaire pg_dump.
 ```sql
