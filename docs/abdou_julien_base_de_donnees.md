@@ -42,7 +42,9 @@ USING GIST(geom);
 Identifier le système de référence spatiale d’une couche.
 ### Explication
 Find_SRID retourne le SRID déclaré dans la métadonnée PostGIS.
+```sql
 SELECT Find_SRID('carthage', 'cours', 'geom');
+```
 -----------------------------------------------------------
 ## 4. Longueur du réseau d'eau usée
 -----------------------------------------------------------
@@ -449,3 +451,4 @@ SELECT *
 FROM public.test_mobilier
 ORDER BY id_mobilier;
 ```
+
