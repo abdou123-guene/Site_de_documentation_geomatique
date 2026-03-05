@@ -460,4 +460,13 @@ https://www.linuxtricks.fr/wiki/cron-et-crontab-le-planificateur-de-taches
 # *  *  *  *  *  user command to be executed
 ```
 
-
+### Exemple 
+On crée le fichier avec :
+```
+idgeo@GS8:~$ nano script_sauv_bdd.sh
+```
+Ensuite si ouvert on écrit ça par exemple
+```
+58 * * * * /home/idgeo/script_sauv_bdd.sh
+```
+Puis tape ctrl+x et attendre, on a mise 58 car on est à 16h56 et à 58 ça s'execute
