@@ -365,6 +365,22 @@ PostgreSQL™ propose pour cela le programme utilitaire pg_dump.
 ```sql
 pg_dump base_de_donnees > fichier_sauvegarde
 ```
+### 1- Exemple : On fait le sauvegarde en fichier sql dans le dossier idgeo@GS8:~$  (home/idgeo)
+```
+idgeo@GS8:~$ pg_dump -f rugby_sauv.sql -d rugby_top -p 5432 -U postgrres
+```
+### 2- Exemple pour restaurer : On crée ici une base vide dans laquelle on va restaurer le backup
+```
+idgeo@GS8:~$ psql postgres postgres -p 5432 -c "CREATE DATABASE idgeo_locale";
+```
+### 3- Exemple pour restaurer : On restaure le fichier qu'on avait sauvegarder
+```
+psql -U postgres -p 5432 -d idgeo_locale < sauv_idgeo.sql
+```
+### 4- Exemple : On se reconnecte à la base de données en question
+```
+psql -U postgres -p 5432 -d idgeo_locale
+```
 Les extractions peuvent être réalisées sous la forme de scripts ou de fichiers d'archive.
 Les scripts sont au format texte et contiennent les commandes SQL nécessaires à la reconstruction de la base de données dans l'état où elle était au moment de la sauvegarde. La restauration s'effectue en chargeant ces scripts avec psql.
 La reconstruction de la base de données à partir d'autres formats de fichiers archive est obtenue avec pg_restore. Les formats de fichier en sortie les plus flexibles sont le format « custom » (-Fc) et le format « directory » (-Fd). Ils permettent la sélection et le ré-ordonnancement de tous les éléments archivés, le support de la restauration en parallèle. De plus, ils sont compressés par défaut. Le format « directory » est aussi le seul format à permettre les sauvegardes parallélisées.
