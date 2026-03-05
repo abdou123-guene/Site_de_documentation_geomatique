@@ -1,5 +1,7 @@
 
 # Queslques scripts SQL fréquents en géomatique
+---
+
 -----------------------------------------------------------
 ## 1. Création d’index
 -----------------------------------------------------------
@@ -534,6 +536,7 @@ Numéro de semaine :
 ```sql
 WEEK(date) 
 ```
+
 
 
 
