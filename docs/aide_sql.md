@@ -349,6 +349,95 @@ CREATE INDEX idx_parcel_numpar_c10436
 ON village.parcel (numpar)
 WHERE numpar ILIKE 'c10436';
 ```
+##  18. Pour connaitre la taille des tables
+```sql
+SELECT relname as "Table",pg_size_pretty(pg_total_relation_size(relid)) As "Size",
+pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) as "External Size"
+FROM pg_catalog.pg_statio_user_tables ORDER BY pg_total_relation_size(relid) DESC;
+```
+## 19: Sauvegarder et restaurer les données de postgreSQL en ligne de commande
+### Sauver
+### Objectif : produire un fichier texte de commandes SQL (« fichier dump »), qui, si on le renvoie au serveur, recrée une base de données identique à celle sauvegardée.
+PostgreSQL™ propose pour cela le programme utilitaire pg_dump.
+```sql
+pg_dump base_de_donnees > fichier_sauvegarde
+```
+Les extractions peuvent être réalisées sous la forme de scripts ou de fichiers d'archive.
+Les scripts sont au format texte et contiennent les commandes SQL nécessaires à la reconstruction de la base de données dans l'état où elle était au moment de la sauvegarde. La restauration s'effectue en chargeant ces scripts avec psql.
+La reconstruction de la base de données à partir d'autres formats de fichiers archive est obtenue avec pg_restore. Les formats de fichier en sortie les plus flexibles sont le format « custom » (-Fc) et le format « directory » (-Fd). Ils permettent la sélection et le ré-ordonnancement de tous les éléments archivés, le support de la restauration en parallèle. De plus, ils sont compressés par défaut. Le format « directory » est aussi le seul format à permettre les sauvegardes parallélisées.
+### Remarque
+pg_dump permet de restaurer des bases dans des versions du serveur plus récentes.
+pg_dump est aussi la seule méthode qui fonctionnera lors du transfert d'une base de données vers une machine d'une architecture différente (comme par exemple d'un serveur 32 bits à un serveur 64 bits).
+### Restaurer
+Les fichiers texte créés par pg_dump peuvent être lus par le programme psql.
+```sql
+psql base_de_donnees < fichier_sauvegarde
+```
+### Remarque
+Tous les utilisateurs possédant des objets ou ayant certains droits sur les objets de la base sauvegardée doivent exister préalablement à la restauration de la sauvegarde. S'ils n'existent pas, la restauration échoue pour la création des objets dont ils sont propriétaires ou sur lesquels ils ont des droits.
+### Sauvegarder une base directement d'un serveur sur un autre
+```sql
+pg_dump -h serveur1 base_de_donnees | psql -h serveur2 base_de_donnees
+```
+### Conseil
+Après la restauration d'une sauvegarde, il est conseillé d'exécuter ANALYZE sur chaque base de données pour que l'optimiseur de requêtes dispose de statistiques utiles.
+### Utilisation de pg_dumpall
+Permet une sauvegarde de tout un cluster (bases de données, rôles et tablespaces).
+```sql
+pg_dumpall > fichier_sauvegarde
+```
+Le fichier de sauvegarde résultant peut être restauré avec psql :
+```sql
+psql -h localhost -p 5432 -U postgres -c "CREATE DATABASE nombase;"
+psql -h localhost -p 5432 -U postgres -d nombase -c "CREATE EXTENSION postgis;"
+psql -h localhost -p 5432 -U utilisateur -d nombase -f chemin\complet\du\fichier.sql
+```
+### Remarque
+Il est préférable d'avoir les droits de superutilisateur de la base de données pour obtenir une sauvegarde complète.
+Il faut obligatoirement avoir le profil superutilisateur pour restaurer une sauvegarde faite avec pg_dumpall, afin de pouvoir restaurer les informations sur les rôles et les tablespaces. Si les tablespaces sont utilisés, il faut s'assurer que leurs chemins sauvegardés sont appropriés à la nouvelle installation.
+### Mettre en place une sauvegarde automatique
+Encore une fois, suivant la taille de la structure des sauvegardes peuvent intervenir à plusieurs niveau.
+Bien souvent, il existe une sauvegarde du serveur qui héberge le serveur PostgreSQL.
+On peut mettre une sauvegarde au niveau d'une base de données en choisissant le rythme adéquat (mise à jour des données régulière, vs modèles peu évolutif)
+### Exemple Script + crontab
+Etablir une commande pg_dump dans un script bash vers une sortie « .dump »
+Ce fichier pour s'appeler
+On positionnera ce script dans le dossier /usr/bin/
+```sql
+DB_USER="postgres"         	# utilisateur de la base de données PostgreSQL
+DB_NAME="ma_base"      	    # nom de la base de données à sauvegarder
+DB_SCHEMA="pourquoi_pas"    # pour ne sauver que le schéma
+current_date=$(date +%Y-%m-%d)
+backup_file="/home/xxx/sauv_bdd/sauv_${DB_NAME}${DB_SCHEMA}${current_date}.dump"
+```
 
+```sql
+if ! pg_dump -U "$DB_USER" -F c "$DB_NAME" -n "$DB_SCHEMA" > "$backup_file"; then
+echo "Echec: La sauvegarde de la bdd a échouée"
+return 1
+fi
+printf "Sauvegarde de la base ok"
+```
+Paramétrer une tâche « Crontab »
+```sql
+crontab -e
+```
+
+```sql
+# m h  dom mon dow   command
+20 * * * * /usr/bin/script_sauv.sh
+```
+### Comment régler le crontab ?
+https://www.linuxtricks.fr/wiki/cron-et-crontab-le-planificateur-de-taches
+```sql
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  *  user command to be executed
+```
 
 
