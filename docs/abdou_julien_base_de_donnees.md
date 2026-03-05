@@ -454,48 +454,87 @@ ORDER BY id_mobilier;
 -----------------------------------------------------------
 ## 20 FONCTIONS TEMPORELLES SQL
 -----------------------------------------------------------
+Date du jour :
 ```sql 
 CURRENT_DATE
 ```
-: Date du jour
+Date + heure actuelle :
+```sql 
+CURRENT_TIMESTAMP 
+```
+Date et heure courantes :
+```sql 
+NOW() 
+```
+Extrait l’année :
+```sql 
+YEAR(date) 
+```
+Extrait le mois (1–12) :
+```sql 
+MONTH(date) 
+```
+Extrait le jour du mois :
+```sql
+DAY(date) 
+```
+Extrait l’heure :
+```sql
+HOUR(date) 
+```
+Extrait les minutes :
+```sql
+MINUTE(date)
+```
+Extrait les secondes :
+```sql
+SECOND(date) 
+```
+Extrait une partie spécifique (standard SQL) :
+```sql
+EXTRACT(part FROM date) 
+```
+Début de période (PostgreSQL)
+```sql
+DATE_TRUNC('month', date) 
+```
+Formate une date (MySQL) :
+```sql
+DATE_FORMAT(date, '%Y-%m') 
+```
+Ajoute une période :
+```sql
+DATE_ADD(date, INTERVAL 1 MONTH) 
+```
+Retire une période :
+```sql
+DATE_SUB(date, INTERVAL 1 MONTH) 
+```
+Ajoute une période (PostgreSQL) :
+```sql
+date + INTERVAL '1 month' 
+```
+Différence en jours :
+```sql
+DATEDIFF(date1, date2) 
+```
+Différence en mois, années, etc :
+```sql
+TIMESTAMPDIFF(unit, d1, d2) 
+```
+Dernier jour du mois :
+```sql
+LAST_DAY(date) 
+```
+Numéro du jour de la semaine :
+```sql
+DAYOFWEEK(date) 
+```
+Numéro de semaine :
+```sql
+WEEK(date) 
+```
 
-CURRENT_TIMESTAMP : Date + heure actuelle
-
-NOW() : Date et heure courantes
-
-YEAR(date) : Extrait l’année
-
-MONTH(date) : Extrait le mois (1–12)
-
-DAY(date) : Extrait le jour du mois
-
-HOUR(date) : Extrait l’heure
-
-MINUTE(date) : Extrait les minutes
-
-SECOND(date) : Extrait les secondes
-
-EXTRACT(part FROM date) : Extrait une partie spécifique (standard SQL)
-
-DATE_TRUNC('month', date) : Début de période (PostgreSQL)
-
-DATE_FORMAT(date, '%Y-%m') : Formate une date (MySQL)
-
-DATE_ADD(date, INTERVAL 1 MONTH) : Ajoute une période
-
-DATE_SUB(date, INTERVAL 1 MONTH) : Retire une période
-
-date + INTERVAL '1 month' : Ajoute une période (PostgreSQL)
-
-DATEDIFF(date1, date2) : Différence en jours
-
-TIMESTAMPDIFF(unit, d1, d2) : Différence en mois, années, etc.
-
-LAST_DAY(date) : Dernier jour du mois
-
-DAYOFWEEK(date) : Numéro du jour de la semaine
-
-WEEK(date) : Numéro de semaine
 
 
 
