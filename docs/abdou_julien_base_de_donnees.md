@@ -1,9 +1,8 @@
 
 # Queslques scripts SQL fréquents en géomatique
 
------------------------------------------------------------
+
 ## 1. Création d’index
------------------------------------------------------------
 ### Objectif
 Créer un index partiel sur la colonne numpar pour accélérer les requêtes ciblant la parcelle c10436.
 ### Explication
@@ -14,9 +13,8 @@ Spécialement utile pour les requêtes utilisant ILIKE.
 ```sql
 CREATE INDEX idx_parcel_numpar_c10436ON village.parcel (numpar)WHERE numpar ILIKE 'c10436';``Afficher plus de lignes
 ```
------------------------------------------------------------
+
 ## 2. Création d’une vue matérialisée simplifiée
------------------------------------------------------------
 ### Objectif
 Créer une vue matérialisée de la couche des cours d’eau avec une géométrie simplifiée pour :
 améliorer les performances,
@@ -36,9 +34,8 @@ CREATE INDEX geom_cours_eau_simplifiee
 ON carthage.cours
 USING GIST(geom);
 ```
------------------------------------------------------------
+
 ## 3. Connaître le SRID d’une couche
------------------------------------------------------------
 ### Objectif
 Identifier le système de référence spatiale d’une couche.
 ### Explication
@@ -46,9 +43,8 @@ Find_SRID retourne le SRID déclaré dans la métadonnée PostGIS.
 ```sql
 SELECT Find_SRID('carthage', 'cours', 'geom');
 ```
------------------------------------------------------------
+
 ## 4. Longueur du réseau d'eau usée
------------------------------------------------------------
 ### Objectif
 Calculer la longueur totale du réseau d'assainissement.
 ### Explication
@@ -58,9 +54,8 @@ SUM() additionne la longueur de toutes les lignes.
 SELECT SUM(ST_Length(geom)) AS longueur
 FROM village.o_usees;
 ```
------------------------------------------------------------
+
 ## 5. Périmètre des zones PLU ND
------------------------------------------------------------
 ### Objectif
 Calculer le périmètre total des zones PLU ND (corrigé en hectares ou km).
 ```sql
@@ -68,9 +63,8 @@ SELECT SUM(ST_Perimeter(geom) / 10000) AS perimetre_haFROM village.pos;
 SELECT SUM(ST_Perimeter(geom) / 10000) AS perimetre_ha
 FROM village.pos;
 ```
------------------------------------------------------------
+
 ## 6. Parcelles traversées par le réseau d’eau usée
------------------------------------------------------------
 ### Objectif
 Trouver les parcelles dont la géométrie intersecte la géométrie du réseau.
 ### Explication
@@ -81,9 +75,8 @@ FROM village.parcel p
 JOIN village.o_usees o
 ON ST_Intersects(o.geom, p.geom);
 ```
------------------------------------------------------------
+
 ## 7. Parcelles bâties
------------------------------------------------------------
 ### Objectif
 Sélectionner les parcelles contenant au moins un bâtiment.
 ### Explication
@@ -91,9 +84,8 @@ ST_Contains(p.geom, b.geom) vérifie si un bâtiment est entièrement dans une p
 ```sql
 SELECT DISTINCT p.*FROM village.parcel pJOIN village.bati bON ST_Contains(p.geom, b.geom);Afficher plus de lignes
 ```
------------------------------------------------------------
+
 ## 8. Départements traversés par la Garonne
------------------------------------------------------------
 ### Objectif
 Lister les départements qui intersectent La Garonne.
 ```sql
@@ -105,9 +97,8 @@ ON ST_Intersects(c.geom, d.geom)
 WHERE c.nomentiteh = 'La Garonne'
   AND c.classe = 1;
 ```
- -----------------------------------------------------------
+
 ## 9. Parcelles voisines d'une parcelle donnée
------------------------------------------------------------
 ### Objectif
 Trouver les parcelles qui touchent la parcelle c10436.
 ### Explication
@@ -123,9 +114,8 @@ FROM village.parcel p2
 JOIN req
 ON ST_Touches(p2.geom, req.geom);
 ```
------------------------------------------------------------
+
 ## 10. Comptage des zones d’occupation du sol autour des tourbières (412)
------------------------------------------------------------
 ### Objectif
 Trouver les zones de Corine Land Cover touchant les tourbières (code 412).
 ```sql
@@ -144,9 +134,8 @@ FROM req
 JOIN req1
 ON ST_Touches(req.geom, req1.geom);
 ```
------------------------------------------------------------
+
 ## 11. Distance des zones industrielles (121) à la Garonne
------------------------------------------------------------
 ### Objectif
 Calculer la distance entre les zones industrielles et La Garonne dans un rayon de 10 km.
 ```sql
@@ -167,9 +156,8 @@ WHERE c.nomentiteh = 'La Garonne'
   AND c.classe = 1
 ORDER BY distance_km DESC;
 ```
------------------------------------------------------------
+
 ## 12. Bâtiment le plus proche du réseau d’eau usée
------------------------------------------------------------
 ### Version optimisée avec LATERAL
 ```sql
 SELECT
@@ -186,9 +174,8 @@ CROSS JOIN LATERAL (
 ) AS o
 ORDER BY distance_m ASC;
 ```
------------------------------------------------------------
+
 ## 13. Pourcentage de périmètre non-touché par d’autres départements
------------------------------------------------------------
 ### Objectif
 Pour chaque département, calculer :
 son périmètre total
@@ -284,9 +271,8 @@ SELECT
 FROM shared_len
 ORDER BY pct_non_touching DESC;
 ```
------------------------------------------------------------
+
 ## 14. Découper la Garonne par département
------------------------------------------------------------
 ```sql
 SELECT d.code_insee,
        d.nom AS departement,
@@ -299,9 +285,8 @@ JOIN carthage.cours c
 WHERE ST_Intersects(c.geom, d.geom)
   AND NOT ST_IsEmpty(ST_Intersection(c.geom, d.geom));
 ```
- -----------------------------------------------------------
+
 ## 15. Découper la Garonne en segments de 10 km
------------------------------------------------------------
 ### Objectif
 Découper la géométrie de la Garonne en segments réguliers de 10 km, afin de pouvoir les styliser séparément dans QGIS.
 ### Explication
@@ -358,9 +343,8 @@ SELECT
 FROM segs                                                   
 WHERE NOT ST_IsEmpty(geom_2154);
 ```
------------------------------------------------------------
+
 ## 16. Comptages avancés (mobilier par parcelle / type)
------------------------------------------------------------
 ### Objectif
 Compter le mobilier par parcelle
 Compter le mobilier par type
@@ -409,9 +393,8 @@ LEFT JOIN req ON req.id_parcelle = req2.id_parcelle
 LEFT JOIN req1 ON req1.id_type_mobilier = req2.id_type_mobilier
 CROSS JOIN total;
 ```
------------------------------------------------------------
+
 ## 17. Triggers : ajout automatique de date de création
------------------------------------------------------------
 ### Objectif
 Automatiser la mise à jour de date_creation à chaque insertion dans test_mobilier.
 ### Explication
@@ -452,9 +435,8 @@ SELECT *
 FROM public.test_mobilier
 ORDER BY id_mobilier;
 ```
------------------------------------------------------------
+
 ## 20 FONCTIONS TEMPORELLES SQL
------------------------------------------------------------
 Date du jour :
 ```sql 
 CURRENT_DATE
@@ -535,6 +517,7 @@ Numéro de semaine :
 ```sql
 WEEK(date) 
 ```
+
 
 
 
