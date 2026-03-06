@@ -152,13 +152,101 @@ GRANT SELECT ON ALL TABLES IN SCHEMA cadastre_tlse TO gr_visu;
 GRANT SELECT,INSERT,UPDATE,DELETE ON cadastre_tlse.parcelles TO gr_gestion_parcelles;
 GRANT UPDATE (geom) ON cadastre_tlse.parcelles TO gr_dessin_cadastre;
 ```
+### Les privilèges (GRANT)
+### Définition
+Un privilège est un droit sur un objet de la base attribué à un rôle.
+Les SGBD permettent généralement de spécifier assez finement les privilèges d'un utilisateur en fonction des objets manipulés :
+base de données
+schéma
+table (relation)
+colonne (attribut)
+Ainsi, un utilisateur peut se voir attribuer un privilège pour toute une base de données, le contenu d'un schéma, ou seulement pour quelques tables, ou encore sur uniquement quelques colonnes de certaines tables.
+### Fondamental
+### Règles d'attribution des privilèges
+### Règle n°0 : un mot de passe pour chacun
+Tous les utilisateurs (clients, applications) doivent avoir un mot de passe.
+### Règle n°1 : attribution du moindre privilège.
+Les utilisateurs ne doivent avoir que le minimum de droits, ceux strictement nécessaires à l'accomplissement de leurs tâches. Les privilèges peuvent évoluer au cours du temps car les besoins et les tâches affectées ne sont pas immuables, mais à un moment donné, seuls les droits indispensables doivent être fournis à un utilisateur.
+Il faut éviter de créer plusieurs comptes avec des droits d'administrateur.
+### Règle n°2 : contrôle de la population.
+Le personnel d'une entreprise bouge, il y a des départs, des arrivées, des promotions... Les privilèges doivent êtres synchrones avec la réalité de la population : il faut supprimer les comptes des utilisateurs quittant l'entreprise et de ceux n'étant plus affectés à telle ou telle tâche.
+### Règle n°3 : supervision de la délégation des tâches d'administration.
+Un administrateur peut être amené à déléguer auprès d'une autre personne les tâches d'attribution des privilèges de tout ou partie de la population des utilisateurs (cf WITH GRANT OPTION). Un contrôle a posteriori doit être réalisé afin de vérifier que le résultat de cette délégation est conforme à la politique adoptée.
+### Règle n°4 : contrôle physique des connexions.
+La connexion d'un utilisateur à une base de données peut être réalisée depuis n'importe où dans le monde grâce à Internet. Il est nécessaire de restreindre les connexions à des hôtes spécifiques connus (hba_conf).
+Les principaux privilèges :
+Les droits possibles sont :
+### SELECT
+Autorise une sélection sur toutes les colonnes, ou sur les colonnes listées spécifiquement, de la table, vue ou séquence indiquée. Autorise aussi l'utilisation de COPY TO. De plus, ce droit est nécessaire pour référencer des valeurs de colonnes existantes avec UPDATE ou DELETE.
+### INSERT
+Autorise une insertion d'une nouvelle ligne dans la table indiquée. Si des colonnes spécifiques sont listées, seules ces colonnes peuvent être affectées dans une commande INSERT, (les autres colonnes recevront par conséquent des valeurs par défaut). Autorise aussi COPY FROM.
+### UPDATE
+Autorise une mise à jour sur toute colonne de la table spécifiée, ou sur les colonnes spécifiquement listées. (En fait, toute commande UPDATE nécessite aussi le droit SELECT car elle doit référencer les colonnes pour déterminer les lignes à mettre à jour et/ou calculer les nouvelles valeurs des colonnes.)
+### DELETE
+Autorise la suppression d'une ligne sur la table indiquée. (En fait, toute commande DELETE nécessite aussi le droit SELECT car elle doit référencer les colonnes pour déterminer les lignes à supprimer.)
+### TRUNCATE
+Autorise la suppression de tous les enregistrements de la table.
+### REFERENCES
+Ce droit est requis sur les colonnes de référence et les colonnes qui référencent pour créer une contrainte de clé étrangère. Le droit peut être accordé pour toutes les colonnes, ou seulement des colonnes spécifiques.
+### TRIGGER
+Autorise la création d'un déclencheur sur la table indiquée.
+### CREATE
+Pour les bases de données, autorise la création de nouveaux schémas dans la base de données.
+Pour les schémas, autorise la création de nouveaux objets dans le schéma. Pour renommer un objet existant, il est nécessaire d'en être le propriétaire et de posséder ce droit sur le schéma qui le contient.
+Pour les tablespaces, autorise la création de tables, d'index et de fichiers temporaires dans le tablespace et autorise la création de bases de données utilisant ce tablespace par défaut. (Révoquer ce privilège ne modifie pas l'emplacement des objets existants.)
+### CONNECT
+Autorise l'utilisateur à se connecter à la base indiquée. Ce droit est vérifié à la connexion (en plus de la vérification des restrictions imposées par pg_hba.conf).
+### TEMPORARY, TEMP
+Autorise la création de tables temporaires lors de l'utilisation de la base de données spécifiée.
+### EXECUTE
+Autorise l'utilisation de la fonction indiquée et l'utilisation de tout opérateur défini sur cette fonction. C'est le seul type de droit applicable aux fonctions. (Cette syntaxe fonctionne aussi pour les fonctions d'agrégat)
+### ALL PRIVILEGES
+Octroie tous les droits disponibles en une seule opération. Le mot clé PRIVILEGES est optionnel sous PostgreSQL™ mais est requis dans le standard SQL.
+### La commande SQL GRANT permet de définir les droits :
+syntaxe générale : 
+```sql
+GRANT { { SELECT | INSERT | UPDATE | DELETE | TRUNCATE | REFERENCES | TRIGGER }
+    [, ...] | ALL [ PRIVILEGES ] }
+    ON { [ TABLE ] table_name [, ...]
+         | ALL TABLES IN SCHEMA schema_name [, ...] }
+    TO role_specification [, ...] [ WITH GRANT OPTION ]
+```
+### accorder des privilèges sur une colonne :
+```sql
+GRANT { { SELECT | INSERT | UPDATE | REFERENCES } ( column_name [, ...] )
+    [, ...] | ALL [ PRIVILEGES ] ( column_name [, ...] ) }
+    ON [ TABLE ] table_name [, ...]
+    TO role_specification [, ...] [ WITH GRANT OPTION ]
+```
+L'aide sur la syntaxe SQL
+L'annulation d'un privilège (révocation)
+La commande REVOKE enlève un ou plusieurs privilèges à un utilisateur.
+```sql
+REVOKE [ GRANT OPTION FOR ]
+    { { SELECT | INSERT | UPDATE | DELETE | TRUNCATE | REFERENCES | TRIGGER }
+    [, ...] | ALL [ PRIVILEGES ] }
+    ON { [ TABLE ] table_name [, ...]
+         | ALL TABLES IN SCHEMA schema_name [, ...] }
+    FROM { [ GROUP ] role_name | PUBLIC } [, ...]
+    [ CASCADE | RESTRICT ]
+```
+GRANT OPTION FOR : seule l'option d'attribution du privilège est révoquée, pas le privilège lui-même ;
+FROM PUBLIC : tous les utilisateurs dont les privilèges ont été attribués avec le mot clé PUBLIC (voir GRANT)
+--L'utilisateur ne devant que consulter les tables, on définit le droit de 
+--sélection dans les tables avec GRANT SELECT 
+--(dans la fenêtre requête SQL) :
+```sql
+GRANT SELECT ON TABLE parcelles TO utilisateur;
+GRANT SELECT ON TABLE proprio TO utilisateur;
+--Définir les droits en lecture-écriture
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE parcelles TO operateur_saisie ;
+```
 ##  9. UPDATE, CAST, ROUND
 ```sql
 UPDATE public.regions
 SET perimetre_km = ROUND(st_perimeter(geom) / 1000 :: numeric, 2);
 ```
 ##  10. Import Shapefile (GDAL)
-
 ```
 ogr2ogr -f "PostgreSQL" PG:"dbname=GDAL user=postgres password=XXX host=localhost port=5434" "C:\path\REGION.shp" -nln regions -nlt MULTIPOLYGON
 ```
