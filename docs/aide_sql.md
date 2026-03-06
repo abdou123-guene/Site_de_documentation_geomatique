@@ -551,5 +551,7 @@ OPTIONS (
     launder_column_names 'true'
 );
 ```
-### NB: Dans le schéma  "dw_ogr_inpn_metropole" tu auras une table "Foreign Tables"
-
+### NB: 
+Dans le schéma  "dw_ogr_inpn_metropole" tu auras une table "Foreign Tables"
+### Conseil d'usage:
+Pour la vitesse de lecture, il serait mieux de créer une "vue matérialisée" avec les tables qui t'interessent
