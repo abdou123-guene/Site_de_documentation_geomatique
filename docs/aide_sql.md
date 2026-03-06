@@ -542,11 +542,14 @@ CREATE SCHEMA IF NOT EXISTS inpn_metropole;
 Récupération de l'ensemble des couches WFS comme des tables dans le schéma inpn_metropole
 ```sql
 IMPORT FOREIGN SCHEMA ogr_all
-FROM SERVER fdw_ogr_inpn_metropoleINTO inpn_metropoleOPTIONS (
+FROM SERVER fdw_ogr_inpn_metropole
+INTO inpn_metropole
+OPTIONS (
 -- mettre le nom des tables en minuscule et sans caractères bizarres
-launder_table_names 'true',
--- mettre le nom des champs en minuscule
-launder_column_names 'true');
+    launder_table_names 'true',
+	-- mettre le nom des champs en minuscule
+    launder_column_names 'true'
+);
 ```
 
 
