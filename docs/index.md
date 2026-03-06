@@ -1,8 +1,9 @@
 # Bienvenue sur la Documentation Géomatique 
 ---
 ## Auteur:
-## **GUENE Abdou Lahat**  
+### **GUENE Abdou Lahat**  
 Géomaticien - AUDC Châlons-en-Champagne  
+Mail: guenelahad890@gmail.com
 
 Site développé dans le cadre de l’amélioration continue des outils en géomatique.
 Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques intéressantes.  
@@ -15,9 +16,13 @@ Il a été conçu pour offrir un cadre clair, structuré et facilement accessibl
 - Servir de guide aux nouveaux utilisateurs des outils SIG.
 ## Queleques contenus disponibles
 Le site s’organise en différentes thématiques essentielles :
+
 - **Accueil** - Présentation générale de la démarche et des objectifs.
+
 - **Interopérabilité** - Comprendre l’échange de données entre logiciels, formats SIG et environnements techniques.
+
 - **Sources de données en agence d'urbanisme** - Exemple des sources de données utilisées à l’AUDC de Châlons-en Champagne
+
 - *D’autres rubriques seront ajoutées progressivement : Base de données, GDAL, télédétection, traitements Python, métadonnées, etc.*
 
 
