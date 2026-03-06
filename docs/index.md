@@ -25,7 +25,7 @@ Le site s’organise en différentes thématiques essentielles :
 
 - **Accueil** - Présentation générale de la démarche et des objectifs.
 
-- **Interopérabilité** - Comprendre l’échange de données entre logiciels, formats SIG et environnements techniques.
+- **Interopérabilité des données en géomatique** - Comprendre l’échange de données entre logiciels, formats SIG et environnements techniques.
 
 - **Sources de données en agence d'urbanisme** - Exemple des sources de données utilisées à l’AUDC de Châlons-en Champagne
 
