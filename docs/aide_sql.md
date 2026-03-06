@@ -1,5 +1,5 @@
 #  Fiche complète PostgreSQL / PostGIS 
-
+---
 [🔗 Documentation officielle PostgreSQL](https://www.postgresql.org/docs/)  
 
 ##  1. Fonctions PostGIS dans SELECT et JOIN
