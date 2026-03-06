@@ -523,6 +523,7 @@ En pré-requis, il faut que l'extension soit ajoutée (ça tombe bien nous l'avi
 ```sql
 CREATE EXTENSION IF NOT EXISTS ogr_fdw;
 ```
+Vous pouvez aussi rajouter les extensions: postgres_fdw et file_fdw
 Création du serveur
 ```sql
 DROP SERVER IF EXISTS fdw_ogr_inpn_metropole;
