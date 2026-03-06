@@ -551,5 +551,5 @@ OPTIONS (
     launder_column_names 'true'
 );
 ```
-
+### NB: Dans le schéma  "dw_ogr_inpn_metropole" tu auras une table "Foreign Tables"
 
