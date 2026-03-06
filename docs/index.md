@@ -30,6 +30,6 @@ Le site s’organise en différentes thématiques essentielles :
 - **Sources de données en agence d'urbanisme** - Exemple des sources de données utilisées à l’AUDC de Châlons-en Champagne
 
 - *D’autres rubriques seront ajoutées progressivement : Base de données, GDAL, télédétection, traitements Python, métadonnées, etc.*
-<img width="375" height="667" alt="D54F8AF0-A8F8-4EF7-AA45-F40B029BD29A" src="https://github.com/user-attachments/assets/3d584b3c-c2c8-4779-a8f7-4cce86374cef" />
+
 
 
