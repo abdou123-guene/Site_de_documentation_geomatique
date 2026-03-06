@@ -15,9 +15,11 @@ Il a été conçu pour offrir un cadre clair, structuré et facilement accessibl
 - Faciliter le partage d’informations entre les différents projets.
 - Servir de guide aux nouveaux utilisateurs des outils SIG.
 - ### Autres sites:
+- 
 **LinkedIn :** https://www.linkedin.com/in/abdouguene/
 
 **RPubs :** https://rpubs.com/abdou96
+
 ## Queleques contenus disponibles
 Le site s’organise en différentes thématiques essentielles :
 
