@@ -363,7 +363,7 @@ FROM pg_catalog.pg_statio_user_tables ORDER BY pg_total_relation_size(relid) DES
 Ainsi après restore, ça recrée absolument tout (schémas, tables avec colonnes y compris geom etc.)
 ### Objectif : produire un fichier texte de commandes SQL (« fichier dump »), qui, si on le renvoie au serveur, recrée une base de données identique à celle sauvegardée.
 PostgreSQL™ propose pour cela le programme utilitaire pg_dump.
-```sql
+```
 pg_dump base_de_donnees > fichier_sauvegarde
 ```
 ### 1- Exemple : On fait le sauvegarde en fichier sql dans le dossier idgeo@GS8:~$  (home/idgeo)
@@ -390,24 +390,24 @@ pg_dump permet de restaurer des bases dans des versions du serveur plus récente
 pg_dump est aussi la seule méthode qui fonctionnera lors du transfert d'une base de données vers une machine d'une architecture différente (comme par exemple d'un serveur 32 bits à un serveur 64 bits).
 ### Restaurer
 Les fichiers texte créés par pg_dump peuvent être lus par le programme psql.
-```sql
+```
 psql base_de_donnees < fichier_sauvegarde
 ```
 ### Remarque
 Tous les utilisateurs possédant des objets ou ayant certains droits sur les objets de la base sauvegardée doivent exister préalablement à la restauration de la sauvegarde. S'ils n'existent pas, la restauration échoue pour la création des objets dont ils sont propriétaires ou sur lesquels ils ont des droits.
 ### Sauvegarder une base directement d'un serveur sur un autre
-```sql
+```
 pg_dump -h serveur1 base_de_donnees | psql -h serveur2 base_de_donnees
 ```
 ### Conseil
 Après la restauration d'une sauvegarde, il est conseillé d'exécuter ANALYZE sur chaque base de données pour que l'optimiseur de requêtes dispose de statistiques utiles.
 ### Utilisation de pg_dumpall
 Permet une sauvegarde de tout un cluster (bases de données, rôles et tablespaces).
-```sql
+```
 pg_dumpall > fichier_sauvegarde
 ```
 Le fichier de sauvegarde résultant peut être restauré avec psql :
-```sql
+```
 psql -h localhost -p 5432 -U postgres -c "CREATE DATABASE nombase;"
 psql -h localhost -p 5432 -U postgres -d nombase -c "CREATE EXTENSION postgis;"
 psql -h localhost -p 5432 -U utilisateur -d nombase -f chemin\complet\du\fichier.sql
@@ -423,7 +423,7 @@ On peut mettre une sauvegarde au niveau d'une base de données en choisissant le
 Etablir une commande pg_dump dans un script bash vers une sortie « .dump »
 Ce fichier pour s'appeler
 On positionnera ce script dans le dossier /usr/bin/
-```sql
+```
 DB_USER="postgres"         	# utilisateur de la base de données PostgreSQL
 DB_NAME="ma_base"      	    # nom de la base de données à sauvegarder
 DB_SCHEMA="pourquoi_pas"    # pour ne sauver que le schéma
@@ -431,7 +431,7 @@ current_date=$(date +%Y-%m-%d)
 backup_file="/home/xxx/sauv_bdd/sauv_${DB_NAME}${DB_SCHEMA}${current_date}.dump"
 ```
 
-```sql
+```
 if ! pg_dump -U "$DB_USER" -F c "$DB_NAME" -n "$DB_SCHEMA" > "$backup_file"; then
 echo "Echec: La sauvegarde de la bdd a échouée"
 return 1
@@ -439,17 +439,17 @@ fi
 printf "Sauvegarde de la base ok"
 ```
 Paramétrer une tâche « Crontab »
-```sql
+```
 crontab -e
 ```
 
-```sql
+```
 # m h  dom mon dow   command
 20 * * * * /usr/bin/script_sauv.sh
 ```
 ### Comment régler le crontab ?
 https://www.linuxtricks.fr/wiki/cron-et-crontab-le-planificateur-de-taches
-```sql
+```
 # Example of job definition:
 # .---------------- minute (0 - 59)
 # |  .------------- hour (0 - 23)
@@ -460,13 +460,26 @@ https://www.linuxtricks.fr/wiki/cron-et-crontab-le-planificateur-de-taches
 # *  *  *  *  *  user command to be executed
 ```
 
-### Exemple 
+### Exemple d'une souvegarde automatique avec Ubuntu (Terminal)
 On crée le fichier avec :
 ```
 idgeo@GS8:~$ nano script_sauv_bdd.sh
 ```
-Ensuite si ouvert on écrit ça par exemple
+En créant le fichier, ça s'ouvre et on met dedans: 
+```
+#!/bin/bash
+pg_dump -f sauv_bdd_auto.sql -U postgres -p 5432 -d idgeo_locale
+```
+On rend le script executable avec:
+```
+idgeo@GS8:~$ chmod a+x script_sauv_bdd.sh
+```
+Ensuite on fait: 
+```
+idgeo@GS8:~$ crontab -e
+```
+Et si ouvert on écrit ça par exemple
 ```
 58 * * * * /home/idgeo/script_sauv_bdd.sh
 ```
-Puis tape ctrl+x et attendre, on a mise 58 car on est à 16h56 et à 58 ça s'execute
+Puis tape ctrl + X (pas ctrl + O ou Entrée) et attendre, on a mise 58 car on est à 16h56 et à 16h58 ça s'execute pour enregistrer un fichier: sauv_bdd_auto.sql
