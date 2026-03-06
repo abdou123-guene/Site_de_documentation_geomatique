@@ -1,5 +1,4 @@
 #  Fiche complète PostgreSQL / PostGIS 
----
 
 [🔗 Documentation officielle PostgreSQL](https://www.postgresql.org/docs/)  
 
