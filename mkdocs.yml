@@ -5,10 +5,10 @@ theme:
 
 nav:
   - Accueil: index.md
-  - Source de données à AUDC: Readme.md
+  - Exemple de source de données entreprise : Readme.md
   - Cycle de vie des données: cycle_de_vie_des_donnees.md
   - Interopérabilité de données en géomatique: Interoperabilite.md
-  - Les bases du langage SQL en géomatique: aide_sql.md
+  - Base de données géographique et Admin: aide_sql.md
   - Quelques exemples de scripts SQL fréquents en géomatique: abdou_julien_base_de_donnees.md
   - Manipulation de données raster/vecteur avec commandes GDAL: GDAL_Ubuntu.md
   - Brique de Géomatqiue: teledetection.md
@@ -16,6 +16,7 @@ nav:
 
 extra_css:
   - css/le_style.css
+
 
 
 
