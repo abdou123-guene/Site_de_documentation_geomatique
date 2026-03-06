@@ -364,19 +364,23 @@ PostgreSQL™ propose pour cela le programme utilitaire pg_dump.
 ```
 pg_dump base_de_donnees > fichier_sauvegarde
 ```
-### a- Exemple : On fait le sauvegarde en fichier sql dans le dossier idgeo@GS8:~$  (home/idgeo)
+### a- Exemple on crée un sauvegarde : 
+On fait le sauvegarde en fichier sql dans le dossier idgeo@GS8:~$  (home/idgeo)
 ```
 idgeo@GS8:~$ pg_dump -f rugby_sauv.sql -d rugby_top -p 5432 -U postgrres
 ```
-### b- Exemple pour restaurer : On crée ici une base vide dans laquelle on va restaurer le backup
+### b- Exemple pour restaurer : 
+On crée ici une base vide dans laquelle on va restaurer le backup
 ```
 idgeo@GS8:~$ psql postgres postgres -p 5432 -c "CREATE DATABASE idgeo_locale";
 ```
-### c- Exemple pour restaurer : On restaure le fichier qu'on avait sauvegarder
+### c- Exemple pour restaurer : 
+On restaure le fichier qu'on avait sauvegarder
 ```
 psql -U postgres -p 5432 -d idgeo_locale < sauv_idgeo.sql
 ```
-### d- Exemple : On se reconnecte à la base de données en question
+### d- Exemple : 
+On se reconnecte à la base de données en question
 ```
 psql -U postgres -p 5432 -d idgeo_locale
 ```
