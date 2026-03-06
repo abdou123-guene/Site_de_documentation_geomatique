@@ -354,7 +354,7 @@ SELECT relname as "Table",pg_size_pretty(pg_total_relation_size(relid)) As "Size
 pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) as "External Size"
 FROM pg_catalog.pg_statio_user_tables ORDER BY pg_total_relation_size(relid) DESC;
 ```
-## 19: Sauvegarder et restaurer les données de postgreSQL en ligne de commande
+## 19. Sauvegarder et restaurer les données de postgreSQL en ligne de commande
 ### Sauver
 ### Sur pgAdmin 4, pour sauvegarder, on fait clic droit + Backup... 
 ### Et pour restorer avec ce fichier Back up, on fait clic droit + restore...
@@ -480,3 +480,72 @@ Et si ouvert on écrit ça par exemple
 58 * * * * /home/idgeo/script_sauv_bdd.sh
 ```
 Puis tape ctrl + X (pas ctrl + O ou Entrée) et attendre, on a mise 58 car on est à 16h56 et à 16h58 ça s'execute pour enregistrer un fichier: sauv_bdd_auto.sql
+## 20. Connexions distantes
+Foreign Data Wrappers
+Le FDW (Foreign Data Wrapper) natif de PostgreSQL postgres_fdw permet d'accéder aux tables à partir de serveurs PostgreSQL distants de manière très transparente.
+Le FDW standard PostgreSQL permet également à la géométrie PostGIS de passer des hôtes distants aux hôtes locaux, ce qui est très pratique.
+Données externes présentées comme des tables ;
+En lecture/écriture (si supporté par le driver et à partir de PostgreSQL 9.3) :
+PostgreSQL, Oracle, MySQL (lecture/écriture)
+fichier CSV, fichier fixe (en lecture)
+ODBC, JDBC, Multicorn
+CouchDB, Redis (NoSQL)
+```sql
+--création d'un lien vers la base de données bd_test_postgis
+CREATE SERVER foreign_bd
+        FOREIGN DATA WRAPPER postgres_fdw
+        OPTIONS (host 'localhost', port '5434', dbname 'bd_test_postgis');
+--associer un utilisateur de la base de données distant à un utilisateur en local
+CREATE USER MAPPING FOR postgres --utilisateur local
+        SERVER foreign_bd
+        OPTIONS (user 'postgres', password 'postgres'); --utilisateur distant
+--création d'un table ayant la même structure que la table distante		
+CREATE FOREIGN TABLE foreign_parkings (
+    osm_id integer NOT NULL,
+    date_heure timestamp without time zone,
+    nom character varying ,
+    type_obj character varying,
+    xcoord double precision,
+    ycoord double precision,
+    geom geometry(Point,2154)
+)
+    SERVER foreign_bd
+        OPTIONS (schema_name 'parkings', table_name 't_parking');
+select * from foreign_parkings;
+```
+### Conseil
+L'accès aux données des tables étrangères est plus lent et donc réservées à des accès intermittents (impossible de créer un index sur une table étrangère).
+Il peut être pertinent d'encapsuler les tables distantes dans des vues matérialisées qui stockent les données en local.
+Un FDW sur un WFS
+Jouons avec les données de l'INPN => http://ws.carmencarto.fr/WFS/119/fxx_inpn
+### Extension
+En pré-requis, il faut que l'extension soit ajoutée (ça tombe bien nous l'avions prévue dans notre template).
+```sql
+CREATE EXTENSION IF NOT EXISTS ogr_fdw;
+```
+Création du serveur
+```sql
+DROP SERVER IF EXISTS fdw_ogr_inpn_metropole;
+```
+```sql
+CREATE SERVER fdw_ogr_inpn_metropole
+FOREIGN DATA WRAPPER ogr_fdwOPTIONS (
+datasource 'WFS:http://ws.carmencarto.fr/WFS/119/fxx_inpn?',
+format 'WFS'
+);
+```
+### Création d'un schéma dédié
+```sql
+CREATE SCHEMA IF NOT EXISTS inpn_metropole;
+```
+Récupération de l'ensemble des couches WFS comme des tables dans le schéma inpn_metropole
+```sql
+IMPORT FOREIGN SCHEMA ogr_all
+FROM SERVER fdw_ogr_inpn_metropoleINTO inpn_metropoleOPTIONS (
+-- mettre le nom des tables en minuscule et sans caractères bizarres
+launder_table_names 'true',
+-- mettre le nom des champs en minuscule
+launder_column_names 'true');
+```
+
+
