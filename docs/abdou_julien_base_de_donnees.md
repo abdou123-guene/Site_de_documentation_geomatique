@@ -1,7 +1,6 @@
 
 # Queslques scripts SQL fréquents en géomatique
-
-
+---
 ## 1. Création d’index
 ### Objectif
 Créer un index partiel sur la colonne numpar pour accélérer les requêtes ciblant la parcelle c10436.
@@ -517,6 +516,7 @@ Numéro de semaine :
 ```sql
 WEEK(date) 
 ```
+
 
 
 
