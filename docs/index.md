@@ -3,7 +3,7 @@
 ## Auteur:
 ### **GUENE Abdou Lahat**  
 Géomaticien - AUDC Châlons-en-Champagne  
-Mail: guenelahad890@gmail.com
+**Mail :** [guenelahad890@gmail.com](mailto:guenelahad890@gmail.com)
 
 Site développé dans le cadre de l’amélioration continue des outils en géomatique.
 Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques intéressantes.  
