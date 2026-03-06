@@ -2,28 +2,20 @@
 ---
 
 [🔗 Documentation officielle PostgreSQL](https://www.postgresql.org/docs/)  
----
 
 ##  1. Fonctions PostGIS dans SELECT et JOIN
-
   Fonctions dans **SELECT**
 - ST_Buffer
 - ST_Difference
 - ST_Transform
 - ST_Intersection
-
   Fonctions dans **JOIN / WHERE**
 - ST_Intersects
 - ST_Contains
 - ST_Within
 - ST_DWithin
-
----
-
 ##  2. Géotraitements
-
  2.1 Intersection (Découpe)
-
 ```sql
 WITH req AS (
    SELECT sitecode, sitename,
@@ -42,11 +34,7 @@ req_1 AS (
 SELECT SUM(surface_km2) AS total_surface_km2
 FROM req_1;
 ```
-
----
-
 ### 2.2 Différence + Buffer
-
 ```sql
 WITH req AS (
    SELECT ST_Union(ST_Buffer(pav.geom, 500)) AS buffered_union
@@ -57,11 +45,7 @@ SELECT commune.geom AS commune_geom,
 FROM public.communes_france AS commune, req
 WHERE ST_Intersects(commune.geom, req.buffered_union);
 ```
-
----
-
 ### 2.3 ST_Distance (condition)
-
 ```sql
 SELECT DISTINCT e.id, p.commune, p.code_postal,
        st_distance(e.geom, p.geom) AS distance
@@ -72,11 +56,7 @@ GROUP BY e.id, p.commune, p.code_postal, e.geom, p.geom
 ORDER BY distance ASC
 LIMIT 5;
 ```
-
----
-
 ##  3. GROUP BY
-
 ```sql
 WITH req AS (
    SELECT DISTINCT e.id, p.commune, p.code_postal, p.type_flux,
@@ -90,13 +70,8 @@ SELECT req.type_flux, COUNT(req.id)
 FROM req
 GROUP BY req.type_flux;
 ```
-
----
-
 ##  4. JOIN Avancés
-
 ### 4.1 ON TRUE
-
 ```sql
 SELECT DISTINCT ON (e.id)
        e.id AS ecole_id, p.id AS pav_id,
@@ -107,9 +82,7 @@ JOIN public.ecole_elem_matern e
      ON TRUE
 ORDER BY e.id, distance ASC;
 ```
-
 ### 4.2 ST_DWithin
-
 ```sql
 WITH req AS (
    SELECT COUNT(DISTINCT e.id) AS ecole_textile
@@ -123,11 +96,7 @@ SELECT
    req.ecole_textile AS ecoles_avec_pav_textile
 FROM req;
 ```
-
----
-
 ##  5. ST_Intersects vs ST_Intersection
-
 | Fonction | Rôle |
 |---------|------|
 | ST_Intersects() | Vrai/Faux |
@@ -139,11 +108,7 @@ FROM public.filaire_de_voirie t1
 JOIN public.jour_collect t2
    ON ST_Intersects(t1.geom, t2.geom);
 ```
-
----
-
 ##  6. Découper un linéaire par département
-
 ```sql
 SELECT d.code_insee, d.nom AS departement, c.nomentiteh AS cours_eau,
        ST_Intersection(c.geom, d.geom) AS segment_geom
@@ -153,11 +118,7 @@ JOIN carthage.cours c
 WHERE ST_Intersects(c.geom, d.geom)
   AND NOT ST_IsEmpty(ST_Intersection(c.geom, d.geom));
 ```
-
----
-
 ##  7. Distance depuis un point
-
 ```sql
 WITH req AS (
    SELECT commune,
@@ -169,22 +130,16 @@ WITH req AS (
 SELECT AVG(distance) AS average_distance
 FROM req;
 ```
-
----
-
 ##  8. Droits / Rôles / Groupes
 
 ### Création d’un rôle
-
 ```sql
 CREATE ROLE Lea LOGIN PASSWORD 'toto';
 GRANT SELECT (fid, geom), UPDATE (geom)
 ON TABLE cadastre_tlse.parcelles, cadastre_tlse.batiments
 TO Lea;
 ```
-
 ### Création de groupes
-
 ```sql
 CREATE ROLE gr_visu;
 CREATE ROLE gr_gestion_parcelles;
@@ -192,55 +147,34 @@ CREATE ROLE gr_gestion_batiments;
 CREATE ROLE gr_dessin_cadastre;
 CREATE ROLE gr_maj_type_bati;
 ```
-
 ### Affectation
-
 ```sql
 GRANT SELECT ON ALL TABLES IN SCHEMA cadastre_tlse TO gr_visu;
 GRANT SELECT,INSERT,UPDATE,DELETE ON cadastre_tlse.parcelles TO gr_gestion_parcelles;
 GRANT UPDATE (geom) ON cadastre_tlse.parcelles TO gr_dessin_cadastre;
 ```
-
----
-
 ##  9. UPDATE, CAST, ROUND
-
 ```sql
 UPDATE public.regions
 SET perimetre_km = ROUND(st_perimeter(geom) / 1000 :: numeric, 2);
 ```
-
----
-
 ##  10. Import Shapefile (GDAL)
 
 ```
 ogr2ogr -f "PostgreSQL" PG:"dbname=GDAL user=postgres password=XXX host=localhost port=5434" "C:\path\REGION.shp" -nln regions -nlt MULTIPOLYGON
 ```
-
----
-
 ##  11. ST_Transform
-
 ```sql
 CREATE TABLE table_reproj AS
 SELECT ST_Transform(geom, 4326) AS geom, *
 FROM table_originale;
 ```
-
----
-
 ##  12. INSERT INTO
-
 ```sql
 INSERT INTO public.etat (type)
 VALUES ('sain'), ('malade'), ('casse'), ('mort');
 ```
-
----
-
 ##  13. CREATE TABLE
-
 ```sql
 CREATE TABLE arbre (
    id_arbre int generated always as IDENTITY PRIMARY KEY,
@@ -249,26 +183,18 @@ CREATE TABLE arbre (
    geom geometry(point,2154)
 );
 ```
-
----
-
 ##  14. Import CSV + mise à jour des géométries
-
 ```sql
 COPY faune_auvergne_temp
 FROM 'C:\...aune.csv'
 CSV HEADER DELIMITER ';';
 ```
-
 Ajouter une colonne :
-
 ```sql
 ALTER TABLE public.faune_auvergne_temp
 ADD column geom geometry(point,2154);
 ```
-
 Mettre à jour :
-
 ```sql
 UPDATE public.faune_auvergne_temp f
 SET geom = (
@@ -282,11 +208,7 @@ WHERE EXISTS (
    WHERE t.id = f.id_num
 );
 ```
-
----
-
 ##  15. Dates disponibles (generate_series)
-
 ```sql
 SELECT jour
 FROM generate_series(
@@ -302,13 +224,8 @@ WHERE jour NOT IN (
      AND EXTRACT(MONTH FROM date_location) = 3
 );
 ```
-
----
-
 ##  16. Triggers
-
 ### Date automatique
-
 ```sql
 CREATE OR REPLACE FUNCTION fn_set_date_creation()
 RETURNS trigger AS $$
@@ -323,9 +240,7 @@ BEFORE INSERT ON public.test_mobilier
 FOR EACH ROW
 EXECUTE FUNCTION fn_set_date_creation();
 ```
-
 ### Surface automatique
-
 ```sql
 CREATE OR REPLACE FUNCTION update_area()
 RETURNS TRIGGER AS $$
@@ -340,11 +255,7 @@ BEFORE INSERT OR UPDATE ON zones
 FOR EACH ROW
 EXECUTE FUNCTION update_area();
 ```
-
----
-
 ##  17. INDEX
-
 ```sql
 CREATE INDEX idx_parcel_numpar_c10436
 ON village.parcel (numpar)
@@ -459,7 +370,6 @@ https://www.linuxtricks.fr/wiki/cron-et-crontab-le-planificateur-de-taches
 # |  |  |  |  |
 # *  *  *  *  *  user command to be executed
 ```
-
 ### Exemple d'une souvegarde automatique avec Ubuntu (Terminal)
 On crée le fichier avec :
 ```
