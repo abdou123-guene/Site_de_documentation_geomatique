@@ -1,4 +1,4 @@
-site_name: Plateforme de documentation Géomatique
+site_name: Plateforme de documentation en Géomatique
 
 theme:
   name: readthedocs
@@ -7,15 +7,16 @@ nav:
   - Accueil: index.md
   - Exemple de source de données entreprise : Readme.md
   - Cycle de vie des données: cycle_de_vie_des_donnees.md
-  - Interopérabilité de données en géomatique: Interoperabilite.md
-  - Base de données géographique et Admin: aide_sql.md
+  - Interopérabilité des données en géomatique: Interoperabilite.md
+  - Admin et Base de données géographique : aide_sql.md
   - Quelques exemples de scripts SQL fréquents en géomatique: abdou_julien_base_de_donnees.md
-  - Manipulation de données raster/vecteur avec commandes GDAL: GDAL_Ubuntu.md
+  - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
   - Brique de Géomatqiue: teledetection.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
 
 extra_css:
   - css/le_style.css
+
 
 
 
