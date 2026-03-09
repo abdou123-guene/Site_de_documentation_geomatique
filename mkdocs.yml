@@ -11,11 +11,12 @@ nav:
   - Admin et Base de données géographique : aide_sql.md
   - Quelques exemples de scripts SQL fréquents en géomatique: abdou_julien_base_de_donnees.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
-  - Brique de Géomatqiue: teledetection.md
+  - Brique de Géomatqiue et Télédétection: teledetection.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
 
 extra_css:
   - css/le_style.css
+
 
 
 
