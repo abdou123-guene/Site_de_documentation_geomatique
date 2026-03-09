@@ -137,8 +137,15 @@ longueur de **20 mm** et une seule **subdivision**.
 Afficher automatiquement le logo correspondant à l’EPCI actif sur chaque page de l’atlas dans QGIS, en fonction du nom ou du code de l’EPCI. 
 ️ **Données utilisées** 
 ● **Couche de couverture de l’atlas** : atlas\_EPCI, avec la colonne code (ou lib) correspondant aux EPCI. 
-● **Fichier Excel de correspondance** : test.xlsx, contenant trois colonnes : ○ code : identifiant de l’EPCI (correspondant à la couche atlas), ○ lib : nom de l’EPCI (facultatif si on utilise le code), 
+
+● **Fichier Excel de correspondance** : test.xlsx, contenant trois colonnes : 
+
+○ code : identifiant de l’EPCI (correspondant à la couche atlas), 
+
+○ lib : nom de l’EPCI (facultatif si on utilise le code), 
+
 ○ chemin : chemin absolu du logo image correspondant (format PNG, JPG...). 
+
 **Principe de la méthode** 
 1\. **Lier dynamiquement le logo** au paramètre actif de l’atlas (EPCI). 
 2\. Utiliser une **jointure virtuelle** dans QGIS entre la couche de couverture (atlas\_EPCI) et le fichier Excel (test.xlsx) via le champ code. 
@@ -146,16 +153,24 @@ Afficher automatiquement le logo correspondant à l’EPCI actif sur chaque page
 **Étapes de mise en œuvre** 
 **1\.** **Charger le fichier Excel dans QGIS** 
 ● Menu : *Layer \> Add Layer \> Add Layer from Excel* (test.xlsx). 
-● Vérifie que les champs code, lib et chemin sont bien reconnus. 
+
+● Vérifie que les champs code, lib et chemin sont bien reconnus.
+
 **2\.** **Joindre le fichier Excel à la couche atlas** 
-● Dans les **propriétés de la couche atlas\_EPCI**, onglet *Jointures* : ○ Couche cible : test.xlsx,  
+● Dans les **propriétés de la couche atlas\_EPCI**, onglet *Jointures* : 
+
+○ Couche cible : test.xlsx,  
+
 ○ Champ commun : code, 
+
 ○ Active la jointure. 
+
 **3\.** ️ **Ajouter le logo dans la mise en page** 
 **\-** Ouvre la mise en page de ton atlas. 
 **\-** Insère une **image** (Ajouter une image). 
 **\-** Dans l’onglet **propriétés de l’image** : 
 o Coche : **"Charger l’image depuis une expression"**. 
+
 o Mets cette expression qui correspond au nom de la colonne jointe dans la couche de couverture de l’atlas : 
 "test-Feuil1\_chemin" 
 
@@ -248,11 +263,17 @@ Avant d'activer l'atlas, il est nécessaire de créer une couche regroupée à p
 
 **Figure 20 :** Activation de l’atlas à partir d’une couche regroupée par EPCI 
 ● Dans l'onglet Atlas, cocher Générer un atlas. 
-● Sélectionne ta couche de couverture (couche regroupée) comme couche principale. 
+
+● Sélectionne ta couche de couverture (couche regroupée) comme couche principale.
+
 ● Dans Champ d’identifiant de page, choisis le champ code\_racin. 
+
 **Filtrer les autres couches (dans les propriétés de chaque couche)** Pour appliquer un filtre basé sur code\_racine dans les autres couches (Flux\_entrants, Flux\_sortants et Flux\_internes) : 
+
 ● Va dans les Propriétés de chaque couche, dans l'onglet Filtre ou Rendu conditionnel. 
+
 ● Utilise l'expression suivante pour que chaque entité de la couche corresponde à l'atlas généré : 
+
 regexp\_substr("code", '^\[^-\]+') \= @atlas\_pagename 
 **\- Flèche du déplacement pendulaire** 
 La taille des flèches est proportionnelle aux valeurs de la colonne concernée. La couche vectorielle est composée de lignes représentant les déplacements entre les points de départ (source) et d’arrivée (destination).  
