@@ -2,17 +2,18 @@
 # Méthodologie d’automatisation de cartes thématiques
 ---
 
-**Introduction** 
+## Introduction
+
 La simplification de ce travail commence par l'application d'un ***filtre sur les couches*** afin de ne conserver que les territoires qui nous intéressent. Cela permet d’éviter d’être perturbé par l’affichage de nombreuses données, comme c’est le cas pour les communes. 
 Il est important de noter que les couches utilisées pour l’automatisation proviennent de **scripts SQL** exécutés directement sur la base de données, et non de couches stockées de manière permanente dans la base. 
 Cependant, certaines exceptions existent, notamment pour les **rasters** et les **couches d’étiquettes**, qui peuvent être enregistrées séparément pour des raisons de performance et de gestion des données. 
 ## 1 . Automatisation de la couche de couverture
+
 Certaines couches doivent être paramétrées afin de permettre l’automatisation de l’atlas. 
 La **couche de génération de l’atlas** constitue la base du projet. Elle définit les différentes entités à cartographier et sert de référence pour la production des cartes. Grâce à une symbologie basée sur un ensemble de règles, chaque EPCI (Établissement Public de Coopération Intercommunale) peut être représenté individuellement tout en conservant une mise en page homogène.  
 ⚠️ **Attention :** Il est essentiel de choisir un champ unique pour identifier chaque entité et éviter les doublons. Par exemple, on peut utiliser le champ ***lib*** **(libellé)** ou ***code\_epci*** **(code EPCI)**. 
 
 <img width="1386" height="908" alt="image" src="https://github.com/user-attachments/assets/2b1fcfe7-f535-498d-86fe-ccfdbb8175c8" />
-
 
 **Figure 1 :** Configuration de la couche principale de l'atlas 
 **Utilisation des expressions QGIS** 
@@ -20,8 +21,11 @@ La **couche de génération de l’atlas** constitue la base du projet. Elle dé
 ● Certaines permettent d'afficher uniquement les éléments correspondant à la page en cours lors de la génération des cartes. 
 Cependant, la génération effective de l’atlas s’effectue uniquement dans la mise en page QGIS, où l’ensemble des paramètres définis prend effet. 
 ## 2\. Paramétrage des autres couches
+
 ### 2.1 . Les couches de points
+
 ### 2.1.1. Avec @atlas\_pagename
+
 Si l’on souhaite afficher des couches de points (par exemple : gares TGV, arrêts bus), il est nécessaire de paramétrer leur symbologie à l’aide d’un **ensemble de règles**. Cela permet de restreindre leur affichage à l’emprise de l’entité de l’atlas en cours d’affichage. 
 Le processus de paramétrage est similaire à celui de la couche de génération de l’atlas (partie 1), mais appliqué spécifiquement à chaque couche concernée.
 
@@ -29,6 +33,7 @@ Le processus de paramétrage est similaire à celui de la couche de génération
 
 **Figure 2 :** Configuration des couches à automatiser 
 ### 2.1.2. Avec intersects($geometry, @atlas\_geometry)
+
 L'expression intersects($geometry, @atlas\_geometry) ou un autre prédicat spatial tel que within, disjoint, etc. permet de contrôler l’affichage des couches de points, de lignes et de surfaces en fonction de la géométrie de l’entité de l’atlas actif. 
 Cet outil est particulièrement utile lorsqu'on souhaite filtrer spatialement les entités, indépendamment de leurs attributs. Il peut être appliqué dans des symbologies catégorisées ou graduées, ce qui permet d'affiner l'affichage des éléments selon leur relation géographique avec l’entité active. 
 Cependant, pour que ce filtrage fonctionne dans le cadre de symbologies catégorisées ou graduées, il est nécessaire de passer à une symbologie basée sur un **ensemble de règles** après avoir effectué la catégorisation ou la graduation. Cela permet d’appliquer des critères spatiaux tout en conservant une gestion de la symbologie dynamique et détaillée. 
@@ -69,7 +74,9 @@ Si l’atlas est basé sur une couche d’EPCI et qu'on veut afficher uniquement
 
 **Figure 6 :** Tableau de comparaison synthétique 
 ## 3\. Visualisation des cartes
+
 ### 3.1. Carte à plat
+
 Les cartes à plat sont plus faciles à gérer et leurs ajustements posent moins de soucis. Lorsqu'il s'agit de symbologies graduées ou catégorisées,  
 l'affichage des éléments dans l’atlas actif est géré de la même manière que décrite dans la section **2.1.2**. 
 ### 3.2. Carte avec cercles proportionnels (camemberts) 
@@ -80,6 +87,7 @@ Cependant, il est possible d’ajuster la taille globale des cercles afin d’op
 
 **Figure 7 :** Échelle de visualisation des diagrammes en camembert 
 ## 4\. Mise en page et génération de l’atlas
+
 La première étape consiste à réaliser une **mise en page classique**, comme pour une carte sans atlas, en intégrant tous les **éléments cartographiques nécessaires** selon la demande reçue. 
 Une fois tous ces éléments définis dans la mise en page, on peut passer à la **génération de l’atlas** en cliquant sur le bouton **paramètres de l’atlas** dans la barre d’outils. <img width="130" height="39" alt="image" src="https://github.com/user-attachments/assets/8b2befb1-6267-4c47-bfb7-4e24d22941e8" />
 
@@ -88,20 +96,14 @@ Cela ouvre une fenêtre dans laquelle il faut renseigner la **couche de couvertu
 <img width="382" height="466" alt="image" src="https://github.com/user-attachments/assets/22a0a353-e595-4f03-a762-6c1e719334de" />
 
 **Figure 8 :** Paramétrage et génération de l'atlas 
-Le champ **« lib »** est choisi pour identifier et individualiser les entités de l’atlas. Il permet également d’afficher automatiquement le libellé en haut de chaque page, facilitant ainsi la lecture et la compréhension des cartes. 
-
-<img width="98" height="29" alt="image" src="https://github.com/user-attachments/assets/b9eeec15-ae36-4be4-83d6-1b4f5f5adfb4" />
-
+Le champ **« lib »** est choisi pour identifier et individualiser les entités de l’atlas. Il permet également d’afficher automatiquement le libellé en haut de chaque page, facilitant ainsi la lecture et la compréhension des cartes. <img width="98" height="29" alt="image" src="https://github.com/user-attachments/assets/b9eeec15-ae36-4be4-83d6-1b4f5f5adfb4" />
 Néanmoins, il est aussi possible de choisir le **code des EPCI** comme identifiant unique. Avec ces paramètres définis, nous disposons de toutes les informations nécessaires pour lancer l’atlas. 
 ## 5\. Lancement de l’atlas
+
 L’atlas se lance à l’aide du bouton **aperçu de l’atlas,** disponible dans la barre d’outils.  <img width="41" height="32" alt="image" src="https://github.com/user-attachments/assets/6709c7d0-0eea-437c-b11b-242d9dcb268f" />
 
 Toutefois, au premier affichage, la carte peut sembler **fixe**, même si l’atlas est activé. Cela est dû au fait que l’emprise cartographique n’est pas encore contrôlée par l’atlas. 
-Pour afficher correctement toutes les entités, il est nécessaire d’activer cette option dans les **propriétés de l’emprise de la carte**. Il suffit alors de cocher l’option permettant de **lier l’emprise à l’atlas.** Une fois cette étape réalisée, les cartes de l’atlas s'afficheront
-
-<img width="141" height="21" alt="image" src="https://github.com/user-attachments/assets/9e6c1133-5285-47c4-8154-94f22f0c8bb3" />
-
-dynamiquement, et il sera possible de naviguer entre les entités à l’aide des **boutons de défilement**. 
+Pour afficher correctement toutes les entités, il est nécessaire d’activer cette option dans les **propriétés de l’emprise de la carte**. Il suffit alors de cocher l’option permettant de **lier l’emprise à l’atlas.** Une fois cette étape réalisée, les cartes de l’atlas s'afficheront dynamiquement, et il sera possible de naviguer entre les entités à l’aide des **boutons de défilement**. <img width="141" height="21" alt="image" src="https://github.com/user-attachments/assets/9e6c1133-5285-47c4-8154-94f22f0c8bb3" />
 
 <img width="716" height="46" alt="image" src="https://github.com/user-attachments/assets/bf0ff271-3093-4375-aa59-f9c958274db2" />
 
@@ -136,6 +138,7 @@ longueur de **20 mm** et une seule **subdivision**.
 **\- Logo des EPCI** 
 Afficher automatiquement le logo correspondant à l’EPCI actif sur chaque page de l’atlas dans QGIS, en fonction du nom ou du code de l’EPCI. 
 ️ **Données utilisées** 
+
 ● **Couche de couverture de l’atlas** : atlas\_EPCI, avec la colonne code (ou lib) correspondant aux EPCI. 
 
 ● **Fichier Excel de correspondance** : test.xlsx, contenant trois colonnes : 
@@ -147,16 +150,19 @@ Afficher automatiquement le logo correspondant à l’EPCI actif sur chaque page
 ○ chemin : chemin absolu du logo image correspondant (format PNG, JPG...). 
 
 **Principe de la méthode** 
+
 1\. **Lier dynamiquement le logo** au paramètre actif de l’atlas (EPCI). 
 2\. Utiliser une **jointure virtuelle** dans QGIS entre la couche de couverture (atlas\_EPCI) et le fichier Excel (test.xlsx) via le champ code. 
 3\. Ajouter une **image dynamique** dans la mise en page de l’atlas, en utilisant une **expression QGIS** pour lire le chemin d’image stocké dans le fichier Excel. 
 **Étapes de mise en œuvre** 
 **1\.** **Charger le fichier Excel dans QGIS** 
+
 ● Menu : *Layer \> Add Layer \> Add Layer from Excel* (test.xlsx). 
 
 ● Vérifie que les champs code, lib et chemin sont bien reconnus.
 
 **2\.** **Joindre le fichier Excel à la couche atlas** 
+
 ● Dans les **propriétés de la couche atlas\_EPCI**, onglet *Jointures* : 
 
 ○ Couche cible : test.xlsx,  
@@ -166,6 +172,7 @@ Afficher automatiquement le logo correspondant à l’EPCI actif sur chaque page
 ○ Active la jointure. 
 
 **3\.** ️ **Ajouter le logo dans la mise en page** 
+
 **\-** Ouvre la mise en page de ton atlas. 
 **\-** Insère une **image** (Ajouter une image). 
 **\-** Dans l’onglet **propriétés de l’image** : 
@@ -180,6 +187,7 @@ o Mets cette expression qui correspond au nom de la colonne jointe dans la couch
 
 **Figure 13 :** Affichage dynamique du logo EPCI dans l’atlas à partir d’un fichier Excel 
 ## 6\. Problématique liée à l’automatisation (atlas) 
+
 Tout d'abord, il est **idéal** d’afficher les étiquettes uniquement pour les communes de l’EPCI actif **dan**s l’atlas. Pour cela, il est nécessaire de définir un **étiquetage basé sur des règles**, en appliquant le filtre suivant : ***within ($geometry, @atlas\_geometry).***  
 
 <img width="1268" height="245" alt="image" src="https://github.com/user-attachments/assets/26942f4a-c059-4b87-915f-5cd9b8d2abd6" />
@@ -191,6 +199,7 @@ Cependant, les étiquettes s'affichent souvent **dans des positions non optimale
 
 **Figure 15 :** La position des étiquettes sur la carte 
 ### 6.1. Méthode pour un positionnement optimal des étiquettes
+
 Afin d’optimiser la position des étiquettes, il serait nécessaire de **créer une couche de points** associée aux entités (ici, chaque commune dans un EPCI). 
 **\- Création de la couche de points** 
 Cette couche de points doit contenir : 
@@ -214,6 +223,7 @@ Sur la couche d’étiquettes, il est désormais possible de **définir le posit
 **Figure 16 :** Optimisation de la position des étiquettes sur la carte 
 Ensuite, pour que l’étiquette de chaque commune se positionne correctement en fonction des coordonnées du point associé, il est nécessaire de **lier les champs de coordonnées** aux champs correspondants dans la couche d'étiquette (voir figure 15). Cela permettra d’ajuster automatiquement la position de chaque étiquette selon les points définis. 
 ### 6.2. Méthode pour un positionnement optimal des cercles proportionnels
+
 Le même processus utilisé pour le réglage des **étiquettes** s’applique également aux **cercles proportionnels**. 
 Toutefois, dans ce cas, les ajustements de **positionnement** doivent être effectués directement dans les paramétrages **des diagrammes** (voir figure 16). Il est essentiel de définir correctement les coordonnées des cercles pour garantir une représentation claire et lisible sur la carte.  
 
@@ -221,9 +231,11 @@ Toutefois, dans ce cas, les ajustements de **positionnement** doivent être effe
 
 **Figure 17 :** Optimisation de la position des cercles proportionnels sur la carte 
 ## 7\. Avantages et mise à jour cartographique
+
 Le fait que les données soient directement liées à la **base de données** permet une **mise à jour automatique** des cartes en fonction des nouvelles données disponibles. Ainsi, cette cartographie automatisée constitue un **socle dynamique et pérenne** pour l’actualisation des cartes, garantissant une cohérence et une fiabilité des informations pour toutes les entités concernées. 
 Cependant, cette automatisation présente certaines **limites**, notamment pour la gestion des **étiquettes**, des **cartes graduées** et des **cercles proportionnels**, qui nécessitent parfois des ajustements manuels pour un affichage optimal.  
 ## 8 \- Les limites
+
 La **pertinence cartographique** de certaines thématiques nécessite parfois de **dupliquer le projet QGIS** afin d’apporter des **modifications spécifiques**. Cela permet d’**optimiser la visualisation** tout en se concentrant sur un **territoire précis** (EPCI) parmi l’ensemble des entités cartographiées dans l’atlas. 
 **\- Étiquettes** 
 La gestion des **étiquettes** est particulièrement **complexe**, notamment dans le cas des **cartes avec cercles proportionnels**. Un problème récurrent est le **chevauchement des étiquettes**, surtout lorsque les entités concernées (communes, quartiers) sont de **petite taille**. 
@@ -245,6 +257,7 @@ Comme mentionné précédemment, **l’échelle d’affichage des cercles propor
 Pour **corriger ce déséquilibre**, il est recommandé de **dupliquer le projet QGIS** et d’appliquer un **filtre sur le territoire d’intérêt**. Cela permet d’**ajuster les échelles de visualisation** spécifiquement en fonction des valeurs propres à ce territoire, sans être influencé par les données des autres zones couvertes par l’atlas.  
 Il est également obligatoire de revoir la légende des cercles proportionnels en cas de modification des valeurs extrêmes, afin de mettre à jour leur libellé et d'assurer une représentation fidèle des données. 
 ## 9 \- Cas spécifique: atlas des flux pendulaire
+
 Dans le cas des flux pendulaires, il est nécessaire de créer une nouvelle colonne à partir du champ "code" de la couche "Flux entrants". Voici les étapes à suivre dans QGIS : 
 **Étapes dans QGIS** 
 **Créer une nouvelle colonne `code_racine` (facultatif mais recommandé)** Dans la couche principale de ton atlas : 
@@ -262,6 +275,7 @@ Avant d'activer l'atlas, il est nécessaire de créer une couche regroupée à p
 <img width="1243" height="487" alt="image" src="https://github.com/user-attachments/assets/7aa4448f-1c73-4b5f-9ad2-26e315262bee" />
 
 **Figure 20 :** Activation de l’atlas à partir d’une couche regroupée par EPCI 
+
 ● Dans l'onglet Atlas, cocher Générer un atlas. 
 
 ● Sélectionne ta couche de couverture (couche regroupée) comme couche principale.
