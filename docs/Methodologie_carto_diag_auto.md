@@ -113,13 +113,16 @@ Le **titre de la carte** peut être automatisé en fonction de l’atlas, à con
 Par exemple, si nous souhaitons faire apparaître le nom de l’EPCI dans le titre de chaque carte, nous pouvons récupérer cette information depuis la couche de l’atlas en utilisant le champ **lib**. Ainsi, le titre reste constant, mais  
 le nom du territoire varie automatiquement en fonction de l’atlas actif. 
 
-<img width="517" height="410" alt="image" src="https://github.com/user-attachments/assets/fefca01d-359d-4bc4-bafd-134dd70c9bc7" />
+<img width="1637" height="351" alt="image" src="https://github.com/user-attachments/assets/822dfa5b-67bf-4fe2-b344-245e5d1dd986" />
 
 **Figure 10 :** Automatisation du titre de la carte en fonction de l'atlas actif 
 **\- Légende** 
 L’automatisation de la **légende** semble relativement simple et ne nécessite pas d'expressions QGIS complexes. Il suffit de cocher les cases **optionnelles** pour restreindre l’apparence des éléments en fonction des besoins cartographiques. 
 Il est **idéalement recommandé** de désactiver l'option **« mise à jour automatique »** pour pouvoir ajuster manuellement les éléments de la légende (par exemple, regroupement, ajout, retrait, renommage, etc.). 
 De plus, il est aussi possible de restreindre l’affichage des éléments de la légende à **l’emprise de la carte**, ou encore de l'afficher uniquement pour l'**entité active** de l'atlas (figure 11).  
+
+<img width="517" height="410" alt="image" src="https://github.com/user-attachments/assets/405d10bc-17da-436e-8667-6dc1578fde91" />
+
 **Figure 11 :** Automatisation de l’affichage des légendes 
 **\- Échelle** 
 L’automatisation de l’**échelle** s’avère moins complexe, notamment grâce à l’option d’**ajustement automatique** en fonction de la largeur du segment. 
