@@ -155,7 +155,8 @@ o Mets cette expression qui correspond au nom de la colonne jointe dans la couch
 <img width="224" height="95" alt="image" src="https://github.com/user-attachments/assets/966be89f-e1b6-4b70-8352-a0e2e0f1e30d" />
 
 **Figure 13 :** Affichage dynamique du logo EPCI dans l’atlas à partir d’un fichier Excel 
-**6\. Problématique liée à l’automatisation (atlas)** Tout d'abord, il est **idéal** d’afficher les étiquettes uniquement pour les communes de l’EPCI actif **dan**s l’atlas. Pour cela, il est nécessaire de définir un **étiquetage basé sur des règles**, en appliquant le filtre suivant : ***within ($geometry, @atlas\_geometry).***  
+## 6\. Problématique liée à l’automatisation (atlas) 
+Tout d'abord, il est **idéal** d’afficher les étiquettes uniquement pour les communes de l’EPCI actif **dan**s l’atlas. Pour cela, il est nécessaire de définir un **étiquetage basé sur des règles**, en appliquant le filtre suivant : ***within ($geometry, @atlas\_geometry).***  
 
 <img width="1" height="1" alt="image" src="https://github.com/user-attachments/assets/b48ab832-32dc-4905-9d09-37b7325a5bb3" />
 
@@ -165,7 +166,7 @@ Cependant, les étiquettes s'affichent souvent **dans des positions non optimale
 <img width="1" height="1" alt="image" src="https://github.com/user-attachments/assets/96768123-2423-4ca9-bbe6-a48b37ffb6e3" />
 
 **Figure 15 :** La position des étiquettes sur la carte 
-## 6.1. Méthode pour un positionnement optimal des étiquettes
+**6.1. Méthode pour un positionnement optimal des étiquettes**
 Afin d’optimiser la position des étiquettes, il serait nécessaire de **créer une couche de points** associée aux entités (ici, chaque commune dans un EPCI). 
 **\- Création de la couche de points** 
 Cette couche de points doit contenir : 
