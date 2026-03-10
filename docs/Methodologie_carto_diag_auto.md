@@ -1,5 +1,8 @@
 
 # Méthodologie d’automatisation de cartes thématiques
+
+<img width="2500" height="1474" alt="image" src="https://github.com/user-attachments/assets/7b97e1df-297a-41c7-96bb-6fbdf795d66e" />
+
 ---
 
 ## Introduction
