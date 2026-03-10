@@ -145,8 +145,7 @@ Pour afficher correctement toutes les entités, il est nécessaire d’activer c
 
 Le **titre de la carte** peut être automatisé en fonction de l’atlas, à condition que cette information soit disponible dans un champ de la table de **génération de l’atlas** (voir Partie 1). 
 
-Par exemple, si nous souhaitons faire apparaître le nom de l’EPCI dans le titre de chaque carte, nous pouvons récupérer cette information depuis la couche de l’atlas en utilisant le champ **lib**. Ainsi, le titre reste constant, mais  
-le nom du territoire varie automatiquement en fonction de l’atlas actif. 
+Par exemple, si nous souhaitons faire apparaître le nom de l’EPCI dans le titre de chaque carte, nous pouvons récupérer cette information depuis la couche de l’atlas en utilisant le champ **lib**. Ainsi, le titre reste constant, mais le nom du territoire varie automatiquement en fonction de l’atlas actif. 
 
 <img width="1637" height="351" alt="image" src="https://github.com/user-attachments/assets/822dfa5b-67bf-4fe2-b344-245e5d1dd986" />
 
@@ -390,8 +389,7 @@ Les lignes peuvent être créées avec ***RStudio*** ou ***Python*** à partir d
 
 Nous avons besoin d’une **couche de couverture spécifique pour l’atlas**, créée à partir d’un **regroupement par la colonne code\_epci** de la couche de lignes représentant les déplacements. Ce regroupement est nécessaire pour **éliminer les doublons** et ainsi **individualiser chaque EPCI** dans l’atlas. 
 Cette couche de couverture, utilisée uniquement pour définir les territoires (EPCI), est **stockée localement** sur l’ordinateur et **n’est pas générée automatiquement**. 
-En revanche, la couche contenant les **données de déplacement**, issue d’un  
-fichier **SQL, Excel ou CSV**, reste **automatisée** : elle est **liée par jointure** à la couche de couverture via la colonne code\_commune. 
+En revanche, la couche contenant les **données de déplacement**, issue d’un fichier **SQL, Excel ou CSV**, reste **automatisée** : elle est **liée par jointure** à la couche de couverture via la colonne code\_commune. 
 
 <img width="831" height="289" alt="image" src="https://github.com/user-attachments/assets/367de7ab-10eb-428e-86a6-7fc28508801c" />
 
@@ -451,8 +449,7 @@ La taille des flèches est proportionnelle aux valeurs de la colonne concernée.
 
 Nous avons besoin d’une **couche de couverture spécifique pour l’atlas**, créée à partir d’un **regroupement par la colonne code\_epci** de la couche de lignes représentant les déplacements. Ce regroupement est nécessaire pour **éliminer les doublons** et ainsi **individualiser chaque EPCI** dans l’atlas. 
 Cette couche de couverture, utilisée uniquement pour définir les territoires (EPCI), est **stockée localement** sur l’ordinateur et **n’est pas générée automatiquement**. 
-En revanche, la couche contenant les **données de déplacement**, issue d’un  
-fichier **SQL, Excel ou CSV**, reste **automatisée** : elle est **liée par jointure** à la couche de couverture via la colonne code\_commune. 
+En revanche, la couche contenant les **données de déplacement**, issue d’un fichier **SQL, Excel ou CSV**, reste **automatisée** : elle est **liée par jointure** à la couche de couverture via la colonne code\_commune. 
 
 <img width="831" height="289" alt="image" src="https://github.com/user-attachments/assets/bed54071-3148-4240-a5da-a4f466b3bcf6" />
 
