@@ -11,7 +11,7 @@ La simplification de ce travail commence par l'application d'un ***filtre sur le
 Il est important de noter que les couches utilisées pour l’automatisation proviennent de **scripts SQL** exécutés directement sur la base de données, et non de couches stockées de manière permanente dans la base. 
 Cependant, certaines exceptions existent, notamment pour les **rasters** et les **couches d’étiquettes**, qui peuvent être enregistrées séparément pour des raisons de performance et de gestion des données. 
 
-## 1 . Automatisation de la couche de couverture
+## 1\. Automatisation de la couche de couverture
 
 Certaines couches doivent être paramétrées afin de permettre l’automatisation de l’atlas. 
 La **couche de génération de l’atlas** constitue la base du projet. Elle définit les différentes entités à cartographier et sert de référence pour la production des cartes. Grâce à une symbologie basée sur un ensemble de règles, chaque EPCI (Établissement Public de Coopération Intercommunale) peut être représenté individuellement tout en conservant une mise en page homogène. 
@@ -309,7 +309,7 @@ Toutefois, dans ce cas, les ajustements de **positionnement** doivent être effe
 Le fait que les données soient directement liées à la **base de données** permet une **mise à jour automatique** des cartes en fonction des nouvelles données disponibles. Ainsi, cette cartographie automatisée constitue un **socle dynamique et pérenne** pour l’actualisation des cartes, garantissant une cohérence et une fiabilité des informations pour toutes les entités concernées. 
 Cependant, cette automatisation présente certaines **limites**, notamment pour la gestion des **étiquettes**, des **cartes graduées** et des **cercles proportionnels**, qui nécessitent parfois des ajustements manuels pour un affichage optimal.  
 
-## 8 \- Les limites
+## 8 \. Les limites
 
 La **pertinence cartographique** de certaines thématiques nécessite parfois de **dupliquer le projet QGIS** afin d’apporter des **modifications spécifiques**. Cela permet d’**optimiser la visualisation** tout en se concentrant sur un **territoire précis** (EPCI) parmi l’ensemble des entités cartographiées dans l’atlas. 
 **\- Étiquettes** 
@@ -335,7 +335,7 @@ Comme mentionné précédemment, **l’échelle d’affichage des cercles propor
 Pour **corriger ce déséquilibre**, il est recommandé de **dupliquer le projet QGIS** et d’appliquer un **filtre sur le territoire d’intérêt**. Cela permet d’**ajuster les échelles de visualisation** spécifiquement en fonction des valeurs propres à ce territoire, sans être influencé par les données des autres zones couvertes par l’atlas.  
 Il est également obligatoire de revoir la légende des cercles proportionnels en cas de modification des valeurs extrêmes, afin de mettre à jour leur libellé et d'assurer une représentation fidèle des données. 
 
-## 9 \- Cas spécifique: atlas des flux pendulaire
+## 9 \. Cas spécifique: atlas des flux pendulaire
 
 Dans le cas des flux pendulaires, il est nécessaire de créer une nouvelle colonne à partir du champ "code" de la couche "Flux entrants". Voici les étapes à suivre dans QGIS : 
 
@@ -500,10 +500,25 @@ Veillez à utiliser les mêmes valeurs que celles définies dans la symbologie p
 
 **Figure 38 :** Correspondance des tailles des flèches entre symbole et légende 
 
-**Conclusion** 
+## Conclusion
 
 L’automatisation des atlas cartographiques dans QGIS permet de simplifier et d’optimiser la production de cartes en s’appuyant sur des règles de symbologie et des expressions dynamiques. Grâce à l’intégration de données directement issues d’une base de données SQL et à l’utilisation de filtres spatiaux et attributaires, il est possible de générer des cartes précises et adaptées à chaque entité étudiée. 
 
 Toutefois, malgré ces avancées, certains défis persistent, notamment la gestion des étiquettes et des éléments graphiques complexes comme les cercles proportionnels. Ces aspects nécessitent encore des ajustements manuels pour garantir une lisibilité optimale des cartes produites. 
 
 En définitive, cette méthodologie d’automatisation constitue un gain de temps considérable et améliore la cohérence des représentations cartographiques, tout en permettant une mise à jour continue des données. Cependant, une réflexion complémentaire sur l’optimisation des paramètres d’affichage reste essentielle pour perfectionner le rendu final et s’adapter aux spécificités de chaque territoire.
+
+## Quelques exemples réalisés
+
+<img width="1653" height="2338" alt="image" src="https://github.com/user-attachments/assets/4be5a620-3f74-40e0-acf3-341e3df5c557" />
+<img width="1653" height="2338" alt="image" src="https://github.com/user-attachments/assets/cfb7dc77-6fc5-49f6-a1d9-db059b4fdae0" />
+<img width="1653" height="2338" alt="image" src="https://github.com/user-attachments/assets/91ffec75-5e7e-46c8-a608-470835d1a017" />
+<img width="2048" height="1448" alt="image" src="https://github.com/user-attachments/assets/280ddc67-d06c-4e09-938e-9166571fbb3d" />
+<img width="2048" height="1448" alt="image" src="https://github.com/user-attachments/assets/77edb7b6-c3c2-41a7-9868-44ad973590b9" />
+<img width="2048" height="1448" alt="image" src="https://github.com/user-attachments/assets/3d6cfe38-d63d-4509-99a7-01ed918a0f9a" />
+
+
+
+
+
+
