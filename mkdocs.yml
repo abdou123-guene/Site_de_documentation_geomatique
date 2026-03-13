@@ -5,17 +5,18 @@ theme:
 
 nav:
   - Accueil: index.md
-  - Exemple de source de données entreprise : Readme.md
-  - Cycle de vie des données: cycle_de_vie_des_donnees.md
   - Interopérabilité des données en géomatique: Interoperabilite.md
+  - Cycle de vie des données: cycle_de_vie_des_donnees.md
   - Admin et Base de données géographique : aide_sql.md
   - Quelques exemples de scripts SQL fréquents en géomatique: abdou_julien_base_de_donnees.md
-  - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
+  - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
   - Brique de Géomatqiue et Télédétection: teledetection.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
-  - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
+  - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
+  - Exemple de source de données entreprise : Readme.md
 extra_css:
   - css/le_style.css
+
 
 
 
