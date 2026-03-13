@@ -2,7 +2,7 @@
 ---
 Paul Passy \- paul.passy@u-paris.fr 
 
-![Rstudio 2](https://tse3.mm.bing.net/th/id/OIP.T7QKgicQotpqzY8mKwqZJwHaCu?rs=1&pid=ImgDetMain&o=7&rm=3)
+![Télédétection](https://www.aquaportail.com/pictures2208/teledetection.jpg)
 
 [Ressources importantes](https://briques-de-geomatique.readthedocs.io/fr/latest/telede-theorie-missions-donnees.html)
 
