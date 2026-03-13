@@ -1,5 +1,7 @@
 #  Fiche complète PostgreSQL / PostGIS 
 ---
+![PostgreSQL Logo](https://www.liblogo.com/img-logo/po4159p5ee-postgresql-logo-postgresql-logo.png)
+
 [🔗 Documentation officielle PostgreSQL](https://www.postgresql.org/docs/)  
 [🔗 Cours IDGEO 2025/2026](https://supports.idgeo.fr/cpgeom/2025-2027/A3-Admin_bdd/co/BDD_PGIS_tables_distantes.html)
 ##  1. Fonctions PostGIS dans SELECT et JOIN
