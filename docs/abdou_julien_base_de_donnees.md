@@ -1,6 +1,7 @@
 
 # Queslques scripts SQL fréquents en géomatique
 ---
+![PostgreSQL Logo](https://www.liblogo.com/img-logo/po4159p5ee-postgresql-logo-postgresql-logo.png)
 ## 1. Création d’index
 ### Objectif
 Créer un index partiel sur la colonne numpar pour accélérer les requêtes ciblant la parcelle c10436.
@@ -516,6 +517,7 @@ Numéro de semaine :
 ```sql
 WEEK(date) 
 ```
+
 
 
 
