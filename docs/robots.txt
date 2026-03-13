@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abdou123-guene.github.io/Site_de_documentation_geomatique/sitemap.xml
