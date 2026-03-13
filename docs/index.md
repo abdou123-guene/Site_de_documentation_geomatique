@@ -1,3 +1,8 @@
+---
+title: "Documentation Géomatique – Guene Abdou"
+description: "Site de documentation géomatique, GDAL, QGIS, Bash, PostGIS, Jawharu-n-Nafis, par Guene Abdou."
+keywords: "geomatique, guene abdou, gdal, qgis, bash, jawharu nafi, documentation geomatique"
+---
 # Bienvenue sur la documentation en Géomatique 
 <img width="1200" height="333" alt="logiciel-sig-qgis-arcgis-cartographie-geomatique-cartoexpert" src="https://github.com/user-attachments/assets/0dc750dc-c27c-45fd-87a3-da3f37b33c5a" />
 
