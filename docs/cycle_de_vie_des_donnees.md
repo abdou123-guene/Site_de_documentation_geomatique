@@ -1,6 +1,7 @@
 
 # **Cycle de vie des données**
 ---
+<img width="1919" height="1079" alt="Capture d&#39;écran 2026-03-10 134506" src="https://github.com/user-attachments/assets/52b3c961-f731-436b-aa0f-1e5ff9e87947" />
 
 ## **Structure:**
 
@@ -92,9 +93,3 @@ Anticiper la mise à jour annuelle ou la réception d’un nouveau PLU.
 → Tu vérifies  
 → Tu valides  
 → etc.
-
-## Exemple schématisé
-
-<img width="1919" height="1079" alt="Capture d&#39;écran 2026-03-10 134506" src="https://github.com/user-attachments/assets/52b3c961-f731-436b-aa0f-1e5ff9e87947" />
-
-
