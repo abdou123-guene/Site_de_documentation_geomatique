@@ -1,7 +1,8 @@
 # Documentation en télédétection 
 ---
 Paul Passy \- paul.passy@u-paris.fr 
-![Télédétection](https://www.aquaportail.com/pictures2208/teledetection.jpg)
+
+![Rstudio 2](https://tse3.mm.bing.net/th/id/OIP.T7QKgicQotpqzY8mKwqZJwHaCu?rs=1&pid=ImgDetMain&o=7&rm=3)
 
 [Ressources importantes](https://briques-de-geomatique.readthedocs.io/fr/latest/telede-theorie-missions-donnees.html)
 
