@@ -4,6 +4,7 @@
 <img width="2500" height="1474" alt="image" src="https://github.com/user-attachments/assets/7b97e1df-297a-41c7-96bb-6fbdf795d66e" />
 
 ---
+https://docs.qgis.org/3.40/en/docs/about/preamble.html
 
 ## Introduction
 
