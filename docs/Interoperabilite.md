@@ -1,6 +1,6 @@
 # Interopérabilité en géomatique  
 ---
-
+![Télédétection](https://www.aquaportail.com/pictures2208/teledetection.jpg)
  
 Article sur *L’interopérabilité des données géospatiales : enjeux et solutions*  
 [Interopérabilité des Données Géospatiales : Défis et Innovations](https://geomatique-aln.fr/linteroperabilite-des-donnees-geospatiales-enjeux-et-solutions/)  
