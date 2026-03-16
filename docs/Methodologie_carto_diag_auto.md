@@ -94,9 +94,9 @@ Si l’atlas est basé sur une couche d’EPCI et qu'on veut afficher uniquement
 | Critère  | @atlas\_pagename | intersects($geometry,  @atlas\_geometry) |
 | ----- | ----- | ----- |
 | Basé sur  | Valeur attributaire  | Relation spatiale |
-| Nécessite un champ commun  | ✅ Oui  | ❌ Non |
+| Nécessite un champ commun  | Oui  | Non |
 | Fonctionne avec | Données ayant un  identifiant partagé | Toutes les données  spatiales |
-| Performance  | ⚡ Très rapide  | ⏳ Plus gourmand en calcul |
+| Performance  | Très rapide  | Plus gourmand en calcul |
 | Exemple d’usage  | Filtrer par nom d’epci | Filtrer par intersection géométrique |
 
 **Figure 6 :** Tableau de comparaison synthétique 
