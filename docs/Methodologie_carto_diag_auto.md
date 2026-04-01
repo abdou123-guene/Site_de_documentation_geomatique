@@ -501,6 +501,23 @@ Veillez à utiliser les mêmes valeurs que celles définies dans la symbologie p
 
 **Figure 39 :** Correspondance des tailles des flèches entre symbole et légende 
 
+## Codes SQL pour passer des couches csv + communes.gpkg à la couche linéaire_flux.gpkg
+--sql
+create table bdtopo.domicile_travail as
+SELECT *
+FROM bdtopo.flux_domicile_travail_2022 AS f
+WHERE f.codgeo  IN (
+'51003','51023','51031','51078','51087','51097','51099','51106','51108','51117',
+'51146','51147','51148','51149','51150','51160','51161','51168','51178','51179',
+'51193','51197','51203','51208','51212','51227','51231','51242','51244','51259',
+'51260','51278','51285','51301','51303','51307','51312','51317','51319','51326',
+'51339','51354','51357','51371','51372','51377','51388','51389','51409','51415',
+'51436','51438','51453','51476','51482','51483','51485','51486','51490','51491',
+'51501','51502','51504','51506','51509','51512','51515','51525','51538','51544',
+'51545','51546','51547','51548','51553','51555','51556','51559','51566','51572',
+'51574','51587','51594','51595','51616','51617','51634','51648','51656'
+);
+--sql
 ## Conclusion
 
 L’automatisation des atlas cartographiques dans QGIS permet de simplifier et d’optimiser la production de cartes en s’appuyant sur des règles de symbologie et des expressions dynamiques. Grâce à l’intégration de données directement issues d’une base de données SQL et à l’utilisation de filtres spatiaux et attributaires, il est possible de générer des cartes précises et adaptées à chaque entité étudiée. 
