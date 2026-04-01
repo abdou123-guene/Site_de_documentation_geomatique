@@ -501,16 +501,28 @@ Veillez à utiliser les mêmes valeurs que celles définies dans la symbologie p
 
 **Figure 39 :** Correspondance des tailles des flèches entre symbole et légende 
 
-## Codes SQL pour passer des couches csv + communes.gpkg à la couche linéaire_flux.gpkg
-
+## Workflow de génération des flux domicile–travail pour le pays de Châlons‑en‑Champagne
 Il faut savoir que la couches de l'insee nommée est enregistrée déja dans la base de donnée: "flux_domicile_travail_2022"
-On va maintenant créer d'abord deux couches (sortants et entrants) en filtrant avec codgeo (domicile) ou dclt (travail) et seulement pour le Châlons-en-Champagne 
-CSV des sortants au pays de Châlons-en-Champagne 
+Cette étape décrit les étapes et les requêtes SQL permettant de :
+1. Extraire les flux sortants et entrants à partir du référentiel INSEE 2022 présent dans la base (flux_domicile_travail_2022).
+2. Générer les couches géométriques linéaires (flows lines) grâce aux centroides des communes.
+3. Utiliser ensuite ces flux dans QGIS pour produire des analyses par communes puis par EPCI.
+
+### 1. Pré-requis
+
+Les données suivantes doivent déjà être présentes dans la base PostgreSQL/PostGIS :
+- bdtopo.flux_domicile_travail_2022 : flux INSEE domicile ↔ travail
+- bdtopo.commune_adminexpr : communes avec géométries et codes INSEE
+Les opérations suivantes créent plusieurs tables permettant de travailler sur les flux du pays de Châlons‑en‑Champagne.
+La liste des codes INSEE considérés correspond aux communes du périmètre concerné.
+
+### 2. Extraction des flux sortants (domicile → ailleurs)
+
 ```sql
-create table bdtopo.domicile_travail_ou_pays_vers_ailleurs as
+CREATE TABLE bdtopo.domicile_travail_ou_pays_vers_ailleurs AS
 SELECT *
 FROM bdtopo.flux_domicile_travail_2022 AS f
-WHERE f.codgeo  IN (
+WHERE f.codgeo IN (
 '51003','51023','51031','51078','51087','51097','51099','51106','51108','51117',
 '51146','51147','51148','51149','51150','51160','51161','51168','51178','51179',
 '51193','51197','51203','51208','51212','51227','51231','51242','51244','51259',
@@ -522,9 +534,11 @@ WHERE f.codgeo  IN (
 '51574','51587','51594','51595','51616','51617','51634','51648','51656'
 );
 ```
-CSV des entrants au pays de Châlons-en-Champagne
+
+### 3. Extraction des flux entrants (ailleurs → travail dans le pays)
+
 ```sql
-create table bdtopo.travail_domicile_ou_ailleurs_vers_pays as
+CREATE TABLE bdtopo.travail_domicile_ou_ailleurs_vers_pays AS
 SELECT *
 FROM bdtopo.flux_domicile_travail_2022 AS f
 WHERE f.dclt IN (
@@ -539,16 +553,18 @@ WHERE f.dclt IN (
 '51574','51587','51594','51595','51616','51617','51634','51648','51656'
 );
 ```
-Flux entrants au pays de Châlons-en-Champagne
+
+### 4. Création des flux entrants sous forme de lignes (géométrie)
+
 ```sql
 CREATE TABLE bdtopo.travail_domicile_ou_ailleurs_vers_pays_geom AS
 SELECT
     td.*,
     ST_MakeLine(
-        ST_Centroid(cdom.geom),      -- géométrie domicile
-        ST_Centroid(ctrav.geom)      -- géométrie travail
+        ST_Centroid(cdom.geom),   -- géométrie domicile
+        ST_Centroid(ctrav.geom)   -- géométrie travail
     ) AS geom
-FROM bdtopo.travail_domicile td
+FROM bdtopo.travail_domicile_ou_ailleurs_vers_pays td
 LEFT JOIN bdtopo.commune_adminexpr cdom
     ON cdom.code_insee = td.codgeo
 LEFT JOIN bdtopo.commune_adminexpr ctrav
@@ -565,21 +581,23 @@ WHERE td.dclt IN (
 '51574','51587','51594','51595','51616','51617','51634','51648','51656'
 );
 ```
-sortants au pays de Châlons-en-Champagne 
+
+### 5. Création des flux sortants sous forme de lignes (géométrie)
+
 ```sql
 CREATE TABLE bdtopo.domicile_travail_ou_pays_vers_ailleurs_geom AS
 SELECT
     dt.*,
     ST_MakeLine(
-        ST_Centroid(cdom.geom),      -- centroid domicile
-        ST_Centroid(ctrav.geom)      -- centroid travail
+        ST_Centroid(cdom.geom),   -- centroid domicile
+        ST_Centroid(ctrav.geom)   -- centroid travail
     ) AS geom
-FROM bdtopo.domicile_travail dt
+FROM bdtopo.domicile_travail_ou_pays_vers_ailleurs dt
 LEFT JOIN bdtopo.commune_adminexpr cdom
     ON cdom.code_insee = dt.codgeo
 LEFT JOIN bdtopo.commune_adminexpr ctrav
     ON ctrav.code_insee = dt.dclt
-WHERE dt.codgeo  IN (
+WHERE dt.codgeo IN (
 '51003','51023','51031','51078','51087','51097','51099','51106','51108','51117',
 '51146','51147','51148','51149','51150','51160','51161','51168','51178','51179',
 '51193','51197','51203','51208','51212','51227','51231','51242','51244','51259',
@@ -591,9 +609,29 @@ WHERE dt.codgeo  IN (
 '51574','51587','51594','51595','51616','51617','51634','51648','51656'
 );
 ```
-Ainsi on a les flux entre les communes:
-Pour avoir les flux par EPCI, il faut utiliser les couches flux sur QGIS et une couche communes + une couche EPCI.
-Il faudra procéder EPCI par EPCI en s'interessant à la somme des flux entrants de toutes les communes de l'EPCI que vous renseignez dans une une couche de flux entrant EPCI digitalisée entrant pays par exemple et EPCI.
+
+### 6. Analyse par EPCI dans QGIS
+
+Une fois les couches générées :
+**1. Charger dans QGIS :**
+
+Les couches de flux (entrants / sortants)
+La couche des communes
+La couche des EPCI
+
+**2. Pour obtenir les flux par EPCI :**
+
+Sélectionner l’EPCI cible
+Sélectionner toutes les communes correspondant à cet EPCI
+Filtrer les flux pour ne conserver que ceux dont la commune origine/destination appartient à l’EPCI
+Dissoudre ou sommer les flux selon les besoins
+
+**3. Exporter les résultats en :**
+
+Shapefile
+GeoPackage
+CSV
+Couche de flux EPCI → EPCI
 ## Conclusion
 
 L’automatisation des atlas cartographiques dans QGIS permet de simplifier et d’optimiser la production de cartes en s’appuyant sur des règles de symbologie et des expressions dynamiques. Grâce à l’intégration de données directement issues d’une base de données SQL et à l’utilisation de filtres spatiaux et attributaires, il est possible de générer des cartes précises et adaptées à chaque entité étudiée. 
