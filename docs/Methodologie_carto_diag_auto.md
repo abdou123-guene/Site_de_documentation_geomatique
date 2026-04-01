@@ -502,8 +502,12 @@ Veillez à utiliser les mêmes valeurs que celles définies dans la symbologie p
 **Figure 39 :** Correspondance des tailles des flèches entre symbole et légende 
 
 ## Codes SQL pour passer des couches csv + communes.gpkg à la couche linéaire_flux.gpkg
---sql
-create table bdtopo.domicile_travail as
+
+Il faut savoir que la couches de l'insee nommée est enregistrée déja dans la base de donnée: "flux_domicile_travail_2022"
+On va maintenant créer d'abord deux couches (sortants et entrants) en filtrant avec codgeo (domicile) ou dclt (travail) et seulement pour le Châlons-en-Champagne 
+CSV des sortants au pays de Châlons-en-Champagne 
+```sql
+create table bdtopo.domicile_travail_ou_pays_vers_ailleurs as
 SELECT *
 FROM bdtopo.flux_domicile_travail_2022 AS f
 WHERE f.codgeo  IN (
@@ -517,7 +521,79 @@ WHERE f.codgeo  IN (
 '51545','51546','51547','51548','51553','51555','51556','51559','51566','51572',
 '51574','51587','51594','51595','51616','51617','51634','51648','51656'
 );
---sql
+```
+CSV des entrants au pays de Châlons-en-Champagne
+```sql
+create table bdtopo.travail_domicile_ou_ailleurs_vers_pays as
+SELECT *
+FROM bdtopo.flux_domicile_travail_2022 AS f
+WHERE f.dclt IN (
+'51003','51023','51031','51078','51087','51097','51099','51106','51108','51117',
+'51146','51147','51148','51149','51150','51160','51161','51168','51178','51179',
+'51193','51197','51203','51208','51212','51227','51231','51242','51244','51259',
+'51260','51278','51285','51301','51303','51307','51312','51317','51319','51326',
+'51339','51354','51357','51371','51372','51377','51388','51389','51409','51415',
+'51436','51438','51453','51476','51482','51483','51485','51486','51490','51491',
+'51501','51502','51504','51506','51509','51512','51515','51525','51538','51544',
+'51545','51546','51547','51548','51553','51555','51556','51559','51566','51572',
+'51574','51587','51594','51595','51616','51617','51634','51648','51656'
+);
+```
+Flux entrants au pays de Châlons-en-Champagne
+```sql
+CREATE TABLE bdtopo.travail_domicile_ou_ailleurs_vers_pays_geom AS
+SELECT
+    td.*,
+    ST_MakeLine(
+        ST_Centroid(cdom.geom),      -- géométrie domicile
+        ST_Centroid(ctrav.geom)      -- géométrie travail
+    ) AS geom
+FROM bdtopo.travail_domicile td
+LEFT JOIN bdtopo.commune_adminexpr cdom
+    ON cdom.code_insee = td.codgeo
+LEFT JOIN bdtopo.commune_adminexpr ctrav
+    ON ctrav.code_insee = td.dclt
+WHERE td.dclt IN (
+'51003','51023','51031','51078','51087','51097','51099','51106','51108','51117',
+'51146','51147','51148','51149','51150','51160','51161','51168','51178','51179',
+'51193','51197','51203','51208','51212','51227','51231','51242','51244','51259',
+'51260','51278','51285','51301','51303','51307','51312','51317','51319','51326',
+'51339','51354','51357','51371','51372','51377','51388','51389','51409','51415',
+'51436','51438','51453','51476','51482','51483','51485','51486','51490','51491',
+'51501','51502','51504','51506','51509','51512','51515','51525','51538','51544',
+'51545','51546','51547','51548','51553','51555','51556','51559','51566','51572',
+'51574','51587','51594','51595','51616','51617','51634','51648','51656'
+);
+```
+sortants au pays de Châlons-en-Champagne 
+```sql
+CREATE TABLE bdtopo.domicile_travail_ou_pays_vers_ailleurs_geom AS
+SELECT
+    dt.*,
+    ST_MakeLine(
+        ST_Centroid(cdom.geom),      -- centroid domicile
+        ST_Centroid(ctrav.geom)      -- centroid travail
+    ) AS geom
+FROM bdtopo.domicile_travail dt
+LEFT JOIN bdtopo.commune_adminexpr cdom
+    ON cdom.code_insee = dt.codgeo
+LEFT JOIN bdtopo.commune_adminexpr ctrav
+    ON ctrav.code_insee = dt.dclt
+WHERE dt.codgeo  IN (
+'51003','51023','51031','51078','51087','51097','51099','51106','51108','51117',
+'51146','51147','51148','51149','51150','51160','51161','51168','51178','51179',
+'51193','51197','51203','51208','51212','51227','51231','51242','51244','51259',
+'51260','51278','51285','51301','51303','51307','51312','51317','51319','51326',
+'51339','51354','51357','51371','51372','51377','51388','51389','51409','51415',
+'51436','51438','51453','51476','51482','51483','51485','51486','51490','51491',
+'51501','51502','51504','51506','51509','51512','51515','51525','51538','51544',
+'51545','51546','51547','51548','51553','51555','51556','51559','51566','51572',
+'51574','51587','51594','51595','51616','51617','51634','51648','51656'
+);
+```
+Ainsi on a les flux entre les communes:
+Pour avoir les flux par EPCI, il faut utiliser les couches flux sur QGIS et une couche communes + une couche EPCI.
+Il faudra procéder EPCI par EPCI en s'interessant à la somme des flux entrants de toutes les communes de l'EPCI que vous renseignez dans une une couche de flux entrant EPCI digitalisée entrant pays par exemple et EPCI.
 ## Conclusion
 
 L’automatisation des atlas cartographiques dans QGIS permet de simplifier et d’optimiser la production de cartes en s’appuyant sur des règles de symbologie et des expressions dynamiques. Grâce à l’intégration de données directement issues d’une base de données SQL et à l’utilisation de filtres spatiaux et attributaires, il est possible de générer des cartes précises et adaptées à chaque entité étudiée. 
