@@ -613,25 +613,34 @@ WHERE dt.codgeo IN (
 ### 6. Analyse par EPCI dans QGIS
 
 Une fois les couches générées :
+
 **1. Charger dans QGIS :**
 
 Les couches de flux (entrants / sortants)
+
 La couche des communes
+
 La couche des EPCI
 
 **2. Pour obtenir les flux par EPCI :**
 
 Sélectionner l’EPCI cible
+
 Sélectionner toutes les communes correspondant à cet EPCI
+
 Filtrer les flux pour ne conserver que ceux dont la commune origine/destination appartient à l’EPCI
+
 Dissoudre ou sommer les flux selon les besoins
 
 **3. Exporter les résultats en :**
 
 Shapefile
+
 GeoPackage
+
 CSV
 Couche de flux EPCI → EPCI
+
 ## Conclusion
 
 L’automatisation des atlas cartographiques dans QGIS permet de simplifier et d’optimiser la production de cartes en s’appuyant sur des règles de symbologie et des expressions dynamiques. Grâce à l’intégration de données directement issues d’une base de données SQL et à l’utilisation de filtres spatiaux et attributaires, il est possible de générer des cartes précises et adaptées à chaque entité étudiée. 
