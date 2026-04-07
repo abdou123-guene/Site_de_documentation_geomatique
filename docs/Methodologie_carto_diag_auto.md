@@ -642,6 +642,75 @@ CSV
 
 Couche de flux EPCI → EPCI
 
+### 7. Et si nous voulons une cartes avec cercles proportionnels incluant les 3 types de flux
+
+```sql
+CREATE TABLE bdtopo.flux_par_commune_pays_chalons AS
+SELECT
+    c.code_insee,
+    c.nom_officiel,
+
+    -- Flux internes (domicile = travail)
+    COALESCE(fi.flux_interne, 0)::INTEGER AS flux_interne,
+
+    -- Flux sortants (domicile dans la commune, travail ailleurs)
+    COALESCE(fs.flux_sortant, 0)::INTEGER AS flux_sortant,
+
+    -- Flux entrants (domicile ailleurs, travail dans la commune)
+    COALESCE(fe.flux_entrant, 0)::INTEGER AS flux_entrant,
+
+    -- Géométrie communale
+    c.geom
+
+FROM bdtopo.commune_adminexpr c
+
+-- Flux internes
+LEFT JOIN (
+    SELECT
+        codgeo AS code_insee,
+        SUM(nbflux_c22_actocc15p)::INTEGER AS flux_interne
+    FROM bdtopo.flux_domicile_travail_2022
+    WHERE codgeo = dclt
+    GROUP BY codgeo
+) fi
+ON fi.code_insee = c.code_insee
+
+-- Flux sortants
+LEFT JOIN (
+    SELECT
+        codgeo AS code_insee,
+        SUM(nbflux_c22_actocc15p)::INTEGER AS flux_sortant
+    FROM bdtopo.flux_domicile_travail_2022
+    WHERE codgeo <> dclt
+    GROUP BY codgeo
+) fs
+ON fs.code_insee = c.code_insee
+
+-- Flux entrants
+LEFT JOIN (
+    SELECT
+        dclt AS code_insee,
+        SUM(nbflux_c22_actocc15p)::INTEGER AS flux_entrant
+    FROM bdtopo.flux_domicile_travail_2022
+    WHERE codgeo <> dclt
+    GROUP BY dclt
+) fe
+ON fe.code_insee = c.code_insee
+
+-- Limitation au périmètre du pays de Châlons-en-Champagne
+WHERE c.code_insee IN (
+'51003','51023','51031','51078','51087','51097','51099','51106','51108','51117',
+'51146','51147','51148','51149','51150','51160','51161','51168','51178','51179',
+'51193','51197','51203','51208','51212','51227','51231','51242','51244','51259',
+'51260','51278','51285','51301','51303','51307','51312','51317','51319','51326',
+'51339','51354','51357','51371','51372','51377','51388','51389','51409','51415',
+'51436','51438','51453','51476','51482','51483','51485','51486','51490','51491',
+'51501','51502','51504','51506','51509','51512','51515','51525','51538','51544',
+'51545','51546','51547','51548','51553','51555','51556','51559','51566','51572',
+'51574','51587','51594','51595','51616','51617','51634','51648','51656'
+);
+```
+
 ## Conclusion
 
 L’automatisation des atlas cartographiques dans QGIS permet de simplifier et d’optimiser la production de cartes en s’appuyant sur des règles de symbologie et des expressions dynamiques. Grâce à l’intégration de données directement issues d’une base de données SQL et à l’utilisation de filtres spatiaux et attributaires, il est possible de générer des cartes précises et adaptées à chaque entité étudiée. 
