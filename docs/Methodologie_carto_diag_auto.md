@@ -701,7 +701,7 @@ ON fe.code_insee = c.code_insee
 
 **Limitation au périmètre du pays de Châlons-en-Champagne (si besoin)**
 
-On aura un résultats complet avec toutes les communes de la France. Donc si vous voulez travailler qu'avec les commune du pays, il faut appliquer un filtre d'affichage sur QGIS avec ces communes:
+On aura un résultat complet avec toutes les communes de la France. Donc si vous voulez travailler qu'avec les communes du pays de Châlons-en-Champagne, il faut appliquer un filtre d'affichage sur QGIS avec ces communes:
 ```sql
 "code_insee" IN (
 '51003','51023','51031','51078','51087','51097','51099','51106','51108','51117',
