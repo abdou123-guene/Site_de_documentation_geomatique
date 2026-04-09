@@ -716,6 +716,9 @@ On aura un résultat complet avec toutes les communes de la France. Donc si vous
 )
 ;
 ```
+### Exemple de carte flux
+
+<img width="2338" height="1653" alt="M5_flux_domicile_travail_plus_15ans" src="https://github.com/user-attachments/assets/b552e468-0cd6-4b85-b24c-fe18fcd4ff20" />
 
 ## Conclusion
 
