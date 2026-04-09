@@ -716,9 +716,31 @@ On aura un résultat complet avec toutes les communes de la France. Donc si vous
 )
 ;
 ```
-### Exemple de carte flux
+### Exemples de carteS flux
 
 <img width="2338" height="1653" alt="M5_flux_domicile_travail_plus_15ans" src="https://github.com/user-attachments/assets/b552e468-0cd6-4b85-b24c-fe18fcd4ff20" />
+
+<img width="2480" height="1748" alt="E2_DEPLACEMENTS_PENDULAIRES_FC" src="https://github.com/user-attachments/assets/f9bbc491-00d4-479b-97c4-8cb86e8c356f" />
+
+### Exemples d'autres cartes produites lors des missions d'automatisation sur QGIS
+
+<img width="2338" height="1653" alt="D2_Population_2022_juillet2025" src="https://github.com/user-attachments/assets/c910c6cb-4356-47d9-9aaa-ec7845a4d35c" />
+
+<img width="2480" height="1748" alt="D4_REVENU_MEDIAN_MENSUEL_DES_MENAGES_FC" src="https://github.com/user-attachments/assets/510ba2bf-7eae-46db-b772-ae59914f91b3" />
+
+<img width="2338" height="1653" alt="D5_Indice_jeunesse_veillesse_2022_juillet2025" src="https://github.com/user-attachments/assets/e0cb0a50-dd02-4118-b3a7-a63e35cd3362" />
+
+<img width="2480" height="1748" alt="EQ6_offre_equip_scolaire" src="https://github.com/user-attachments/assets/ea64d8c6-155e-4a7c-80dd-f32e2fd7c8f8" />
+
+<img width="2338" height="1653" alt="H2_Logements_autorises_par_type_2014-2024_juillet2025" src="https://github.com/user-attachments/assets/d061f023-4f4e-4007-9c37-db92eaea94a5" />
+
+<img width="2480" height="1748" alt="M1_accessibilite_generale_FC" src="https://github.com/user-attachments/assets/c8f1ddcf-d5ca-4910-8e6d-106d88f228c9" />
+
+<img width="2480" height="1748" alt="M2_reseau_routier_trafic" src="https://github.com/user-attachments/assets/340a2d45-2281-40d5-b193-dd5a3b98763b" />
+
+<img width="2480" height="1748" alt="M3_transport_en_commun" src="https://github.com/user-attachments/assets/ab377a68-9bd7-40d4-b6f4-19d2cd629af9" />
+
+<img width="2480" height="1748" alt="P1_situation_generale" src="https://github.com/user-attachments/assets/c9d22ca2-282c-4e81-8bb0-c43d9a3611f9" />
 
 ## Conclusion
 
