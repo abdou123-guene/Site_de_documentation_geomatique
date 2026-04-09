@@ -742,6 +742,10 @@ On aura un résultat complet avec toutes les communes de la France. Donc si vous
 
 <img width="2480" height="1748" alt="P1_situation_generale" src="https://github.com/user-attachments/assets/c9d22ca2-282c-4e81-8bb0-c43d9a3611f9" />
 
+<img width="1653" height="2338" alt="P1_evolution_habitants_sur_20_ans" src="https://github.com/user-attachments/assets/fabb5d6c-19cb-475a-898d-f37c80ef52c9" />
+
+<img width="1653" height="2338" alt="P9_densite_population" src="https://github.com/user-attachments/assets/1f27a47f-22f5-48d4-9e5f-9addf882e0ef" />
+
 ## Conclusion
 
 L’automatisation des atlas cartographiques dans QGIS permet de simplifier et d’optimiser la production de cartes en s’appuyant sur des règles de symbologie et des expressions dynamiques. Grâce à l’intégration de données directement issues d’une base de données SQL et à l’utilisation de filtres spatiaux et attributaires, il est possible de générer des cartes précises et adaptées à chaque entité étudiée. 
