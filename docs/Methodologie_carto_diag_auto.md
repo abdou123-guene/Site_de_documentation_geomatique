@@ -726,6 +726,10 @@ On aura un résultat complet avec toutes les communes de la France. Donc si vous
 
 <img width="2338" height="1653" alt="M2_frequentation_gares" src="https://github.com/user-attachments/assets/37650eb7-ee67-4d2d-bec6-f4da13310a98" />
 
+<img width="2480" height="1748" alt="E10_INDICATEUR_DE_CONCENTRATION_EMPLOI_FC" src="https://github.com/user-attachments/assets/4298836b-b58d-4f10-b9e4-bee28ff65fa0" />
+
+<img width="2480" height="1748" alt="EQ2_NIVEAUX_DE_CENTRES_EQUIPEMENTS_ET_REPARTITION_PAR_DOMAINES_FC" src="https://github.com/user-attachments/assets/f877bc1d-3637-4d7d-9524-cda925400c9e" />
+
 <img width="2338" height="1653" alt="D2_Population_2022_juillet2025" src="https://github.com/user-attachments/assets/c910c6cb-4356-47d9-9aaa-ec7845a4d35c" />
 
 <img width="2480" height="1748" alt="D4_REVENU_MEDIAN_MENSUEL_DES_MENAGES_FC" src="https://github.com/user-attachments/assets/510ba2bf-7eae-46db-b772-ae59914f91b3" />
