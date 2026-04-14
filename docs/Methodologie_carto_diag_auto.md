@@ -718,7 +718,7 @@ On aura un résultat complet avec toutes les communes de la France. Donc si vous
 ```
 ### Exemples de cartes flux
 
-<img width="2338" height="1653" alt="M5_flux_domicile_travail_plus_15ans" src="https://github.com/user-attachments/assets/2ac235cc-aee2-47c4-b7aa-4859ea94985c" />
+<img width="2338" height="1653" alt="M5_flux_domicile_travail_plus_15ans" src="https://github.com/user-attachments/assets/24b63a76-8110-4486-a82f-20951bb57b49" />
 
 <img width="2480" height="1748" alt="E2_DEPLACEMENTS_PENDULAIRES_FC" src="https://github.com/user-attachments/assets/f9bbc491-00d4-479b-97c4-8cb86e8c356f" />
 
