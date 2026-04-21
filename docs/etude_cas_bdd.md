@@ -951,448 +951,447 @@ Cachet
 **CREATE** **SCHEMA** **IF** **NOT** **EXISTS** transport;  
 **CREATE** **SCHEMA** **IF** **NOT** **EXISTS** accessibilite;
 
-*\-- \======================*  
-*\-- GTFS TABLES (transport)*  
-*\-- \======================*  
+*======================*  
+*GTFS TABLES (transport)*  
+*======================*  
 ```sql
-CREATE TABLE transport.AGENCY(  
-   agency\_id VARCHAR(50),  
-   agency\_name VARCHAR(50),  
-   agency\_url VARCHAR(50),  
-   agency\_timezone VARCHAR(50),  
-   agency\_lang VARCHAR(50),  
-   PRIMARY KEY (agency\_id)  
+CREATE TABLE transport.agency (
+   agency_id VARCHAR(50) NOT NULL,
+   agency_name VARCHAR(50),
+   agency_url VARCHAR(50),
+   agency_timezone VARCHAR(50),
+   agency_lang VARCHAR(50),
+   PRIMARY KEY (agency_id)
 );
 ```
 ```sql
-**CREATE** **TABLE** transport.ROUTE(  
-   route\_id VARCHAR(50),  
-   route\_short\_name VARCHAR(50),  
-   route\_long\_name VARCHAR(50),  
-   route\_type INTEGER,  
-   PRIMARY **KEY**(route\_id)  
+CREATE TABLE transport.route (
+   route_id VARCHAR(50) NOT NULL,
+   route_short_name VARCHAR(50),
+   route_long_name VARCHAR(50),
+   route_type INTEGER,
+   PRIMARY KEY (route_id)
 );
 ```
 ```sql
-**CREATE** **TABLE** transport.STOP(  
-   stop\_id VARCHAR(50),  
-   stop\_name VARCHAR(50),  
-   stop\_lat **DOUBLE** **PRECISION**,  
-   stop\_lon **DOUBLE** **PRECISION**,  
-   stop\_id\_parent VARCHAR(50),  
-   PRIMARY **KEY**(stop\_id),  
-   FOREIGN **KEY**(stop\_id\_parent) **REFERENCES** transport.STOP(stop\_id)  
+CREATE TABLE transport.stop (
+   stop_id VARCHAR(50) NOT NULL,
+   stop_name VARCHAR(50),
+   stop_lat DOUBLE PRECISION,
+   stop_lon DOUBLE PRECISION,
+   stop_id_parent VARCHAR(50),
+   PRIMARY KEY (stop_id),
+   FOREIGN KEY (stop_id_parent) REFERENCES transport.stop(stop_id)
 );
 ```
 ```sql
-**CREATE** **TABLE** transport.CALENDAR(  
-   service\_id VARCHAR(50),  
-   monday VARCHAR(50),  
-   tuesday VARCHAR(50),  
-   wednesday VARCHAR(50),  
-   thursday VARCHAR(50),  
-   friday VARCHAR(50),  
-   saturday VARCHAR(50),  
-   sunday VARCHAR(50),  
-   start\_date DATE,  
-   end\_date DATE,  
-   PRIMARY **KEY**(service\_id)  
+CREATE TABLE transport.calendar (
+   service_id VARCHAR(50) NOT NULL,
+   monday VARCHAR(50),
+   tuesday VARCHAR(50),
+   wednesday VARCHAR(50),
+   thursday VARCHAR(50),
+   friday VARCHAR(50),
+   saturday VARCHAR(50),
+   sunday VARCHAR(50),
+   start_date DATE,
+   end_date DATE,
+   PRIMARY KEY (service_id)
 );
 ```
 ```sql
-**CREATE** **TABLE** transport.TRIP(  
-   trip\_id VARCHAR(50),  
-   headsign VARCHAR(50),  
-   direction\_id INTEGER,  
-   service\_id VARCHAR(50) **NOT** NULL,  
-   route\_id VARCHAR(50) **NOT** NULL,  
-   PRIMARY **KEY**(trip\_id),  
-   FOREIGN **KEY**(service\_id) **REFERENCES** transport.CALENDAR(service\_id),  
-   FOREIGN **KEY**(route\_id) **REFERENCES** transport.ROUTE(route\_id)  
+CREATE TABLE transport.trip (
+   trip_id VARCHAR(50) NOT NULL,
+   headsign VARCHAR(50),
+   direction_id INTEGER,
+   service_id VARCHAR(50) NOT NULL,
+   route_id VARCHAR(50) NOT NULL,
+   PRIMARY KEY (trip_id),
+   FOREIGN KEY (service_id) REFERENCES transport.calendar(service_id),
+   FOREIGN KEY (route_id) REFERENCES transport.route(route_id)
 );
 ```
 ```sql
-**CREATE** **TABLE** transport.Gerer(  
-   agency\_id VARCHAR(50),  
-   route\_id VARCHAR(50),  
-   PRIMARY **KEY**(agency\_id, route\_id),  
-   FOREIGN **KEY**(agency\_id) **REFERENCES** transport.AGENCY(agency\_id),  
-   FOREIGN **KEY**(route\_id) **REFERENCES** transport.ROUTE(route\_id)  
+CREATE TABLE transport.gerer (
+   agency_id VARCHAR(50) NOT NULL,
+   route_id VARCHAR(50) NOT NULL,
+   PRIMARY KEY (agency_id, route_id),
+   FOREIGN KEY (agency_id) REFERENCES transport.agency(agency_id),
+   FOREIGN KEY (route_id) REFERENCES transport.route(route_id)
 );
 ```
 ```sql
-**CREATE** **TABLE** transport.Desservir(  
-   stop\_id VARCHAR(50),  
-   trip\_id VARCHAR(50),  
-   stop\_sequence VARCHAR(50),  
-   arrival\_time VARCHAR(50),  
-   departure\_time VARCHAR(50),  
-   PRIMARY **KEY**(stop\_id, trip\_id),  
-   FOREIGN **KEY**(stop\_id) **REFERENCES** transport.STOP(stop\_id),  
-   FOREIGN **KEY**(trip\_id) **REFERENCES** transport.TRIP(trip\_id)  
+CREATE TABLE transport.desservir (
+   stop_id VARCHAR(50) NOT NULL,
+   trip_id VARCHAR(50) NOT NULL,
+   stop_sequence VARCHAR(50),
+   arrival_time VARCHAR(50),
+   departure_time VARCHAR(50),
+   PRIMARY KEY (stop_id, trip_id),
+   FOREIGN KEY (stop_id) REFERENCES transport.stop(stop_id),
+   FOREIGN KEY (trip_id) REFERENCES transport.trip(trip_id)
 );
 ```
-*\-- \======================*  
-*\-- ACCESSIBILITY TABLES (accessibilite)*  
-*\-- \======================*
+*======================*  
+*ACCESSIBILITY TABLES (accessibilite)*  
+*======================*
 ```sql
-**CREATE** **TABLE** accessibilite.Cheminement(  
-   idCheminement VARCHAR(255),  
-   nom VARCHAR(254),  
-   PRIMARY **KEY**(idCheminement)  
-);
-```
-```sql
-**CREATE** **TABLE** accessibilite.Obstacle(  
-   idObstacle VARCHAR(255),  
-   typeObstacle VARCHAR(2),  
-   largeurUtile **DOUBLE** **PRECISION**,  
-   positionObstacle VARCHAR(2),  
-   longueurObstacle **DOUBLE** **PRECISION**,  
-   rappelObstacle VARCHAR(2),  
-   reperabiliteVisuelle BOOLEAN,  
-   largeurObstacle **DOUBLE** **PRECISION**,  
-   hauteurObsPoseSol **DOUBLE** **PRECISION**,  
-   hauteurSousObs **DOUBLE** **PRECISION**,  
-   geom GEOMETRY,  
-   PRIMARY **KEY**(idObstacle)  
+CREATE TABLE accessibilite.cheminement (
+   idCheminement VARCHAR(255) NOT NULL,
+   nom VARCHAR(254),
+   PRIMARY KEY (idCheminement)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Circulation(  
-   idCirculation VARCHAR(255),  
-   typeSol VARCHAR(2),  
-   largeurPassageUtile **DOUBLE** **PRECISION**,  
-   etatRevetement VARCHAR(2),  
-   eclairage VARCHAR(2),  
-   transition VARCHAR(2),  
-   typePassage VARCHAR(2),  
-   repereLineaire VARCHAR(2),  
-   couvert VARCHAR(50),  
-   PRIMARY **KEY**(idCirculation)  
+CREATE TABLE accessibilite.obstacle (
+   idObstacle VARCHAR(255) NOT NULL,
+   typeObstacle VARCHAR(2),
+   largeurUtile DOUBLE PRECISION,
+   positionObstacle VARCHAR(2),
+   longueurObstacle DOUBLE PRECISION,
+   rappelObstacle VARCHAR(2),
+   reperabiliteVisuelle BOOLEAN,
+   largeurObstacle DOUBLE PRECISION,
+   hauteurObsPoseSol DOUBLE PRECISION,
+   hauteurSousObs DOUBLE PRECISION,
+   geom GEOMETRY,
+   PRIMARY KEY (idObstacle)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Ascenceur(  
-   idAscenseur VARCHAR(255),  
-   largeurUtile **DOUBLE** **PRECISION**,  
-   diamManoeuvreFauteuil **DOUBLE** **PRECISION**,  
-   largeurCabine **DOUBLE** **PRECISION**,  
-   longueurCabine **DOUBLE** **PRECISION**,  
-   boutonsEnRelief VARCHAR(2),  
-   annonceSonore BOOLEAN,  
-   signalEtage VARCHAR(2),  
-   boucleInducMagnet BOOLEAN,  
-   miroir BOOLEAN,  
-   eclairage INTEGER,  
-   voyantAlerte VARCHAR(2),  
-   typeOuverture VARCHAR(2),  
-   mainCourante VARCHAR(2),  
-   hauteurMainCourante **DOUBLE** **PRECISION**,  
-   etatRevetement VARCHAR(2),  
-   supervision BOOLEAN,  
-   autrePorteSortie VARCHAR(2),  
-   PRIMARY **KEY**(idAscenseur)  
+CREATE TABLE accessibilite.circulation (
+   idCirculation VARCHAR(255) NOT NULL,
+   typeSol VARCHAR(2),
+   largeurPassageUtile DOUBLE PRECISION,
+   etatRevetement VARCHAR(2),
+   eclairage VARCHAR(2),
+   transition VARCHAR(2),
+   typePassage VARCHAR(2),
+   repereLineaire VARCHAR(2),
+   couvert VARCHAR(50),
+   PRIMARY KEY (idCirculation)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Elevateur(  
-   idElevateur VARCHAR(255),  
-   largeurUtile **DOUBLE** **PRECISION**,  
-   boutonsEnRelief VARCHAR(2),  
-   typeOuverture VARCHAR(2),  
-   largeurPlateforme **DOUBLE** **PRECISION**,  
-   longueurPlateforme VARCHAR(50),  
-   utilisableAutonomie BOOLEAN,  
-   etatRevetement VARCHAR(2),  
-   supervision BOOLEAN,  
-   autrePorteSortie VARCHAR(2),  
-   chargeMaximum INTEGER,  
-   accompagnateur VARCHAR(2),  
-   PRIMARY **KEY**(idElevateur)  
+CREATE TABLE accessibilite.ascenceur (
+   idAscenseur VARCHAR(255) NOT NULL,
+   largeurUtile DOUBLE PRECISION,
+   diamManoeuvreFauteuil DOUBLE PRECISION,
+   largeurCabine DOUBLE PRECISION,
+   longueurCabine DOUBLE PRECISION,
+   boutonsEnRelief VARCHAR(2),
+   annonceSonore BOOLEAN,
+   signalEtage VARCHAR(2),
+   boucleInducMagnet BOOLEAN,
+   miroir BOOLEAN,
+   eclairage INTEGER,
+   voyantAlerte VARCHAR(2),
+   typeOuverture VARCHAR(2),
+   mainCourante VARCHAR(2),
+   hauteurMainCourante DOUBLE PRECISION,
+   etatRevetement VARCHAR(2),
+   supervision BOOLEAN,
+   autrePorteSortie VARCHAR(2),
+   PRIMARY KEY (idAscenseur)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Passage\_Selectif(  
-   idPassageSelectif VARCHAR(255),  
-   passageMecanique BOOLEAN,  
-   largeurUtile REAL,  
-   profondeur REAL,  
-   contrasteVisuel BOOLEAN,  
-   PRIMARY **KEY**(idPassageSelectif)  
+CREATE TABLE accessibilite.elevateur (
+   idElevateur VARCHAR(255) NOT NULL,
+   largeurUtile DOUBLE PRECISION,
+   boutonsEnRelief VARCHAR(2),
+   typeOuverture VARCHAR(2),
+   largeurPlateforme DOUBLE PRECISION,
+   longueurPlateforme VARCHAR(50),
+   utilisableAutonomie BOOLEAN,
+   etatRevetement VARCHAR(2),
+   supervision BOOLEAN,
+   autrePorteSortie VARCHAR(2),
+   chargeMaximum INTEGER,
+   accompagnateur VARCHAR(2),
+   PRIMARY KEY (idElevateur)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Entree(  
-   idEntree VARCHAR(255),  
-   adresse TEXT,  
-   **type** VARCHAR(2),  
-   rampe VARCHAR(2),  
-   rampeSonnette BOOLEAN **DEFAULT** false,  
-   ascenseur BOOLEAN **DEFAULT** false,  
-   escalierNbMarche INTEGER **DEFAULT** 0,  
-   escalierMainCourante BOOLEAN **DEFAULT** false,  
-   reperabilite BOOLEAN,  
-   reperageEltsVitres BOOLEAN,  
-   signaletique BOOLEAN,  
-   largeurPassage REAL,  
-   controleAcces VARCHAR(2),  
-   entreeAccueilVisible BOOLEAN,  
-   eclairage INTEGER,  
-   typePorte VARCHAR(2),  
-   typeOuverture VARCHAR(2),  
-   espaceManoeuvre VARCHAR(2),  
-   largManoeuvreExt REAL,  
-   longManoeuvreExt REAL,  
-   largManoeuvreInt REAL,  
-   longManoeuvreInt REAL,  
-   typePoignee VARCHAR(2),  
-   effortOuverture INTEGER,  
-   PRIMARY **KEY**(idEntree)  
+CREATE TABLE accessibilite.passage_selectif (
+   idPassageSelectif VARCHAR(255) NOT NULL,
+   passageMecanique BOOLEAN,
+   largeurUtile REAL,
+   profondeur REAL,
+   contrasteVisuel BOOLEAN,
+   PRIMARY KEY (idPassageSelectif)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Stationnement\_PMR(  
-   idStationnement VARCHAR(255),  
-   typeStationnement VARCHAR(2),  
-   etatRevetement VARCHAR(2),  
-   largeurStat REAL,  
-   longueurStat REAL,  
-   bandLatSecurite BOOLEAN,  
-   surLongueur REAL,  
-   signalPMR BOOLEAN,  
-   marquageSol BOOLEAN,  
-   pente INTEGER,  
-   devers INTEGER,  
-   typeSol VARCHAR(2),  
-   PRIMARY **KEY**(idStationnement)  
+CREATE TABLE accessibilite.entree (
+   idEntree VARCHAR(255) NOT NULL,
+   adresse TEXT,
+   type VARCHAR(2),
+   rampe VARCHAR(2),
+   rampeSonnette BOOLEAN DEFAULT false,
+   ascenseur BOOLEAN DEFAULT false,
+   escalierNbMarche INTEGER DEFAULT 0,
+   escalierMainCourante BOOLEAN DEFAULT false,
+   reperabilite BOOLEAN,
+   reperageEltsVitres BOOLEAN,
+   signaletique BOOLEAN,
+   largeurPassage REAL,
+   controleAcces VARCHAR(2),
+   entreeAccueilVisible BOOLEAN,
+   eclairage INTEGER,
+   typePorte VARCHAR(2),
+   typeOuverture VARCHAR(2),
+   espaceManoeuvre VARCHAR(2),
+   largManoeuvreExt REAL,
+   longManoeuvreExt REAL,
+   largManoeuvreInt REAL,
+   longManoeuvreInt REAL,
+   typePoignee VARCHAR(2),
+   effortOuverture INTEGER,
+   PRIMARY KEY (idEntree)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Escalier(  
-   idEscalier VARCHAR(255),  
-   etatRevetement geostandard.enum5,  
-   mainCourante geostandard.enum5,  
-   dispositifVigilance geostandard.enum5,  
-   contrasteVisuel geostandard.enum5,  
-   largeurUtile REAL,  
-   mainCouranteContinue geostandard.enum5,  
-   prolongMainCourante geostandard.enum5,  
-   nbMarches INTEGER,  
-   nbVoleeMarches INTEGER,  
-   hauteurMarche REAL,  
-   giron REAL,  
-   PRIMARY **KEY**(idEscalier)  
+CREATE TABLE accessibilite.stationnement_pmr (
+   idStationnement VARCHAR(255) NOT NULL,
+   typeStationnement VARCHAR(2),
+   etatRevetement VARCHAR(2),
+   largeurStat REAL,
+   longueurStat REAL,
+   bandLatSecurite BOOLEAN,
+   surLongueur REAL,
+   signalPMR BOOLEAN,
+   marquageSol BOOLEAN,
+   pente INTEGER,
+   devers INTEGER,
+   typeSol VARCHAR(2),
+   PRIMARY KEY (idStationnement)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Quai(  
-   idQuai VARCHAR(255),  
-   etatRevetement VARCHAR(2),  
-   hauteur REAL,  
-   largeurPassage REAL,  
-   signalisationPorte VARCHAR(2),  
-   dispositifVigilance VARCHAR(2),  
-   diamZoneManoeuvre REAL,  
-   PRIMARY **KEY**(idQuai)  
+CREATE TABLE accessibilite.escalier (
+   idEscalier VARCHAR(255) NOT NULL,
+   etatRevetement geostandard.enum5,
+   mainCourante geostandard.enum5,
+   dispositifVigilance geostandard.enum5,
+   contrasteVisuel geostandard.enum5,
+   largeurUtile REAL,
+   mainCouranteContinue geostandard.enum5,
+   prolongMainCourante geostandard.enum5,
+   nbMarches INTEGER,
+   nbVoleeMarches INTEGER,
+   hauteurMarche REAL,
+   giron REAL,
+   PRIMARY KEY (idEscalier)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Rampe(  
-   idRampe VARCHAR(255),  
-   etatRevetement VARCHAR(2),  
-   largeurUtile REAL,  
-   mainCourante VARCHAR(2),  
-   distPalierRepos REAL,  
-   chasseRoue VARCHAR(2),  
-   aireRotation VARCHAR(2),  
-   poidsSupporte INTEGER,  
-   PRIMARY **KEY**(idRampe)  
+CREATE TABLE accessibilite.quai (
+   idQuai VARCHAR(255) NOT NULL,
+   etatRevetement VARCHAR(2),
+   hauteur REAL,
+   largeurPassage REAL,
+   signalisationPorte VARCHAR(2),
+   dispositifVigilance VARCHAR(2),
+   diamZoneManoeuvre REAL,
+   PRIMARY KEY (idQuai)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Tapis\_Roulant(  
-   idTapis VARCHAR(255),  
-   sens VARCHAR(2),  
-   dispositifVigilance VARCHAR(2),  
-   largeurUtile REAL,  
-   detecteur BOOLEAN,  
-   PRIMARY **KEY**(idTapis)  
+CREATE TABLE accessibilite.rampe (
+   idRampe VARCHAR(255) NOT NULL,
+   etatRevetement VARCHAR(2),
+   largeurUtile REAL,
+   mainCourante VARCHAR(2),
+   distPalierRepos REAL,
+   chasseRoue VARCHAR(2),
+   aireRotation VARCHAR(2),
+   poidsSupporte INTEGER,
+   PRIMARY KEY (idRampe)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Escalator(  
-   idEscalator VARCHAR(255),  
-   sens geostandard.enum4,  
-   dispositifVigilance geostandard.enum5,  
-   largeurUtile REAL,  
-   detecteur BOOLEAN,  
-   surpervision BOOLEAN,  
-   PRIMARY **KEY**(idEscalator)  
+CREATE TABLE accessibilite.tapis_roulant (
+   idTapis VARCHAR(255) NOT NULL,
+   sens VARCHAR(2),
+   dispositifVigilance VARCHAR(2),
+   largeurUtile REAL,
+   detecteur BOOLEAN,
+   PRIMARY KEY (idTapis)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Traversee(  
-   idTraversee VARCHAR(255),  
-   etatRevetement VARCHAR(2),  
-   marquageSol VARCHAR(2),  
-   eclairage VARCHAR(2),  
-   feuPietons BOOLEAN,  
-   aideSonore VARCHAR(2),  
-   repereLineaire VARCHAR(2),  
-   presenceIlot BOOLEAN,  
-   chausseeBombee BOOLEAN,  
-   covisibilite VARCHAR(2),  
-   PRIMARY **KEY**(idTraversee)  
+CREATE TABLE accessibilite.escalator (
+   idEscalator VARCHAR(255) NOT NULL,
+   sens geostandard.enum4,
+   dispositifVigilance geostandard.enum5,
+   largeurUtile REAL,
+   detecteur BOOLEAN,
+   surpervision BOOLEAN,
+   PRIMARY KEY (idEscalator)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Carroyage(  
-   idCarreau VARCHAR(50),  
-   ind NUMERIC(15,2),  
-   ind\_0\_3 NUMERIC(15,2),  
-   ind\_4\_5 NUMERIC(15,2),  
-   ind\_6\_10 NUMERIC(15,2),  
-   ind\_11\_17 NUMERIC(15,2),  
-   ind\_18\_24 NUMERIC(15,2),  
-   ind\_25\_39 NUMERIC(15,2),  
-   ind\_40\_54 NUMERIC(15,2),  
-   ind\_55\_64 NUMERIC(15,2),  
-   ind\_65\_79 NUMERIC(15,2),  
-   ind\_80 NUMERIC(15,2),  
-   PRIMARY **KEY**(idCarreau)  
-);
-```
-*\-- \======================*  
-*\-- TRONCONS ET NOEUDS (accessibilite)*  
-*\-- \======================*
-```sql
-**CREATE** **TABLE** accessibilite.Troncon\_Cheminement(  
-   idTroncon VARCHAR(50),  
-   from\_ VARCHAR(255),  
-   to\_ VARCHAR(255),  
-   longueur INTEGER,  
-   typeTroncon VARCHAR(2),  
-   statutVoie VARCHAR(2),  
-   pente INTEGER,  
-   devers INTEGER,  
-   accessibiliteGlobale VARCHAR(2),  
-   geom GEOMETRY **NOT** NULL,  
-   idTraversee VARCHAR(255),  
-   idEscalator VARCHAR(255),  
-   idTapis VARCHAR(255),  
-   idRampe VARCHAR(255),  
-   idQuai VARCHAR(255),  
-   idEscalier VARCHAR(255),  
-   idCirculation VARCHAR(255),  
-   idObstacle VARCHAR(255),  
-   PRIMARY **KEY**(idTroncon),  
-   FOREIGN **KEY**(idTraversee) **REFERENCES** accessibilite.Traversee(idTraversee),  
-   FOREIGN **KEY**(idEscalator) **REFERENCES** accessibilite.Escalator(idEscalator),  
-   FOREIGN **KEY**(idTapis) **REFERENCES** accessibilite.Tapis\_Roulant(idTapis),  
-   FOREIGN **KEY**(idRampe) **REFERENCES** accessibilite.Rampe(idRampe),  
-   FOREIGN **KEY**(idQuai) **REFERENCES** accessibilite.Quai(idQuai),  
-   FOREIGN **KEY**(idEscalier) **REFERENCES** accessibilite.Escalier(idEscalier),  
-   FOREIGN **KEY**(idCirculation) **REFERENCES** accessibilite.Circulation(idCirculation),  
-   FOREIGN **KEY**(idObstacle) **REFERENCES** accessibilite.Obstacle(idObstacle)  
+CREATE TABLE accessibilite.traversee (
+   idTraversee VARCHAR(255) NOT NULL,
+   etatRevetement VARCHAR(2),
+   marquageSol VARCHAR(2),
+   eclairage VARCHAR(2),
+   feuPietons BOOLEAN,
+   aideSonore VARCHAR(2),
+   repereLineaire VARCHAR(2),
+   presenceIlot BOOLEAN,
+   chausseeBombee BOOLEAN,
+   covisibilite VARCHAR(2),
+   PRIMARY KEY (idTraversee)
 );
 ```
 ```sql
-**CREATE** **TABLE** accessibilite.Noeud(  
-   idNoeud VARCHAR(50),  
-   altitude **DOUBLE** **PRECISION**,  
-   bandeEveilVigilance VARCHAR(2),  
-   hauteurRessaut **DOUBLE** **PRECISION**,  
-   abaissePente INTEGER,  
-   abaisseTrottoir **DOUBLE** **PRECISION**,  
-   controleBEV VARCHAR(50),  
-   bandeInterception BOOLEAN,  
-   geom GEOMETRY **NOT** NULL,  
-   idEntree VARCHAR(255) **NOT** NULL,  
-   idPassageSelectif VARCHAR(255) **NOT** NULL,  
-   idElevateur VARCHAR(255) **NOT** NULL,  
-   idAscenseur VARCHAR(255) **NOT** NULL,  
-   idCarreau VARCHAR(50) **NOT** NULL,  
-   idTroncon VARCHAR(50) **NOT** NULL,  
-   PRIMARY **KEY**(idNoeud),  
-   **UNIQUE**(idEntree),  
-   **UNIQUE**(idPassageSelectif),  
-   **UNIQUE**(idElevateur),  
-   **UNIQUE**(idAscenseur),  
-   FOREIGN **KEY**(idEntree) **REFERENCES** accessibilite.Entree(idEntree),  
-   FOREIGN **KEY**(idPassageSelectif) **REFERENCES** accessibilite.Passage\_Selectif(idPassageSelectif),  
-   FOREIGN **KEY**(idElevateur) **REFERENCES** accessibilite.Elevateur(idElevateur),  
-   FOREIGN **KEY**(idAscenseur) **REFERENCES** accessibilite.Ascenceur(idAscenseur),  
-   FOREIGN **KEY**(idCarreau) **REFERENCES** accessibilite.Carroyage(idCarreau),  
-   FOREIGN **KEY**(idTroncon) **REFERENCES** accessibilite.Troncon\_Cheminement(idTroncon)  
+CREATE TABLE accessibilite.carroyage (
+   idCarreau VARCHAR(50) NOT NULL,
+   ind NUMERIC(15,2),
+   ind_0_3 NUMERIC(15,2),
+   ind_4_5 NUMERIC(15,2),
+   ind_6_10 NUMERIC(15,2),
+   ind_11_17 NUMERIC(15,2),
+   ind_18_24 NUMERIC(15,2),
+   ind_25_39 NUMERIC(15,2),
+   ind_40_54 NUMERIC(15,2),
+   ind_55_64 NUMERIC(15,2),
+   ind_65_79 NUMERIC(15,2),
+   ind_80 NUMERIC(15,2),
+   PRIMARY KEY (idCarreau)
 );
 ```
-*\-- \======================*  
-*\-- RELATIONS (accessibilite)*  
-*\-- \======================*
+*======================*  
+*TRONCONS ET NOEUDS (accessibilite)*  
+*======================*
 ```sql
-**CREATE** **TABLE** accessibilite.est\_compose\_de(  
-   idTroncon VARCHAR(50),  
-   idCheminement VARCHAR(255),  
-   PRIMARY **KEY**(idTroncon, idCheminement),  
-   FOREIGN **KEY**(idTroncon) **REFERENCES** accessibilite.Troncon\_Cheminement(idTroncon),  
-   FOREIGN **KEY**(idCheminement) **REFERENCES** accessibilite.Cheminement(idCheminement)  
-);
-```
-```sql
-**CREATE** **TABLE** accessibilite.donne\_acces\_a(  
-   idNoeud VARCHAR(50),  
-   idStationnement VARCHAR(255),  
-   PRIMARY **KEY**(idNoeud, idStationnement),  
-   FOREIGN **KEY**(idNoeud) **REFERENCES** accessibilite.Noeud(idNoeud),  
-   FOREIGN **KEY**(idStationnement) **REFERENCES** accessibilite.Stationnement\_PMR(idStationnement)  
-);
-```
-*\-- \======================*  
-*\-- TRAVAUX TABLES (travaux)*  
-*\-- \======================*
-```sql
-**CREATE** **TABLE** travaux.zone(  
-   Id\_zone SERIAL,  
-   nom\_zone VARCHAR(255),  
-   debut DATE,  
-   fin DATE,  
-   statut VARCHAR(255),  
-   libelle VARCHAR(255),  
-   geom GEOMETRY(POLYGON,2154),  
-   PRIMARY **KEY**(Id\_zone)  
+CREATE TABLE accessibilite.troncon_cheminement (
+   idTroncon VARCHAR(50) NOT NULL,
+   "from" VARCHAR(255),
+   "to" VARCHAR(255),
+   longueur INTEGER,
+   typeTroncon VARCHAR(2),
+   statutVoie VARCHAR(2),
+   pente INTEGER,
+   devers INTEGER,
+   accessibiliteGlobale VARCHAR(2),
+   geom GEOMETRY NOT NULL,
+   idTraversee VARCHAR(255),
+   idEscalator VARCHAR(255),
+   idTapis VARCHAR(255),
+   idRampe VARCHAR(255),
+   idQuai VARCHAR(255),
+   idEscalier VARCHAR(255),
+   idCirculation VARCHAR(255),
+   idObstacle VARCHAR(255),
+   PRIMARY KEY (idTroncon),
+   FOREIGN KEY (idTraversee) REFERENCES accessibilite.traversee(idTraversee),
+   FOREIGN KEY (idEscalator) REFERENCES accessibilite.escalator(idEscalator),
+   FOREIGN KEY (idTapis) REFERENCES accessibilite.tapis_roulant(idTapis),
+   FOREIGN KEY (idRampe) REFERENCES accessibilite.rampe(idRampe),
+   FOREIGN KEY (idQuai) REFERENCES accessibilite.quai(idQuai),
+   FOREIGN KEY (idEscalier) REFERENCES accessibilite.escalier(idEscalier),
+   FOREIGN KEY (idCirculation) REFERENCES accessibilite.circulation(idCirculation),
+   FOREIGN KEY (idObstacle) REFERENCES accessibilite.obstacle(idObstacle)
 );
 ```
 ```sql
-**CREATE** **TABLE** travaux.impact\_accessibilite(  
-   Id\_impact\_accessibilite SERIAL,  
-   description VARCHAR(255),  
-   coupure\_totale BOOLEAN,  
-   recommandation VARCHAR(255),  
-   Id\_zone INTEGER **NOT** NULL,  
-   PRIMARY **KEY**(Id\_impact\_accessibilite),  
-   FOREIGN **KEY**(Id\_zone) **REFERENCES** travaux.zone(Id\_zone)  
+CREATE TABLE accessibilite.noeud (
+   idNoeud VARCHAR(50) NOT NULL,
+   altitude DOUBLE PRECISION,
+   bandeEveilVigilance VARCHAR(2),
+   hauteurRessaut DOUBLE PRECISION,
+   abaissePente INTEGER,
+   abaisseTrottoir DOUBLE PRECISION,
+   controleBEV VARCHAR(50),
+   bandeInterception BOOLEAN,
+   geom GEOMETRY NOT NULL,
+   idEntree VARCHAR(255) NOT NULL,
+   idPassageSelectif VARCHAR(255) NOT NULL,
+   idElevateur VARCHAR(255) NOT NULL,
+   idAscenseur VARCHAR(255) NOT NULL,
+   idCarreau VARCHAR(50) NOT NULL,
+   idTroncon VARCHAR(50) NOT NULL,
+   PRIMARY KEY (idNoeud),
+   UNIQUE (idEntree),
+   UNIQUE (idPassageSelectif),
+   UNIQUE (idElevateur),
+   UNIQUE (idAscenseur),
+   FOREIGN KEY (idEntree) REFERENCES accessibilite.entree(idEntree),
+   FOREIGN KEY (idPassageSelectif) REFERENCES accessibilite.passage_selectif(idPassageSelectif),
+   FOREIGN KEY (idElevateur) REFERENCES accessibilite.elevateur(idElevateur),
+   FOREIGN KEY (idAscenseur) REFERENCES accessibilite.ascenceur(idAscenseur),
+   FOREIGN KEY (idCarreau) REFERENCES accessibilite.carroyage(idCarreau),
+   FOREIGN KEY (idTroncon) REFERENCES accessibilite.troncon_cheminement(idTroncon)
+);
+```
+*======================*  
+*RELATIONS (accessibilite)*  
+*======================*
+```sql
+CREATE TABLE accessibilite.est_compose_de (
+   idTroncon VARCHAR(50) NOT NULL,
+   idCheminement VARCHAR(255) NOT NULL,
+   PRIMARY KEY (idTroncon, idCheminement),
+   FOREIGN KEY (idTroncon) REFERENCES accessibilite.troncon_cheminement(idTroncon),
+   FOREIGN KEY (idCheminement) REFERENCES accessibilite.cheminement(idCheminement)
 );
 ```
 ```sql
-**CREATE** **TABLE** travaux.projet\_travaux(  
-   Id\_projet\_travaux SERIAL,  
-   nom\_chantier VARCHAR(255),  
-   maitrise\_ouvrage VARCHAR(255),  
-   contact\_responsable REAL,  
-   num\_arrete VARCHAR(255),  
-   Id\_zone INTEGER **NOT** NULL,  
-   PRIMARY **KEY**(Id\_projet\_travaux),  
-   FOREIGN **KEY**(Id\_zone) **REFERENCES** travaux.zone(Id\_zone)  
+CREATE TABLE accessibilite.donne_acces_a (
+   idNoeud VARCHAR(50) NOT NULL,
+   idStationnement VARCHAR(255) NOT NULL,
+   PRIMARY KEY (idNoeud, idStationnement),
+   FOREIGN KEY (idNoeud) REFERENCES accessibilite.noeud(idNoeud),
+   FOREIGN KEY (idStationnement) REFERENCES accessibilite.stationnement_pmr(idStationnement)
+);
+```
+*======================*  
+*TRAVAUX TABLES (travaux)*  
+*======================*
+```sql
+CREATE TABLE travaux.zone (
+   id_zone SERIAL,
+   nom_zone VARCHAR(255),
+   debut DATE,
+   fin DATE,
+   statut VARCHAR(255),
+   libelle VARCHAR(255),
+   geom GEOMETRY(POLYGON, 2154),
+   PRIMARY KEY (id_zone)
 );
 ```
 ```sql
-*\-- Table lien entre transport.STOP et accessibilite.Noeud*  
-**CREATE** **TABLE** transport.donner\_acces\_a (  
-    stop\_id VARCHAR(50),  
-    idNoeud VARCHAR(50),  
-    PRIMARY **KEY**(stop\_id, idNoeud),  
-    FOREIGN **KEY**(stop\_id) **REFERENCES** transport.STOP(stop\_id),  
-    FOREIGN **KEY**(idNoeud) **REFERENCES** accessibilite.Noeud(idNoeud)  
+CREATE TABLE travaux.impact_accessibilite (
+   id_impact_accessibilite SERIAL,
+   description VARCHAR(255),
+   coupure_totale BOOLEAN,
+   recommandation VARCHAR(255),
+   id_zone INTEGER NOT NULL,
+   PRIMARY KEY (id_impact_accessibilite),
+   FOREIGN KEY (id_zone) REFERENCES travaux.zone(id_zone)
+);
+```
+```sql
+CREATE TABLE travaux.projet_travaux (
+   id_projet_travaux SERIAL,
+   nom_chantier VARCHAR(255),
+   maitrise_ouvrage VARCHAR(255),
+   contact_responsable REAL,
+   num_arrete VARCHAR(255),
+   id_zone INTEGER NOT NULL,
+   PRIMARY KEY (id_projet_travaux),
+   FOREIGN KEY (id_zone) REFERENCES travaux.zone(id_zone)
+);
+```
+```sql
+CREATE TABLE transport.donner_acces_a (
+   stop_id VARCHAR(50) NOT NULL,
+   idNoeud VARCHAR(50) NOT NULL,
+   PRIMARY KEY (stop_id, idNoeud),
+   FOREIGN KEY (stop_id) REFERENCES transport.stop(stop_id),
+   FOREIGN KEY (idNoeud) REFERENCES accessibilite.noeud(idNoeud)
 );
 ```
