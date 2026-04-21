@@ -677,12 +677,13 @@ Avant de restaurer un dump SQL, les rôles et utilisateurs référencés dans ce
 Ci-dessous des exemples de commandes usuelles :
 
 * **Sauvegarde complète d’une base**
-
+```sql
 *pg\_dump dbname \> sauvegarde.sql*
-
+```
 * **Sauvegarde ciblée** (un schéma ou quelques tables)
-
-*pg\_dump \-n schema\_name \-t table\_name dbname \> sauvegarde\_partielle.sql*  
+```sql
+*pg\_dump \-n schema\_name \-t table\_name dbname \> sauvegarde\_partielle.sql*
+```
 La commande *pg\_dump* présente néanmoins les limites suivantes :
 
 * *pg\_dump* ne sauvegarde qu’une seule base de données à la fois ;  
@@ -726,9 +727,9 @@ La sauvegarde doit être déposée sur un serveur dédié à la sauvegarde ou da
 #### b.3) Sauvegardes mensuelles : archivage longue durée
 
 Pour garantir une conservation complète et durable du cluster PostgreSQL, il est nécessaire d’utiliser *pg\_dumpall*. Cet outil génère un fichier SQL contenant l’ensemble des bases de données du cluster, ainsi que tous les objets globaux : rôles et utilisateurs, privilèges, tablespaces, et paramètres définis au niveau du cluster.
-
+```sql
 *pg\_dumpall \> archive*
-
+```
 ***pg\_dumpall*** permet de sauvegarder des éléments non pris en compte par la commande *pg\_dump* :
 
 - les rôles et utilisateurs,  
@@ -953,6 +954,7 @@ Cachet
 *\-- \======================*  
 *\-- GTFS TABLES (transport)*  
 *\-- \======================*  
+```sql
 **CREATE** **TABLE** transport.AGENCY(  
    agency\_id VARCHAR(50),  
    agency\_name VARCHAR(50),  
@@ -961,7 +963,8 @@ Cachet
    agency\_lang VARCHAR(50),  
    PRIMARY **KEY**(agency\_id)  
 );
-
+```
+```sql
 **CREATE** **TABLE** transport.ROUTE(  
    route\_id VARCHAR(50),  
    route\_short\_name VARCHAR(50),  
@@ -969,7 +972,8 @@ Cachet
    route\_type INTEGER,  
    PRIMARY **KEY**(route\_id)  
 );
-
+```
+```sql
 **CREATE** **TABLE** transport.STOP(  
    stop\_id VARCHAR(50),  
    stop\_name VARCHAR(50),  
@@ -979,7 +983,8 @@ Cachet
    PRIMARY **KEY**(stop\_id),  
    FOREIGN **KEY**(stop\_id\_parent) **REFERENCES** transport.STOP(stop\_id)  
 );
-
+```
+```sql
 **CREATE** **TABLE** transport.CALENDAR(  
    service\_id VARCHAR(50),  
    monday VARCHAR(50),  
@@ -993,7 +998,8 @@ Cachet
    end\_date DATE,  
    PRIMARY **KEY**(service\_id)  
 );
-
+```
+```sql
 **CREATE** **TABLE** transport.TRIP(  
    trip\_id VARCHAR(50),  
    headsign VARCHAR(50),  
@@ -1004,7 +1010,8 @@ Cachet
    FOREIGN **KEY**(service\_id) **REFERENCES** transport.CALENDAR(service\_id),  
    FOREIGN **KEY**(route\_id) **REFERENCES** transport.ROUTE(route\_id)  
 );
-
+```
+```sql
 **CREATE** **TABLE** transport.Gerer(  
    agency\_id VARCHAR(50),  
    route\_id VARCHAR(50),  
@@ -1012,7 +1019,8 @@ Cachet
    FOREIGN **KEY**(agency\_id) **REFERENCES** transport.AGENCY(agency\_id),  
    FOREIGN **KEY**(route\_id) **REFERENCES** transport.ROUTE(route\_id)  
 );
-
+```
+```sql
 **CREATE** **TABLE** transport.Desservir(  
    stop\_id VARCHAR(50),  
    trip\_id VARCHAR(50),  
@@ -1023,17 +1031,18 @@ Cachet
    FOREIGN **KEY**(stop\_id) **REFERENCES** transport.STOP(stop\_id),  
    FOREIGN **KEY**(trip\_id) **REFERENCES** transport.TRIP(trip\_id)  
 );
-
+```
 *\-- \======================*  
 *\-- ACCESSIBILITY TABLES (accessibilite)*  
 *\-- \======================*
-
+```sql
 **CREATE** **TABLE** accessibilite.Cheminement(  
    idCheminement VARCHAR(255),  
    nom VARCHAR(254),  
    PRIMARY **KEY**(idCheminement)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Obstacle(  
    idObstacle VARCHAR(255),  
    typeObstacle VARCHAR(2),  
@@ -1048,7 +1057,8 @@ Cachet
    geom GEOMETRY,  
    PRIMARY **KEY**(idObstacle)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Circulation(  
    idCirculation VARCHAR(255),  
    typeSol VARCHAR(2),  
@@ -1061,7 +1071,8 @@ Cachet
    couvert VARCHAR(50),  
    PRIMARY **KEY**(idCirculation)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Ascenceur(  
    idAscenseur VARCHAR(255),  
    largeurUtile **DOUBLE** **PRECISION**,  
@@ -1083,7 +1094,8 @@ Cachet
    autrePorteSortie VARCHAR(2),  
    PRIMARY **KEY**(idAscenseur)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Elevateur(  
    idElevateur VARCHAR(255),  
    largeurUtile **DOUBLE** **PRECISION**,  
@@ -1099,7 +1111,8 @@ Cachet
    accompagnateur VARCHAR(2),  
    PRIMARY **KEY**(idElevateur)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Passage\_Selectif(  
    idPassageSelectif VARCHAR(255),  
    passageMecanique BOOLEAN,  
@@ -1108,7 +1121,8 @@ Cachet
    contrasteVisuel BOOLEAN,  
    PRIMARY **KEY**(idPassageSelectif)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Entree(  
    idEntree VARCHAR(255),  
    adresse TEXT,  
@@ -1136,7 +1150,8 @@ Cachet
    effortOuverture INTEGER,  
    PRIMARY **KEY**(idEntree)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Stationnement\_PMR(  
    idStationnement VARCHAR(255),  
    typeStationnement VARCHAR(2),  
@@ -1152,7 +1167,8 @@ Cachet
    typeSol VARCHAR(2),  
    PRIMARY **KEY**(idStationnement)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Escalier(  
    idEscalier VARCHAR(255),  
    etatRevetement geostandard.enum5,  
@@ -1168,7 +1184,8 @@ Cachet
    giron REAL,  
    PRIMARY **KEY**(idEscalier)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Quai(  
    idQuai VARCHAR(255),  
    etatRevetement VARCHAR(2),  
@@ -1179,7 +1196,8 @@ Cachet
    diamZoneManoeuvre REAL,  
    PRIMARY **KEY**(idQuai)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Rampe(  
    idRampe VARCHAR(255),  
    etatRevetement VARCHAR(2),  
@@ -1191,7 +1209,8 @@ Cachet
    poidsSupporte INTEGER,  
    PRIMARY **KEY**(idRampe)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Tapis\_Roulant(  
    idTapis VARCHAR(255),  
    sens VARCHAR(2),  
@@ -1200,7 +1219,8 @@ Cachet
    detecteur BOOLEAN,  
    PRIMARY **KEY**(idTapis)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Escalator(  
    idEscalator VARCHAR(255),  
    sens geostandard.enum4,  
@@ -1210,7 +1230,8 @@ Cachet
    surpervision BOOLEAN,  
    PRIMARY **KEY**(idEscalator)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Traversee(  
    idTraversee VARCHAR(255),  
    etatRevetement VARCHAR(2),  
@@ -1224,7 +1245,8 @@ Cachet
    covisibilite VARCHAR(2),  
    PRIMARY **KEY**(idTraversee)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Carroyage(  
    idCarreau VARCHAR(50),  
    ind NUMERIC(15,2),  
@@ -1240,11 +1262,11 @@ Cachet
    ind\_80 NUMERIC(15,2),  
    PRIMARY **KEY**(idCarreau)  
 );
-
+```
 *\-- \======================*  
 *\-- TRONCONS ET NOEUDS (accessibilite)*  
 *\-- \======================*
-
+```sql
 **CREATE** **TABLE** accessibilite.Troncon\_Cheminement(  
    idTroncon VARCHAR(50),  
    from\_ VARCHAR(255),  
@@ -1274,7 +1296,8 @@ Cachet
    FOREIGN **KEY**(idCirculation) **REFERENCES** accessibilite.Circulation(idCirculation),  
    FOREIGN **KEY**(idObstacle) **REFERENCES** accessibilite.Obstacle(idObstacle)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.Noeud(  
    idNoeud VARCHAR(50),  
    altitude **DOUBLE** **PRECISION**,  
@@ -1303,11 +1326,11 @@ Cachet
    FOREIGN **KEY**(idCarreau) **REFERENCES** accessibilite.Carroyage(idCarreau),  
    FOREIGN **KEY**(idTroncon) **REFERENCES** accessibilite.Troncon\_Cheminement(idTroncon)  
 );
-
+```
 *\-- \======================*  
 *\-- RELATIONS (accessibilite)*  
 *\-- \======================*
-
+```sql
 **CREATE** **TABLE** accessibilite.est\_compose\_de(  
    idTroncon VARCHAR(50),  
    idCheminement VARCHAR(255),  
@@ -1315,7 +1338,8 @@ Cachet
    FOREIGN **KEY**(idTroncon) **REFERENCES** accessibilite.Troncon\_Cheminement(idTroncon),  
    FOREIGN **KEY**(idCheminement) **REFERENCES** accessibilite.Cheminement(idCheminement)  
 );
-
+```
+```sql
 **CREATE** **TABLE** accessibilite.donne\_acces\_a(  
    idNoeud VARCHAR(50),  
    idStationnement VARCHAR(255),  
@@ -1323,11 +1347,11 @@ Cachet
    FOREIGN **KEY**(idNoeud) **REFERENCES** accessibilite.Noeud(idNoeud),  
    FOREIGN **KEY**(idStationnement) **REFERENCES** accessibilite.Stationnement\_PMR(idStationnement)  
 );
-
+```
 *\-- \======================*  
 *\-- TRAVAUX TABLES (travaux)*  
 *\-- \======================*
-
+```sql
 **CREATE** **TABLE** travaux.zone(  
    Id\_zone SERIAL,  
    nom\_zone VARCHAR(255),  
@@ -1338,7 +1362,8 @@ Cachet
    geom GEOMETRY(POLYGON,2154),  
    PRIMARY **KEY**(Id\_zone)  
 );
-
+```
+```sql
 **CREATE** **TABLE** travaux.impact\_accessibilite(  
    Id\_impact\_accessibilite SERIAL,  
    description VARCHAR(255),  
@@ -1348,7 +1373,8 @@ Cachet
    PRIMARY **KEY**(Id\_impact\_accessibilite),  
    FOREIGN **KEY**(Id\_zone) **REFERENCES** travaux.zone(Id\_zone)  
 );
-
+```
+```sql
 **CREATE** **TABLE** travaux.projet\_travaux(  
    Id\_projet\_travaux SERIAL,  
    nom\_chantier VARCHAR(255),  
@@ -1359,7 +1385,8 @@ Cachet
    PRIMARY **KEY**(Id\_projet\_travaux),  
    FOREIGN **KEY**(Id\_zone) **REFERENCES** travaux.zone(Id\_zone)  
 );
-
+```
+```sql
 *\-- Table lien entre transport.STOP et accessibilite.Noeud*  
 **CREATE** **TABLE** transport.donner\_acces\_a (  
     stop\_id VARCHAR(50),  
@@ -1368,4 +1395,4 @@ Cachet
     FOREIGN **KEY**(stop\_id) **REFERENCES** transport.STOP(stop\_id),  
     FOREIGN **KEY**(idNoeud) **REFERENCES** accessibilite.Noeud(idNoeud)  
 );
-
+```
