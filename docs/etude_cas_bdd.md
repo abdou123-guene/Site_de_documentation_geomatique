@@ -678,11 +678,11 @@ Ci-dessous des exemples de commandes usuelles :
 
 * **Sauvegarde complète d’une base**
 ```sql
-*pg\_dump dbname \> sauvegarde.sql*
+pg\_dump dbname \> sauvegarde.sql
 ```
 * **Sauvegarde ciblée** (un schéma ou quelques tables)
 ```sql
-*pg\_dump \-n schema\_name \-t table\_name dbname \> sauvegarde\_partielle.sql*
+pg\_dump \-n schema\_name \-t table\_name dbname \> sauvegarde\_partielle.sql
 ```
 La commande *pg\_dump* présente néanmoins les limites suivantes :
 
@@ -728,7 +728,7 @@ La sauvegarde doit être déposée sur un serveur dédié à la sauvegarde ou da
 
 Pour garantir une conservation complète et durable du cluster PostgreSQL, il est nécessaire d’utiliser *pg\_dumpall*. Cet outil génère un fichier SQL contenant l’ensemble des bases de données du cluster, ainsi que tous les objets globaux : rôles et utilisateurs, privilèges, tablespaces, et paramètres définis au niveau du cluster.
 ```sql
-*pg\_dumpall \> archive*
+pg\_dumpall \> archive
 ```
 ***pg\_dumpall*** permet de sauvegarder des éléments non pris en compte par la commande *pg\_dump* :
 
