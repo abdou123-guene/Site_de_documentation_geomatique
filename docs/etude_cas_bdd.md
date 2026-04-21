@@ -1,10 +1,17 @@
 # Mise en place d'une base de données géographiques
+
+<img width="245" height="100" alt="logo idgeo cmjn 400x100mm sans ombre" src="https://github.com/user-attachments/assets/1d4e1e65-f6bf-4856-b1cb-85316fe4651d" />
+
+**Année:** 2025-2027
+
 **Auteurs:**
 - GUENE Abdou Lahat
 - MASTROMATTEO Lucas
 - BARATEAU Cloé
 - GBETEY Andtoin
+<img width="2894" height="664" alt="logo-CPGEOM" src="https://github.com/user-attachments/assets/0c665be8-0b63-490f-8a1c-06b6ef74d991" />
 
+---
 ## I \- Présentation du projet
 
 ### a) Commande
