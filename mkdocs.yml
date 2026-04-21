@@ -9,6 +9,7 @@ nav:
   - Cycle de vie des données: cycle_de_vie_des_donnees.md
   - Admin et Base de données géographique : aide_sql.md
   - Quelques exemples de scripts SQL fréquents en géomatique: abdou_julien_base_de_donnees.md
+  - Mise en place de base de données géographique: etude_cas_bdd.md
   - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
   - Brique de Géomatqiue et Télédétection: teledetection.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
