@@ -2,7 +2,7 @@
 
 ## I \- Présentation du projet {#i---présentation-du-projet}
 
-1) ### Commande {#commande}
+ ### 1) Commande {#commande}
 
 L’agglomération de Losse-en-Gelaisse, en tant qu’Autorité Organisatrice de la Mobilité dans le cadre de la Loi d'Orientation des Mobilités (LOM[^1]), souhaite se doter d’un dispositif complet permettant de mieux exploiter et piloter ses données d’accessibilité de la voirie (données « outdoor »).
 
@@ -25,7 +25,7 @@ La collectivité souhaite également intégrer dans la solution web un module d�
 
 La collectivité demande également au prestataire d’être force de proposition pour la rédaction d’une convention encadrant la mise à disposition des données d’accessibilité.
 
-2) ### Périmètre de travail {#périmètre-de-travail}
+ ### 2) Périmètre de travail {#périmètre-de-travail}
 
 Le projet couvre des aspects techniques, méthodologiques et organisationnels liés à la mise en place et à l’exploitation d’une base de données géographiques dédiée à l’accessibilité.  
 Le périmètre comprend notamment :
@@ -38,7 +38,7 @@ Le périmètre comprend notamment :
 * la proposition d’enrichissements de la base de données par l’intégration de données complémentaires (démographie, réseau de transport, équipements publics) ;  
 * la conception du cycle de vie des données ainsi que des mécanismes d’administration et de gestion des métadonnées afin de garantir la traçabilité et la pérennité de la base.
 
-3) ### Analyse des besoins {#analyse-des-besoins}
+ ### 3) Analyse des besoins {#analyse-des-besoins}
 
 L’analyse des besoins vise à identifier les ressources nécessaires à la mise en œuvre du projet, tant en termes de données que d’outils et d’organisation.
 
@@ -137,7 +137,7 @@ Plusieurs pistes d’évolution peuvent être envisagées afin d’améliorer et
 
 ## II \- Etude des sources de données et analyse critique {#ii---etude-des-sources-de-données-et-analyse-critique}
 
-1) ### Données GTFS (General Transit Feed Specification) {#données-gtfs-(general-transit-feed-specification)}
+ ### 1) Données GTFS (General Transit Feed Specification) {#données-gtfs-(general-transit-feed-specification)}
 
 Le GTFS est une norme ouverte pour diffuser des données sur les systèmes de transport en commun. Cette norme comprend deux formats différents : le GTFS Schedule et le GTFS Realtime. Les données de transport de Losse-en-Gelaisse étant exportées en format GTFS Schedule, le modèle de données “Transport” a été conçu sur la base de ce format.
 
@@ -161,7 +161,7 @@ Dans le cadre de ce projet, il a été convenu de considérer uniquement les fic
 
 Figure 1 : Definitions des champs ; General Transit Feed Specification 
 
-2) ### Standard CNIG “Accessibilité”[^4] {#standard-cnig-“accessibilité”}
+ ### 2) Standard CNIG “Accessibilité”[^4] {#standard-cnig-“accessibilité”}
 
 La base de données d’accessibilité fournie par la collectivité est structurée selon le standard CNIG Accessibilité et stockée dans une base PostgreSQL/PostGIS. Ce modèle constitue le socle de travail du projet. Le Conseil National de l’Information Géolocalisée (CNIG) propose des standards de structuration des données géographiques destinés à harmoniser les pratiques des collectivités et à faciliter l’échange de données. Le standard CNIG Accessibilité vise ainsi à décrire de manière homogène les éléments de voirie impactant l’accessibilité, tels que les cheminements piétons, les obstacles, les pentes ou les équipements urbains (Fig 2 et fig 3).  
 Ce standard s’inscrit également dans le cadre plus large des politiques européennes d’interopérabilité des données géographiques, notamment la directive INSPIRE[^5], qui vise à faciliter le partage et la diffusion des données géographiques au sein de l’Union européenne.
@@ -196,7 +196,7 @@ Le MCD du CNIG repose sur une structure stable et partagée, permettant de limit
 
 Ainsi, ce modèle constitue une base fiable et pérenne pour la structuration et l’exploitation des données d’accessibilité dans le cadre du projet.
 
-3) ## Analyse critique des modèles comparatives (MCD Travaux) {#analyse-critique-des-modèles-comparatives-(mcd-travaux)}
+ ### 3) Analyse critique des modèles comparatives (MCD Travaux) {#analyse-critique-des-modèles-comparatives-(mcd-travaux)}
 
 Pour construire notre MCD pour les zones de travaux , nous avons effectué une étude comparative des modèles existants : Open data Paris et Toulouse métropole.
 
@@ -245,7 +245,7 @@ Le modèle toulousain se structure autour d'une fiche chantier synthétique avec
 
 ## III \- Contenu de la base de données {#iii---contenu-de-la-base-de-données}
 
-1) ### Description des exigences générales  {#description-des-exigences-générales}
+ ### 1) Description des exigences générales  {#description-des-exigences-générales}
 
 Le cahier des charges identifie clairement plusieurs besoins supplémentaires : 
 
@@ -263,7 +263,7 @@ Le MCD du CNIG ne prévoit naturellement aucune structure pour modéliser :
 
 C’est pourquoi deux schémas complémentaires ont été créés.
 
-2) ### Modèles conceptuels de données  {#modèles-conceptuels-de-données}
+ ### 2) Modèles conceptuels de données  {#modèles-conceptuels-de-données}
 
    #### b.1) Modèle de données général {#b.1)-modèle-de-données-général}
 
@@ -479,7 +479,7 @@ Afin de garantir la qualité, la cohérence et l’interopérabilité des donné
 
 # [I](#iii---contenu-de-la-base-de-données)V \- Structure des données {#iv---structure-des-données}
 
-1) ### Choix d’implémentation {#choix-d’implémentation}
+ ### 1) Choix d’implémentation {#choix-d’implémentation}
 
 Pour répondre aux exigences de la commande, le choix s’est porté sur le couple **PostgreSQL**, pour la gestion de la base de données relationnelle, et son extension spatiale **PostGIS**. Ce choix est stratégique pour plusieurs raisons :
 
@@ -489,7 +489,7 @@ Pour répondre aux exigences de la commande, le choix s’est porté sur le coup
 
 * **Open Source :** L'agglomération exige que l'outil web et les outils de contrôle soient entièrement **open source** afin d'être mutualisables avec d'autres territoires. PostgreSQL étant le leader des SGBD libres, il est parfaitement adapté pour répondre aux besoin de ce projet.
 
-2) ### Livraison informatique {#livraison-informatique}
+ ### 2) Livraison informatique {#livraison-informatique}
 
 Le cœur de la livraison repose sur la fourniture d’un script SQL à l’agglomération de Losse-en-Gelaisse pour garantir le déploiement opérationnel de la solution. 
 
@@ -503,7 +503,7 @@ Ce script assure :
 
 Le script SQL complet est consultable en annexe (annexe n°2).
 
-3) ### Implémentation physique {#implémentation-physique}
+ ### 3) Implémentation physique {#implémentation-physique}
 
 #### c.1) Organisation en schémas {#c.1)-organisation-en-schémas}
 
@@ -535,7 +535,7 @@ Pour garantir que les données saisies sont conformes aux attentes métiers (sta
 
 * **intégrité spatiale :** Les géométries sont contraintes par des types spécifiques (ex: **`POLYGON`** pour les zones de travaux) et associées au système de référence spatial **SRID 2154** (Lambert 93).
 
-4) ### Représentation graphique {#représentation-graphique}
+ ### 4) Représentation graphique {#représentation-graphique}
 
 A partir des modèles conceptuels de données et des différentes contraintes déjà présentés, un schéma relationnel de base de donnée a été réalisé, montrant l'organisation physique des tables et assurant que la base soit opérationnelle et exploitable. Les tables, colonnes, clés primaires et relations qui composent la base sont exposées ci-dessous (Fig 8, 9 et 10).
 
@@ -618,7 +618,7 @@ La gestion des données d’accessibilité de Losse‑en‑Gelaisse repose sur d
 
 Ces deux dimensions forment un système continu et structuré permettant d’alimenter durablement l’outil web d’accessibilité.
 
-1) ### Administration de la base de données {#administration-de-la-base-de-données}
+ ### 1) Administration de la base de données {#administration-de-la-base-de-données}
 
 L’administration garantit que la base PostgreSQL/PostGIS est stable, sécurisée, performante et exploitable par les utilisateurs internes et les outils.
 
@@ -651,7 +651,7 @@ Chaque schéma de la base est associé à des droits spécifiques :
 
 L’intégration et la mise à jour des données sont réalisées de manière contrôlée, notamment via des scripts SQL ou à l’aidGIS. L’accès au système est sécurisé grâce à des mécanismes d’authentification, à l’utilisation de mots de passe et, le cas échéant, à des restrictions d’accès par IP ou via VPN. Une surveillance régulière des logs PostgreSQL est également mise en place afin de détecter d’éventuelles anomalies ou tentatives d’accès non autorisées. Par ailleurs, les logiciels PostgreSQL et PostGIe des outils proposés par QS font l’objet de mises à jour régulières pour garantir la sécurité et la stabilité de l’infrastructure. 
 
-2) ###  Sauvegardes et versionnement {#sauvegardes-et-versionnement}
+ ### 2)  Sauvegardes et versionnement {#sauvegardes-et-versionnement}
 
 #### b.1) Sauvegardes quotidiennes {#b.1)-sauvegardes-quotidiennes}
 
