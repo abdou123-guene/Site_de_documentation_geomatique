@@ -1,4 +1,9 @@
 # Mise en place d'une base de données géographiques
+**Auteurs:**
+- GUENE Abdou Lahat
+- MASTROMATTEO Lucas
+- BARATEAU Cloé
+- GBETEY Andtoin
 
 ## I \- Présentation du projet
 
