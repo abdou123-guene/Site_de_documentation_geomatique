@@ -951,9 +951,9 @@ Cachet
 **CREATE** **SCHEMA** **IF** **NOT** **EXISTS** transport;  
 **CREATE** **SCHEMA** **IF** **NOT** **EXISTS** accessibilite;
 
-*======================*  
+*=======================*  
 *GTFS TABLES (transport)*  
-*======================*  
+*=======================*  
 ```sql
 CREATE TABLE transport.agency (
    agency_id VARCHAR(50) NOT NULL,
@@ -1032,9 +1032,9 @@ CREATE TABLE transport.desservir (
    FOREIGN KEY (trip_id) REFERENCES transport.trip(trip_id)
 );
 ```
-*======================*  
+*====================================*  
 *ACCESSIBILITY TABLES (accessibilite)*  
-*======================*
+*====================================*
 ```sql
 CREATE TABLE accessibilite.cheminement (
    idCheminement VARCHAR(255) NOT NULL,
@@ -1263,9 +1263,9 @@ CREATE TABLE accessibilite.carroyage (
    PRIMARY KEY (idCarreau)
 );
 ```
-*======================*  
+*==================================*  
 *TRONCONS ET NOEUDS (accessibilite)*  
-*======================*
+*==================================*
 ```sql
 CREATE TABLE accessibilite.troncon_cheminement (
    idTroncon VARCHAR(50) NOT NULL,
@@ -1327,9 +1327,9 @@ CREATE TABLE accessibilite.noeud (
    FOREIGN KEY (idTroncon) REFERENCES accessibilite.troncon_cheminement(idTroncon)
 );
 ```
-*======================*  
+*=========================*  
 *RELATIONS (accessibilite)*  
-*======================*
+*=========================*
 ```sql
 CREATE TABLE accessibilite.est_compose_de (
    idTroncon VARCHAR(50) NOT NULL,
@@ -1348,9 +1348,9 @@ CREATE TABLE accessibilite.donne_acces_a (
    FOREIGN KEY (idStationnement) REFERENCES accessibilite.stationnement_pmr(idStationnement)
 );
 ```
-*======================*  
+*========================*  
 *TRAVAUX TABLES (travaux)*  
-*======================*
+*========================*
 ```sql
 CREATE TABLE travaux.zone (
    id_zone SERIAL,
