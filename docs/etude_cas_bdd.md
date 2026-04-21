@@ -477,7 +477,7 @@ Afin de garantir la qualité, la cohérence et l’interopérabilité des donné
 
 * **Interopérabilité GTFS** : Une attention particulière est portée à la cohérence des identifiants et à la structure des données afin de faciliter leur intégration dans les différents outils de calcul d’itinéraires et applications de mobilité. L’utilisation du standard GTFS permet ainsi d’assurer 
 
-# [I](#iii---contenu-de-la-base-de-données)V \- Structure des données {#iv---structure-des-données}
+## IV \- Structure-des-données {#i---structure-des-données}
 
  ### 1) Choix d’implémentation {#choix-d’implémentation}
 
