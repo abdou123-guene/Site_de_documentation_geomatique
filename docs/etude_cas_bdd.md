@@ -955,13 +955,13 @@ Cachet
 *\-- GTFS TABLES (transport)*  
 *\-- \======================*  
 ```sql
-**CREATE** **TABLE** transport.AGENCY(  
+CREATE TABLE transport.AGENCY(  
    agency\_id VARCHAR(50),  
    agency\_name VARCHAR(50),  
    agency\_url VARCHAR(50),  
    agency\_timezone VARCHAR(50),  
    agency\_lang VARCHAR(50),  
-   PRIMARY **KEY**(agency\_id)  
+   PRIMARY KEY (agency\_id)  
 );
 ```
 ```sql
