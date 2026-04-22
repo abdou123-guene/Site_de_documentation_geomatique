@@ -1,5 +1,9 @@
 # Exemple des sources de données utilisées en agence d'urbanisme (France)
 ---
+### Sources favorites: 
+https://statistiques-locales.insee.fr/#c=home 
+https://www.observatoire-des-territoires.gouv.fr/outils/cartographie-interactive/#c=home
+https://cartes.gouv.fr/rechercher-une-donnee/search
 
 ### 1. INSEE - Institut National de la Statistique et des Études Économiques
 Sources mobilisées :
