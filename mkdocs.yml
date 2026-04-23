@@ -15,6 +15,7 @@ nav:
   - Cartographie avec Rstudio: rstudio_geomatique.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
   - Exemple de source de données entreprise : Readme.md
+  - Test carte web: carte_web.html
 extra_css:
   - css/le_style.css
 
