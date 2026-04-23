@@ -2,14 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Carte web – Guene Abdou</title>
+    <title>Carte animée – AUDC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Leaflet CSS -->
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
     <style>
         html, body {
@@ -38,7 +35,7 @@
 <body>
 
 <header>
-    Carte web interactive – Guene Abdou (Géomaticien)
+    Carte animée – De la France vers l’AUDC (Châlons-en-Champagne)
 </header>
 
 <div id="map"></div>
@@ -47,19 +44,33 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-    // Initialisation de la carte
-    var map = L.map('map').setView([49.2561, 4.0317], 11);
+    // 📍 Coordonnées
+    const franceCenter = [46.603354, 1.888334]; // Centre France
+    const audc = [48.969509, 4.347039];         // AUDC
 
-    // Fond OpenStreetMap
+    // 1️⃣ Initialisation de la carte (vue France)
+    var map = L.map('map').setView(franceCenter, 6);
+
+    // 2️⃣ Fond de carte OSM
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
+        attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Marqueur
-    L.marker([49.2561, 4.0317])
-        .addTo(map)
-        .bindPopup("<b>Châlons-en-Champagne</b><br>AUDC")
-        .openPopup();
+    // 3️⃣ Lancement de l'animation après 2 secondes
+    setTimeout(() => {
+        map.flyTo(audc, 13, {
+            animate: true,
+            duration: 4   // durée de l’animation (secondes)
+        });
+    }, 2000);
+
+    // 4️⃣ Ajout du marqueur AUDC après l'arrivée
+    setTimeout(() => {
+        L.marker(audc)
+            .addTo(map)
+            .bindPopup("<b>AUDC</b><br>Châlons-en-Champagne")
+            .openPopup();
+    }, 6000);
 </script>
 
 </body>
