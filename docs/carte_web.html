@@ -5,18 +5,27 @@
     <title>Carte web – Guene Abdou</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Leaflet CSS (OBLIGATOIRE) -->
+    <!-- Leaflet CSS -->
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-sA+z0pSUC7kCw7trN6t2YpV7KQh6cGZ9E+Y5x0i0Xbw="
-        crossorigin=""
-      height: 60px;
+    />
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        header {
+            height: 60px;
             background: #1f2937;
             color: white;
             text-align: center;
             line-height: 60px;
             font-size: 18px;
+            font-family: Arial, sans-serif;
         }
 
         #map {
@@ -34,16 +43,16 @@
 
 <div id="map"></div>
 
-<!-- Leaflet JS (OBLIGATOIRE) -->
-<script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j7kD8I+Zk2UNkY5Yq55Y7N7M0kzQ2Y+9wWc0CjU="
-    crossorigin=""
-, 11);
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    // Fond de carte OpenStreetMap
+<script>
+    // Initialisation de la carte
+    var map = L.map('map').setView([49.2561, 4.0317], 11);
+
+    // Fond OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: '© OpenStreetMap'
     }).addTo(map);
 
     // Marqueur
