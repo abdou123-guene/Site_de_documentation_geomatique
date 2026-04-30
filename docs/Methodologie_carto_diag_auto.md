@@ -645,58 +645,104 @@ Couche de flux EPCI → EPCI
 ### 7. Et si nous voulons une cartes avec cercles proportionnels incluant les 3 types de flux
 
 ```sql
-CREATE TABLE bdtopo.flux_par_commune_pays_chalons AS
+WITH pays_chalons AS (
+  SELECT unnest(ARRAY[
+    '51504','51326','51409','51312','51538','51595','51483','51372','51099','51634',
+    '51656','51227','51149','51244','51319','51587','51193','51108','51453','51301',
+    '51357','51178','51031','51146','51242','51486','51212','51389','51307','51388',
+    '51285','51003','51231','51078','51377','51168','51555','51509','51617','51023',
+    '51150','51566','51278','51147','51117','51545','51161','51476','51512','51556',
+    '51203','51087','51160','51303','51594','51525','51106','51506','51354','51574',
+    '51616','51502','51148','51436','51339','51648','51482','51097','51415','51371',
+    '51490','51572','51438','51179','51515','51548','51208','51260','51259','51559',
+    '51547','51544','51553','51317','51491','51546','51501','51197','51485'
+  ]) AS code_insee
+),
+
+entrants AS (
+  SELECT
+    s.dclt AS code_insee,
+    SUM(s.nbflux_c22_actocc15p)::int AS entrants
+  FROM bdtopo.flux_domicile_travail_2022 s
+  WHERE s.dclt IN (SELECT code_insee FROM pays_chalons)
+  GROUP BY s.dclt
+),
+
+sortants AS (
+  SELECT
+    s.codgeo AS code_insee,
+    SUM(s.nbflux_c22_actocc15p)::int AS sortants
+  FROM bdtopo.flux_domicile_travail_2022 s
+  WHERE s.codgeo IN (SELECT code_insee FROM pays_chalons)
+  GROUP BY s.codgeo
+),
+
+internes AS (
+  SELECT
+    s.codgeo AS code_insee,
+    SUM(s.nbflux_c22_actocc15p)::int AS internes
+  FROM bdtopo.flux_domicile_travail_2022 s
+  WHERE s.codgeo IN (SELECT code_insee FROM pays_chalons)
+    AND s.dclt   IN (SELECT code_insee FROM pays_chalons)
+  GROUP BY s.codgeo
+)
+
 SELECT
-    c.code_insee,
-    c.nom_officiel,
+  pc.code_insee,
 
-    -- Flux internes (domicile = travail)
-    COALESCE(fi.flux_interne, 0)::INTEGER AS flux_interne,
+  COALESCE(e.entrants, 0) AS flux_entrants,
+  COALESCE(s.sortants, 0) AS flux_sortants,
+  COALESCE(i.internes, 0) AS flux_internes,
 
-    -- Flux sortants (domicile dans la commune, travail ailleurs)
-    COALESCE(fs.flux_sortant, 0)::INTEGER AS flux_sortant,
+  /* Total des 3 flux */
+  ( COALESCE(e.entrants, 0)
+  + COALESCE(s.sortants, 0)
+  + COALESCE(i.internes, 0)
+  ) AS total_flux,
 
-    -- Flux entrants (domicile ailleurs, travail dans la commune)
-    COALESCE(fe.flux_entrant, 0)::INTEGER AS flux_entrant,
+  /* Pourcentages formatés */
+  CASE
+    WHEN (COALESCE(e.entrants, 0)
+        + COALESCE(s.sortants, 0)
+        + COALESCE(i.internes, 0)) = 0 THEN '0%'
+    ELSE round(
+      100.0 * COALESCE(e.entrants, 0)
+      / (COALESCE(e.entrants, 0)
+       + COALESCE(s.sortants, 0)
+       + COALESCE(i.internes, 0))
+    )::int || '%'
+  END AS pct_entrants,
 
-    -- Géométrie communale
-    c.geom
+  CASE
+    WHEN (COALESCE(e.entrants, 0)
+        + COALESCE(s.sortants, 0)
+        + COALESCE(i.internes, 0)) = 0 THEN '0%'
+    ELSE round(
+      100.0 * COALESCE(s.sortants, 0)
+      / (COALESCE(e.entrants, 0)
+       + COALESCE(s.sortants, 0)
+       + COALESCE(i.internes, 0))
+    )::int || '%'
+  END AS pct_sortants,
 
-FROM bdtopo.commune_adminexpr c
+  CASE
+    WHEN (COALESCE(e.entrants, 0)
+        + COALESCE(s.sortants, 0)
+        + COALESCE(i.internes, 0)) = 0 THEN '0%'
+    ELSE round(
+      100.0 * COALESCE(i.internes, 0)
+      / (COALESCE(e.entrants, 0)
+       + COALESCE(s.sortants, 0)
+       + COALESCE(i.internes, 0))
+    )::int || '%'
+  END AS pct_internes
 
--- Flux internes
-LEFT JOIN (
-    SELECT
-        codgeo AS code_insee,
-        SUM(nbflux_c22_actocc15p)::INTEGER AS flux_interne
-    FROM bdtopo.flux_domicile_travail_2022
-    WHERE codgeo = dclt
-    GROUP BY codgeo
-) fi
-ON fi.code_insee = c.code_insee
-
--- Flux sortants
-LEFT JOIN (
-    SELECT
-        codgeo AS code_insee,
-        SUM(nbflux_c22_actocc15p)::INTEGER AS flux_sortant
-    FROM bdtopo.flux_domicile_travail_2022
-    WHERE codgeo <> dclt
-    GROUP BY codgeo
-) fs
-ON fs.code_insee = c.code_insee
-
--- Flux entrants
-LEFT JOIN (
-    SELECT
-        dclt AS code_insee,
-        SUM(nbflux_c22_actocc15p)::INTEGER AS flux_entrant
-    FROM bdtopo.flux_domicile_travail_2022
-    WHERE codgeo <> dclt
-    GROUP BY dclt
-) fe
-ON fe.code_insee = c.code_insee
-;
+FROM pays_chalons pc
+LEFT JOIN entrants e ON pc.code_insee = e.code_insee
+LEFT JOIN sortants s ON pc.code_insee = s.code_insee
+LEFT JOIN internes i ON pc.code_insee = i.code_insee
+--where pc.code_insee like '51108'
+ORDER BY pc.code_insee;
 ```
 
 **Limitation au périmètre du pays de Châlons-en-Champagne (si besoin)**
