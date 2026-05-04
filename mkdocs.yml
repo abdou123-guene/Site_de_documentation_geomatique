@@ -15,6 +15,7 @@ nav:
   - Cartographie avec Rstudio: rstudio_geomatique.md
   - Classification non supervisée d'images: classification_image_kmeans.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
+  - Consultation dynamique de données PostgreSQL avec PHP: consultation_presentation_markdown_panel.md
   - Exemple de source de données entreprise : Readme.md
   - Ressources BDTopo: carte_bdtopo.html
   - Site de l’AUDC de Châlons‑en‑Champagne: carte_web.html
