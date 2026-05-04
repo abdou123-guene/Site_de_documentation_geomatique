@@ -1,177 +1,204 @@
-# Analyse du script PHP d’affichage des départements
+# Script PHP – Consultation dynamique des départements (PostgreSQL)
 
----
 
-## 1. Connexion à la base de données
+## Objectif
+<p>Ce script PHP permet :</p>
+<ul>
+  <li>d’interroger une base PostgreSQL</li>
+  <li>de filtrer des données par région ou département</li>
+  <li>d’afficher les résultats sous forme de tableau HTML</li>
+</ul>
+<p>Il s’agit d’un exemple simple d’application web de consultation de données territoriales.</p>
 
-```php
-<?php
-// Connexion à la base de données
+## Structure du projet
+<pre>
+/projet_depts/
+├── index.php
+├── connexion.php
+├── style.css (optionnel)
+└── README.md
+</pre>
+
+## Connexion à la base de données
+<pre><code>
+&lt;?php
 include "connexion.php";
-?>
- ```
-Le fichier connexion.php contient la connexion à la base PostgreSQL.
-Nécessaire avant toute requête.
+?&gt;
+</code></pre>
 
-2. Structure HTML et styles CSS
+### Contenu du fichier connexion.php
+<pre><code>
+&lt;?php
+$dbconn = pg_connect("
+    host=localhost
+    dbname=ma_base
+    user=mon_user
+    password=mon_mdp
+");
+?&gt;
+</code></pre>
 
-`````html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <title>Consultation des départements</title>
-    <style>
-        .form-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .texte_rouge {
-            color: red;
-        }
-        .table-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        table {
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-        }
-    </style>
-</head>
-<body>
-</html>
- `````
+<p>Cette connexion est nécessaire pour exécuter les requêtes SQL.</p>
 
-Styles internes pour formater formulaire et tableau :
+## Structure HTML et styles
+<pre><code>
+.form-container {
+    display: flex;
+    justify-content: space-between;
+}
 
-Formulaire en flex (menu région et département côte à côte)
+.table-container {
+    display: flex;
+    justify-content: center;
+}
 
-Noms de départements en rouge
+.texte_rouge {
+    color: red;
+}
+</code></pre>
 
-Tableau centré
+### Fonction
+<ul>
+  <li>organisation du formulaire avec Flexbox</li>
+  <li>affichage centré du tableau</li>
+  <li>mise en évidence du nom du département</li>
+</ul>
 
-3. Formulaire de sélection dynamique
+## Formulaire de sélection dynamique
+<pre><code>
+&lt;form method="GET"&gt;
+</code></pre>
 
- ```html
-<form method="GET">
-    <div class="form-container">
-        <div>
-            <label>Choisissez une région : </label>
-            <select name="nom_region_utilisateur">
-                <option value="">liste des régions par nom </option>
-                <?php
-                $query_regions = "SELECT DISTINCT nom_region FROM depts ORDER BY nom_region";
-                $result_regions = pg_query($dbconn, $query_regions);
-                while ($region = pg_fetch_array($result_regions, null, PGSQL_ASSOC)) {
-                    echo "<option value=\"" . htmlspecialchars($region['nom_region']) . "\">" . htmlspecialchars($region['nom_region']) . "</option>";
-                }
-                ?>
-            </select>
-        </div>
-        <div>
-            <label>Choisissez un département: </label>
-            <select name="code_dept_utilisateur">
-                <option value="">liste des départements par code</option>
-                <?php
-                $query_depts = "SELECT DISTINCT code_dept FROM depts ORDER BY code_dept";
-                $result_depts = pg_query($dbconn, $query_depts);
-                while ($dept = pg_fetch_array($result_depts, null, PGSQL_ASSOC)) {
-                    echo "<option value=\"" . htmlspecialchars($dept['code_dept']) . "\">" . htmlspecialchars($dept['code_dept']) . "</option>";
-                }
-                ?>
-            </select>
-        </div>
-    </div>
-    <button type="submit">Afficher le tableau de résultat</button>
-</form>
- ```
- 
-Le formulaire propose deux menus déroulants remplis depuis la base :
+### Principe
+<ul>
+  <li>choix d’une région</li>
+  <li>choix d’un département</li>
+</ul>
+<p>Les valeurs sont récupérées depuis la base de données.</p>
 
-Liste des régions (triées alphabétiquement)
+### Requête SQL pour les régions
+<pre><code>
+SELECT DISTINCT nom_region FROM depts ORDER BY nom_region;
+</code></pre>
 
-Liste des codes départements
+### Requête SQL pour les départements
+<pre><code>
+SELECT DISTINCT code_dept FROM depts ORDER BY code_dept;
+</code></pre>
 
-htmlspecialchars() protège contre l'injection XSS.
+### Sécurité
+<pre><code>
+htmlspecialchars(...)
+</code></pre>
 
-4. Affichage des résultats
+<p>Permet de protéger contre les attaques XSS.</p>
 
- ```php
-<?php
+## Traitement des filtres
+<pre><code>
 if ((isset($_GET['nom_region_utilisateur']) && $_GET['nom_region_utilisateur'] !== '') ||
     (isset($_GET['code_dept_utilisateur']) && $_GET['code_dept_utilisateur'] !== '')) {
+</code></pre>
 
-    $nom_region = isset($_GET['nom_region_utilisateur']) ? pg_escape_string($dbconn, $_GET['nom_region_utilisateur']) : '';
-    $code_dept = isset($_GET['code_dept_utilisateur']) ? pg_escape_string($dbconn, $_GET['code_dept_utilisateur']) : '';
+### Fonction
+<ul>
+  <li>vérifier la sélection utilisateur</li>
+  <li>éviter les requêtes inutiles</li>
+</ul>
 
-    $query = "SELECT fid, code_dept, nom_dept, code_reg, nom_region, pop, geom
-              FROM depts
-              WHERE 1=1";
+## Sécurisation des entrées utilisateur
+<pre><code>
+pg_escape_string(...)
+</code></pre>
 
-    if ($nom_region !== '') {
-        $query .= " AND nom_region ILIKE '$nom_region%'";
-    }
-    if ($code_dept !== '') {
-        $query .= " AND code_dept = '$code_dept'";
-    }
+<p>Permet de se protéger contre les injections SQL.</p>
 
-    $result = pg_query($dbconn, $query);
+## Construction dynamique de la requête
+<pre><code>
+WHERE 1=1
+</code></pre>
 
-    if (!$result) {
-        echo "<p>Erreur dans la requête : " . pg_last_error($dbconn) . "</p>";
-    } else {
-        if (pg_num_rows($result) == 0) {
-            echo "<p>Aucun département trouvé.</p>";
-        } else {
-            echo "<div class=\"table-container\">";
-            echo "<table border=1>\n";
-            echo "<tr><th>code_dep</th><th>nom_dep</th><th>code_reg</th><th>nom_region</th><th>pop</th></tr>\n";
+<p>Permet d’ajouter facilement des conditions dynamiques :</p>
 
-            while ($ligne = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($ligne['code_dept']) . "</td>";
-                echo "<td class=\"texte_rouge\">" . htmlspecialchars($ligne['nom_dept']) . "</td>";
-                echo "<td>" . htmlspecialchars($ligne['code_reg']) . "</td>";
-                echo "<td>" . htmlspecialchars($ligne['nom_region']) . "</td>";
+<pre><code>
+ILIKE → recherche sans sensibilité à la casse
+=     → correspondance exacte
+</code></pre>
 
-                if ($ligne['pop'] == '') {
-                    echo "<td>non renseigné</td>";
-                } else {
-                    echo "<td>" . htmlspecialchars($ligne['pop']) . "</td>";
-                }
-                echo "</tr>\n";
-            }
-            echo "</table>";
-            echo "</div>";
-        }
-    }
+## Exécution de la requête
+<pre><code>
+pg_query($dbconn, $query)
+</code></pre>
+
+### Gestion des erreurs
+<pre><code>
+pg_last_error($dbconn)
+</code></pre>
+
+## Affichage des résultats
+<p>Le script affiche un tableau contenant :</p>
+
+<ul>
+  <li>code département</li>
+  <li>nom département</li>
+  <li>code région</li>
+  <li>nom région</li>
+  <li>population</li>
+</ul>
+
+### Gestion des valeurs manquantes
+<pre><code>
+if ($ligne['pop'] == '') {
+    echo "non renseigné";
 }
-?>
- ```
-Explications :
+</code></pre>
 
-Condition pour afficher uniquement si un filtre est sélectionné
+## Résultat pour l’utilisateur
+<ul>
+  <li>filtrage des données</li>
+  <li>consultation dynamique</li>
+  <li>affichage structuré</li>
+</ul>
 
-Sécurisation SQL avec pg_escape_string()
+## Sécurité mise en place
+<table border="1">
+<tr>
+  <th>Type de risque</th>
+  <th>Solution</th>
+</tr>
+<tr>
+  <td>XSS</td>
+  <td>htmlspecialchars()</td>
+</tr>
+<tr>
+  <td>Injection SQL</td>
+  <td>pg_escape_string()</td>
+</tr>
+</table>
 
-Requête flexible avec WHERE 1=1 + conditions dynamiques
+## Améliorations possibles
+<ul>
+  <li>utiliser des requêtes préparées (pg_prepare)</li>
+  <li>séparer HTML / PHP (architecture MVC)</li>
+  <li>ajouter pagination</li>
+  <li>utiliser AJAX</li>
+  <li>intégrer PostGIS</li>
+</ul>
 
-ILIKE pour recherche insensible à la casse sur la région
+## Cas d’utilisation
+<ul>
+  <li>consultation de données territoriales</li>
+  <li>formation SIG</li>
+  <li>outil interne en agence d’urbanisme</li>
+  <li>exemple pédagogique PHP + PostgreSQL</li>
+</ul>
 
-Affichage d'un tableau avec les résultats ou message "Aucun département trouvé"
+## Conclusion
+<p>
+Ce script constitue une base solide pour :
+</p>
 
-Population affichée ou "non renseigné" si vide
-
-Résumé
-Le script est un exemple classique d’interaction PHP avec une base PostgreSQL.
-
-Le formulaire dynamique récupère les options depuis la base.
-
-Le résultat est filtré et sécurisé.
-
-La mise en page est simple mais claire.
+<ul>
+  <li>l’interaction PHP – PostgreSQL</li>
+  <li>la manipulation de données dynamiques</li>
+  <li>le développement d’applications web en géomatique</li>
+</ul>
