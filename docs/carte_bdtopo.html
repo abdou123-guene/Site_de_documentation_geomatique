@@ -2,16 +2,14 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Carte GeoNetwork – Guene Abdou</title>
+  <title>Carte BD TOPO – Guene Abdou</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Script GeoNetwork (OBLIGATOIRE) -->
-  <script src="https://cdn.jsdelivr.net/gh/geonetwork/geonetwork-ui@wc-dist-main/gn-wc.js<style>
-    html, body {
+  <!-- IMPORTANT : Script GeoNetwork -->
+  <script type="module" src="https://cdn.jsdelivr.net/gh/geonetwork/geonetwork-ui@wc-dist-main/gn-wc.js{
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: Arial, sans-serif;
     }
 
     header {
@@ -21,10 +19,17 @@
       text-align: center;
       line-height: 60px;
       font-size: 18px;
+      font-family: Arial, sans-serif;
     }
 
     #map-container {
       height: calc(100% - 60px);
+    }
+
+    gn-dataset-view-map {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
@@ -32,7 +37,7 @@
 <body>
 
 <header>
-  Carte GeoNetwork – BD TOPO IGN (Guene Abdou)
+  Carte BD TOPO IGN – GeoNetwork
 </header>
 
 <div id="map-container">
@@ -45,7 +50,6 @@
       background-color="#fdfbff"
       main-font="'Inter', sans-serif"
       title-font="'DM Serif Display', serif"
-      style="width:100%; height:100%; display:block;"
   ></gn-dataset-view-map>
 </div>
 
