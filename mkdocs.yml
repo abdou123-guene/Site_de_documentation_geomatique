@@ -16,6 +16,7 @@ nav:
   - Classification non supervisée d'images: classification_image_kmeans.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
   - Exemple de source de données entreprise : Readme.md
+  - Ressources BDTopo: carte_bdtopo.html
   - Site de l’AUDC de Châlons‑en‑Champagne: carte_web.html
 extra_css:
   - css/le_style.css
