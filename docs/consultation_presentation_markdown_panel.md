@@ -1,6 +1,5 @@
 # Script PHP – Consultation dynamique des départements (PostgreSQL)
 
-
 ## Objectif
 <p>Ce script PHP permet :</p>
 <ul>
