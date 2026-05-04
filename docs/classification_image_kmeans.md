@@ -2,8 +2,6 @@
 
 Analyse multi-temporelle de données raster par classification non supervisée (k-means)
 
----
-
 ### Objectif
 
 Ce script R permet de réaliser une **analyse comparative d’images satellites multi-bandes** afin d’identifier et quantifier les **changements d’occupation du sol** entre deux dates : **1999** et **2011**.
@@ -14,8 +12,6 @@ L’approche repose sur :
 - Une **analyse de transition entre classes**
 - Une **estimation des surfaces en hectares**
 
----
-
 ### Méthodologie
 
 ### 1. Chargement des données
@@ -24,8 +20,6 @@ L’utilisateur sélectionne deux dossiers contenant des images raster (`.tif`) 
 
 Les bandes sont chargées sous forme de **stack raster** via le package `terra`, permettant de manipuler plusieurs bandes simultanément.
 
----
-
 ### 2. Classification k-means
 
 Une fonction dédiée applique un clustering sur les valeurs spectrales :
@@ -33,16 +27,17 @@ Une fonction dédiée applique un clustering sur les valeurs spectrales :
 - Suppression des valeurs manquantes
 - Regroupement en **3 classes**
 - Reconstruction d’un raster classifié
+#### Classification 1999
+<img width="874" height="796" alt="1999" src="https://github.com/user-attachments/assets/6475ecf6-f57e-4462-8e77-9cb37eb78c60" />
+
+#### Classification 2011
+<img width="872" height="797" alt="Capture d’écran 2026-05-04 092740" src="https://github.com/user-attachments/assets/19385473-4af2-4fd2-b943-ca7f510630c4" />
 
 Chaque pixel est assigné à une classe en fonction de sa signature spectrale.
-
----
 
 ### 3. Alignement spatial
 
 Le raster de 2011 est **rééchantillonné** pour correspondre à celui de 1999 afin d’assurer une comparaison fiable pixel à pixel.
-
----
 
 ### 4. Matrice de transition
 
@@ -52,8 +47,6 @@ Une matrice croise les classes entre les deux dates :
 - Colonnes : classes 2011  
 
 Elle met en évidence les dynamiques d’évolution des surfaces.
-
----
 
 ### 5. Calcul des surfaces
 
@@ -65,8 +58,6 @@ Les résultats sont convertis en hectares :
 
 Le résultat est une matrice directement exploitable pour l’analyse territoriale.
 
----
-
 ### 6. Signatures spectrales
 
 Les centres des classes issus du k-means permettent de tracer les **signatures spectrales** :
@@ -75,8 +66,9 @@ Les centres des classes issus du k-means permettent de tracer les **signatures s
 - Variation de la réflectance selon les bandes  
 
 Ces graphiques facilitent l’interprétation des classes (végétation, eau, sol nu, etc.).
+<img width="1653" height="1421" alt="signatures_1999" src="https://github.com/user-attachments/assets/6ae28cb9-87f1-427d-bbac-bd46bac25875" />
 
----
+<img width="1653" height="1421" alt="signatures_2011" src="https://github.com/user-attachments/assets/abeec0b6-1233-4f82-99f2-ef2c7aef9a08" />
 
 ### 7. Visualisation
 
@@ -84,8 +76,6 @@ Le script génère :
 
 - Les cartes classifiées (1999 et 2011)  
 - Les graphiques de signatures spectrales  
-
----
 
 ### 8. Export des résultats
 
@@ -102,13 +92,9 @@ Le script génère :
   - Matrice en pixels  
   - Matrice en hectares  
 
----
-
 ### 9. Contrôle qualité
 
 Les centres des clusters sont affichés en console afin de faciliter l’interprétation et la validation des classes.
-
----
 
 ### Packages utilisés
 
@@ -117,8 +103,6 @@ Les centres des clusters sont affichés en console afin de faciliter l’interpr
 - `reshape2` : transformation des données  
 - `ggplot2` : visualisation  
 
----
-
 ### Points forts
 
 - Méthode automatisée  
@@ -126,15 +110,11 @@ Les centres des clusters sont affichés en console afin de faciliter l’interpr
 - Analyse spatiale et quantitative combinée  
 - Export direct des résultats exploitables  
 
----
-
 ### Limites
 
 - Correspondance des classes non garantie entre dates  
 - Nombre de classes fixé arbitrairement  
 - Interprétation experte nécessaire  
-
----
 
 ### Perspectives d’amélioration
 
@@ -143,9 +123,9 @@ Les centres des clusters sont affichés en console afin de faciliter l’interpr
 - Ajout d’indices spectraux (NDVI…)  
 - Automatisation complète du workflow  
 
----
-
 Projet réalisé dans un contexte de géomatique appliquée à l’analyse territoriale.
+
+### Code R fonctionnel
 
 ```r
 library(terra)
