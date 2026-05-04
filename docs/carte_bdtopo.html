@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Carte animée – AUDC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      height: 60px;
+      background: #1f2937;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    #map {
+      height: calc(100% - 60px);
+      width: 100%;
+      position: relative;
+    }
+
+    /* Logo en overlay (style SIG pro) */
+    #logo {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      z-index: 1000;
+      background: white;
+      padding: 8px;
+      border-radius: 6px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    }
+
+    #logo img {
+      width: 80px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  Carte web animée – France ➜ AUDC (Guene Abdou)
+</header>
+
+<div id="map"></div>
+
+<!-- Logo AUDC -->
+<div id="logo">
+  <img src="images/logo.jpg" alt="Logo AUDC">
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  /* Coordonnées */
+  const franceCenter = [46.603354, 1.888334];
+  const audc = [48.969509, 4.347039];
+
+  /* Initialisation de la carte (vue France) */
+  var map = L.map('map').setView(franceCenter, 6);
+
+  /* Fond OpenStreetMap */
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  /* Icône personnalisée avec logo */
+  var audcIcon = L.icon({
+    iconUrl: 'images/logo.jpg',
+    iconSize: [48, 48],
+    iconAnchor: [24, 48],
+    popupAnchor: [0, -48]
+  });
+
+  /* Animation France → AUDC */
+  setTimeout(() => {
+    map.flyTo(audc, 13, {
+      animate: true,
+      duration: 4
+    });
+  }, 2000);
+
+  /* Marqueur AUDC après animation */
+  setTimeout(() => {
+    L.marker(audc, { icon: audcIcon })
+      .addTo(map)
+      .bindPopup("<b>AUDC</b><br>Châlons-en-Champagne")
+      .openPopup();
+  }, 6000);
+</script>
+
+</body>
+</html>
