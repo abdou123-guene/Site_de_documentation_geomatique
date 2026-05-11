@@ -1,49 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Carte SIG – Châlons</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    #logo {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      z-index: 1000;
+      background: white;
+      padding: 6px;
+      border-radius: 6px;
+    }
+
+    #logo img {
+      width: 80px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<div id="logo">
+  <img src="images/logo.jpg" alt="logo">
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
 
-/* Coordonnées */
-const franceCenter = [46.603354, 1.888334];
-const audc = [48.969509, 4.347039];
+/* =========================
+   CARTE
+========================= */
 
-/* Carte */
-var map = L.map('map').setView(franceCenter, 6);
+var map = L.map('map').setView([48.9695, 4.3470], 12);
 
-/* Fond */
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors'
+  attribution: '© OpenStreetMap'
 }).addTo(map);
 
-/* Icône logo */
-var audcIcon = L.icon({
-  iconUrl: 'images/logo.jpg',
-  iconSize: [48, 48],
-  iconAnchor: [24, 48],
-  popupAnchor: [0, -48]
-});
 
-/* Animation */
-setTimeout(() => {
-  map.flyTo(audc, 13, {
-    animate: true,
-    duration: 4
-  });
-}, 2000);
+/* =========================
+   GEOJSON
+========================= */
 
-/* Marqueur */
-setTimeout(() => {
-  L.marker(audc, { icon: audcIcon })
-    .addTo(map)
-    .bindPopup("<b>AUDC</b><br>Châlons-en-Champagne")
-    .openPopup();
-}, 6000);
-
-/* GEOJSON */
 fetch('images/data/chalons.geojson')
-  .then(response => response.json())
-  .then(data => {
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
 
-    console.log("GeoJSON OK", data);
+    console.log("GeoJSON chargé OK");
 
-    const layer = L.geoJSON(data, {
+    var layer = L.geoJSON(data, {
       style: {
         color: "red",
         weight: 3,
@@ -55,6 +84,11 @@ fetch('images/data/chalons.geojson')
     map.fitBounds(layer.getBounds());
 
   })
-  .catch(error => console.error("Erreur GEOJSON :", error));
+  .catch(function(error) {
+    console.error("ERREUR GEOJSON :", error);
+  });
 
 </script>
+
+</body>
+</html>
