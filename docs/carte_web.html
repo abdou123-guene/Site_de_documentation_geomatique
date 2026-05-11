@@ -1,94 +1,26 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Carte SIG – Châlons</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+var layer = L.geoJSON(data, {
+  style: {
+    color: "#cc0000",
+    weight: 2,
+    fillColor: "#ff9999",
+    fillOpacity: 0.4
+  },
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  onEachFeature: function(feature, layer) {
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+    // Construction du tableau HTML
+    let table = "<table border='1' style='border-collapse:collapse;'>";
+
+    for (let key in feature.properties) {
+      table += "<tr><td><b>" + key + "</b></td><td>" + feature.properties[key] + "</td></tr>";
     }
 
-    #map {
-      width: 100%;
-      height: 100%;
-    }
+    table += "</table>";
 
-    #logo {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      z-index: 1000;
-      background: white;
-      padding: 6px;
-      border-radius: 6px;
-    }
+    // Affichage dans popup
+    layer.bindPopup(table);
+  }
 
-    #logo img {
-      width: 80px;
-    }
-  </style>
-</head>
-
-<body>
-
-<div id="map"></div>
-
-<div id="logo">
-  <img src="images/logo.jpg" alt="logo">
-</div>
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-
-/* =========================
-   CARTE
-========================= */
-
-var map = L.map('map').setView([48.9695, 4.3470], 12);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap'
 }).addTo(map);
 
-
-/* =========================
-   GEOJSON
-========================= */
-
-fetch('images/data/chalons.geojson')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(data) {
-
-    console.log("GeoJSON chargé OK");
-
-    var layer = L.geoJSON(data, {
-      style: {
-        color: "red",
-        weight: 3,
-        fillColor: "#ff6666",
-        fillOpacity: 0.3
-      }
-    }).addTo(map);
-
-    map.fitBounds(layer.getBounds());
-
-  })
-  .catch(function(error) {
-    console.error("ERREUR GEOJSON :", error);
-  });
-
-</script>
-
-</body>
-</html>
+map.fitBounds(layer.getBounds());
