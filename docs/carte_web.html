@@ -1,3 +1,42 @@
+<script>
+
+/* Coordonnées */
+const franceCenter = [46.603354, 1.888334];
+const audc = [48.969509, 4.347039];
+
+/* Carte */
+var map = L.map('map').setView(franceCenter, 6);
+
+/* Fond */
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+/* Icône logo */
+var audcIcon = L.icon({
+  iconUrl: 'images/logo.jpg',
+  iconSize: [48, 48],
+  iconAnchor: [24, 48],
+  popupAnchor: [0, -48]
+});
+
+/* Animation */
+setTimeout(() => {
+  map.flyTo(audc, 13, {
+    animate: true,
+    duration: 4
+  });
+}, 2000);
+
+/* Marqueur */
+setTimeout(() => {
+  L.marker(audc, { icon: audcIcon })
+    .addTo(map)
+    .bindPopup("<b>AUDC</b><br>Châlons-en-Champagne")
+    .openPopup();
+}, 6000);
+
+/* GEOJSON */
 fetch('images/data/chalons.geojson')
   .then(response => response.json())
   .then(data => {
@@ -7,15 +46,15 @@ fetch('images/data/chalons.geojson')
     const layer = L.geoJSON(data, {
       style: {
         color: "red",
-        weight: 4,
-        fillOpacity: 0.2
+        weight: 3,
+        fillColor: "#ff6666",
+        fillOpacity: 0.3
       }
     }).addTo(map);
 
-    // force zoom sur zone
     map.fitBounds(layer.getBounds());
 
   })
-  .catch(error => {
-    console.error("Erreur GEOJSON :", error);
-  });
+  .catch(error => console.error("Erreur GEOJSON :", error));
+
+</script>
