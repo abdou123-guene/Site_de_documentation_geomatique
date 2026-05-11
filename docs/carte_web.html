@@ -1,12 +1,4 @@
-<script>
-
-/*
-========================================
-AJOUT DU GEOJSON
-========================================
-*/
-
-fetch('data/chalons.geojson')
+fetch('images/data/chalons.geojson')
   .then(response => {
     if (!response.ok) {
       throw new Error("Erreur de chargement du GeoJSON");
@@ -17,29 +9,17 @@ fetch('data/chalons.geojson')
 
     console.log("GeoJSON chargé :", data);
 
-    function style(feature) {
-      return {
+    const layer = L.geoJSON(data, {
+      style: {
         color: "#e60000",
-        weight: 2,
+        weight: 3,
         fillColor: "#ff6666",
         fillOpacity: 0.3
-      };
-    }
-
-    const layer = L.geoJSON(data, {
-      style: style,
-      onEachFeature: function (feature, layer) {
-        if (feature.properties && feature.properties.nom) {
-          layer.bindPopup(feature.properties.nom);
-        }
       }
     }).addTo(map);
 
     map.fitBounds(layer.getBounds());
-
   })
   .catch(error => {
     console.error("Erreur :", error);
   });
-
-</script>
