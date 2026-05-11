@@ -1,3 +1,5 @@
+<script>
+
 /*
 ========================================
 AJOUT DU GEOJSON
@@ -34,7 +36,10 @@ fetch('data/chalons.geojson')
     }).addTo(map);
 
     map.fitBounds(layer.getBounds());
+
   })
   .catch(error => {
     console.error("Erreur :", error);
   });
+
+</script>
