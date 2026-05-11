@@ -18,7 +18,7 @@ nav:
   - Consultation dynamique de données PostgreSQL avec PHP: consultation_presentation_markdown_panel.md
   - Exemple de source de données entreprise : Readme.md
   - Ressources BDTopo: carte_bdtopo.html
-  - Site de l’AUDC de Châlons‑en‑Champagne: carte_web.html
+  - Site de l’AUDC de Châlons‑en‑Champagne: pays_chalons.html
 extra_css:
   - css/le_style.css
 
