@@ -1,110 +1,154 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Carte SIG – Châlons</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Carte avancée – Châlons</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
+<style>
+html, body { margin:0; height:100%; }
+#map { height:100%; }
 
-    #map {
-      width: 100%;
-      height: 100%;
-    }
+/* Interface */
+#panel {
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:1000;
+  background:white;
+  padding:10px;
+  border-radius:6px;
+  box-shadow:0 0 5px rgba(0,0,0,0.3);
+}
 
-    #logo {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      z-index: 1000;
-      background: white;
-      padding: 6px;
-      border-radius: 6px;
-    }
+input {
+  width:200px;
+  padding:5px;
+}
 
-    #logo img {
-      width: 80px;
-    }
-  </style>
+button {
+  margin-top:5px;
+  padding:5px;
+}
+</style>
 </head>
 
 <body>
 
-<div id="map"></div>
-
-<div id="logo">
-  <img src="images/logo.jpg" alt="logo">
+<div id="panel">
+  <input id="search" type="text" placeholder="Rechercher NOM..." list="liste"/>
+  <datalist id="liste"></datalist>
+  <br>
+  <button onclick="locateUser()">📍 Ma position</button>
 </div>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<div id="map"></div>
 
 <script>
 
 /* =========================
-   INITIALISATION CARTE
+   CARTE
 ========================= */
-
 var map = L.map('map').setView([48.9695, 4.3470], 11);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap'
+  attribution:'© OpenStreetMap'
 }).addTo(map);
 
+let geoLayer;
+let noms = [];
 
 /* =========================
-   GEOJSON + POPUP ATTRIBUTS
+   GEOJSON
 ========================= */
-
 fetch('images/data/chalons.geojson?nocache=' + new Date().getTime())
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(data) {
+.then(res => res.json())
+.then(data => {
 
-    console.log("GeoJSON chargé ✅");
+  geoLayer = L.geoJSON(data, {
 
-    var layer = L.geoJSON(data, {
+    style:{
+      color:"#cc0000",
+      weight:2,
+      fillColor:"#ff9999",
+      fillOpacity:0.4
+    },
 
-      style: {
-        color: "#cc0000",
-        weight: 2,
-        fillColor: "#ff9999",
-        fillOpacity: 0.4
-      },
+    onEachFeature:function(feature, layer){
 
-      onEachFeature: function(feature, layer) {
-
-        let table = "<table style='border-collapse:collapse;'>";
-
-        for (let key in feature.properties) {
-          table += "<tr>" +
-                   "<td style='border:1px solid #ccc;padding:4px;'><b>" + key + "</b></td>" +
-                   "<td style='border:1px solid #ccc;padding:4px;'>" + feature.properties[key] + "</td>" +
-                   "</tr>";
-        }
-
-        table += "</table>";
-
-        layer.bindPopup(table);
+      /* stocker noms */
+      if(feature.properties.NOM){
+        noms.push(feature.properties.NOM);
       }
 
-    }).addTo(map);
+      /* popup */
+      let table="<table>";
+      for(let key in feature.properties){
+        table += "<tr><td><b>"+key+"</b></td><td>"+feature.properties[key]+"</td></tr>";
+      }
+      table+="</table>";
 
-    map.fitBounds(layer.getBounds());
+      layer.bindPopup(table);
+    }
 
-  })
-  .catch(function(error) {
-    console.error("Erreur GEOJSON ❌ :", error);
+  }).addTo(map);
+
+  map.fitBounds(geoLayer.getBounds());
+
+  /* remplir autocompletion */
+  let list=document.getElementById("liste");
+  noms.forEach(n=>{
+    let opt=document.createElement("option");
+    opt.value=n;
+    list.appendChild(opt);
   });
+
+});
+
+/* =========================
+   RECHERCHE
+========================= */
+document.getElementById("search").addEventListener("input",function(){
+
+  let val=this.value.toLowerCase();
+
+  geoLayer.eachLayer(function(layer){
+
+    let nom = layer.feature.properties.NOM;
+
+    if(nom && nom.toLowerCase().includes(val)){
+
+      map.fitBounds(layer.getBounds());
+      layer.openPopup();
+    }
+
+  });
+
+});
+
+/* =========================
+   GEOLOCALISATION
+========================= */
+function locateUser(){
+
+  map.locate({setView:true, maxZoom:14});
+
+  function onLocationFound(e){
+    let r = e.accuracy;
+
+    L.marker(e.latlng).addTo(map)
+      .bindPopup("Vous êtes ici").openPopup();
+
+    L.circle(e.latlng, r).addTo(map);
+  }
+
+  map.on('locationfound', onLocationFound);
+
+}
 
 </script>
 
