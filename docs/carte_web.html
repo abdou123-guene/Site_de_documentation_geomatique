@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Carte SIG – Châlons</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Leaflet CSS -->
@@ -42,7 +41,7 @@
 <div id="map"></div>
 
 <div id="logo">
-  <img src="images/logo.jpg">
+  <img src="images/logo.jpg" alt="logo">
 </div>
 
 <!-- Leaflet JS -->
@@ -54,7 +53,7 @@
    INITIALISATION CARTE
 ========================= */
 
-var map = L.map('map').setView([48.9695, 4.3470], 12);
+var map = L.map('map').setView([48.9695, 4.3470], 11);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
@@ -62,16 +61,16 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 /* =========================
-   GEOJSON + ATTRIBUTS
+   GEOJSON + POPUP ATTRIBUTS
 ========================= */
 
-fetch('images/data/chalons.geojson')
+fetch('images/data/chalons.geojson?nocache=' + new Date().getTime())
   .then(function(response) {
     return response.json();
   })
   .then(function(data) {
 
-    console.log("GeoJSON chargé OK");
+    console.log("GeoJSON chargé ✅");
 
     var layer = L.geoJSON(data, {
 
@@ -104,7 +103,7 @@ fetch('images/data/chalons.geojson')
 
   })
   .catch(function(error) {
-    console.error("Erreur GEOJSON :", error);
+    console.error("Erreur GEOJSON ❌ :", error);
   });
 
 </script>
