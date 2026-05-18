@@ -660,7 +660,7 @@ Chaque schéma de la base est associé à des droits spécifiques :
 
 #### a.3)  Intégration, mise à jour, sécurité
 
-L’intégration et la mise à jour des données sont réalisées de manière contrôlée, notamment via des scripts SQL ou à l’aidGIS. L’accès au système est sécurisé grâce à des mécanismes d’authentification, à l’utilisation de mots de passe et, le cas échéant, à des restrictions d’accès par IP ou via VPN. Une surveillance régulière des logs PostgreSQL est également mise en place afin de détecter d’éventuelles anomalies ou tentatives d’accès non autorisées. Par ailleurs, les logiciels PostgreSQL et PostGIe des outils proposés par QS font l’objet de mises à jour régulières pour garantir la sécurité et la stabilité de l’infrastructure. 
+L’intégration et la mise à jour des données sont réalisées de manière contrôlée, notamment via des scripts SQL ou à l’aide de QGIS. L’accès au système est sécurisé grâce à des mécanismes d’authentification, à l’utilisation de mots de passe et, le cas échéant, à des restrictions d’accès par adresse IP ou via VPN. Une surveillance régulière des logs PostgreSQL est également mise en place afin de détecter d’éventuelles anomalies ou tentatives d’accès non autorisées. Par ailleurs, les logiciels PostgreSQL et PostGIS, utilisés avec QGIS, font l’objet de mises à jour régulières afin de garantir la sécurité et la stabilité de l’infrastructure.
 
 ### b)  Sauvegardes et versionnement
 
