@@ -1,4 +1,5 @@
 # GeoPandas : Introduction aux données géospatiales vectorielles
+---
 
 [GeoPandas](https://geopandas.org) est une extension de Pandas qui
 ajoute la gestion des données géospatiales vectorielles.
