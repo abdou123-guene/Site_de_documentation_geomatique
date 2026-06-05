@@ -15,6 +15,7 @@ nav:
   - Cartographie avec Rstudio: rstudio_geomatique.md
   - Initiation en python 1: python1.md
   - Initiation en python 2: python2.md
+  - Initiation en python 3: python3.md
   - Classification non supervisée d'images: classification_image_kmeans.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
   - Consultation dynamique de données PostgreSQL avec PHP: consultation_presentation_markdown_panel.md
