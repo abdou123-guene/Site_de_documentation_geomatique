@@ -584,8 +584,8 @@ adresses de la commune de Tarbes. Combien d’adresses y a-t-il ?
 
 ```python
 # votre réponse
-counts = df_ban['commune_nom'].value_counts()
-counts.sort_values().head(1)
+df_tarbes = df_ban[df_ban['commune_nom'] == 'Tarbes']
+len(df_tarbes)
 ```
 
 **Exercice 2** Combien d’adresses ont un nom de voie contenant le mot
