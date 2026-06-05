@@ -686,6 +686,7 @@ signifient ces NaN ?
 # À vous !
 gdf_communes_count['nb_adresses'].isnull().sum()
 ```
+NaN = commune sans adresse dans la BAN
 
 **Question 4** Créez une colonne `nb_adresses_classe` dans
 `gdf_communes_count` en découpant `nb_adresses` en 5 classes avec
