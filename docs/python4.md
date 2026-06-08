@@ -1,4 +1,5 @@
 # Opérations spatiales et jointures
+---
 
 Dans les modules A1 et A2, nous avons appris à créer des GeoDataFrames,
 à les visualiser et à les reprojeter. Nous pouvons maintenant passer aux
