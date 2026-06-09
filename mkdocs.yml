@@ -18,6 +18,7 @@ nav:
   - Initiation en python 3: python3.md
   - Initiation en python 4: python4.md
   - Initiation en python 5: python5.md
+  - Initiation en python 6: python6.md
   - Classification non supervisée d'images: classification_image_kmeans.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
   - Consultation dynamique de données PostgreSQL avec PHP: consultation_presentation_markdown_panel.md
