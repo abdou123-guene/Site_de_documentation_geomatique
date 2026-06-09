@@ -188,5 +188,5 @@ Vérifiez que l’image créée est bonne. Si c’est le cas. Générez les
 images NDVI pour toutes les images de `stacked_img_list`.
 
 ```python
-# on met tout dans une boucle for
+# on a tout mis dans une boucle for
 ```
