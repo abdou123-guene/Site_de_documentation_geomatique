@@ -1,4 +1,5 @@
 # Apprentissage non-supervisé VS apprentissage supervisé
+---
 
 Avant de parler de l’apprentissage non-supervisé, essayons de mieux
 comprendre la différence entre supervisé et non-supervisé.
@@ -33,7 +34,7 @@ dire. Il va naturellement remarquer que certaines se ressemblent et les
 regrouper. Mais jamais il ne va savoir que les uns s’appellent `chats`
 et les autres `chiens`. C’est ce que fait K-Means.
 
-# Apprentissage non supervisé (Clustering)
+## Apprentissage non supervisé (Clustering)
 
 Dans ce notebook, nous allons explorer le clustering qui permet de
 regrouper automatiquement les parcelles en classes sans utiliser les
@@ -133,7 +134,7 @@ def compute_median_IQR_ts(df, dti):
     return ts_median, ts_Q1, ts_Q3
 ```
 
-## K-Means sur toutes les features
+### K-Means sur toutes les features
 
 K-Means partitionne les parcelles en `k` groupes en minimisant la
 distance euclidienne entre chaque parcelle et le centroïde de son
@@ -167,7 +168,7 @@ plt.show()
 Les profils médians des clusters ressemblent-ils aux profils NDVI du blé
 et du maïs observés dans le notebook de visualisation ?
 
-## Évaluation du clustering
+### Évaluation du clustering
 
 Même si K-Means n’utilise pas les labels pendant l’entraînement, nous
 les possédons ici et pouvons comparer les clusters aux vraies classes.
