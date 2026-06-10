@@ -25,6 +25,7 @@ nav:
   - Initiation en python 10: python10.md
   - Initiation en python 11: python11.md
   - Initiation en python 12: python12.md
+  - Initiation en python 13: python13.md
   - Classification non supervisée d'images: classification_image_kmeans.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
   - Consultation dynamique de données PostgreSQL avec PHP: consultation_presentation_markdown_panel.md
