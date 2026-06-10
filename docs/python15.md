@@ -1,4 +1,5 @@
 # Random Forest (concept et évaluation)
+---
 
 ## 1. Le principe
 
