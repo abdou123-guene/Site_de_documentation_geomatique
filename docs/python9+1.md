@@ -434,12 +434,27 @@ print("Type de culture :", crop_type)
 # ts_Q1 = pd.Series(IQR[0], index=dti)
 # ts_Q3 = pd.Series(IQR[1], index=dti)
 ```
-
+```python
 Une fois l’exercice complété, exécutez la cellule suivante pour
 visualiser toutes les méthodes et les comparer au profil de référence du
 type de culture. La zone grisée représente l’IQR (une imputation
 réaliste devrait s’y inscrire) :
-
+# remplacer -9999 par NaN
+gdf_temp = cleaned_gdf.copy()
+gdf_temp[list_clean_dates] = gdf_temp[list_clean_dates].replace(-9999, np.nan)
+# choisir un type de culture de la parcelle
+cult_code = gdf_temp.iloc[miss_ind]['CODE_CULTU']
+# filtrer uniquement les parcelles de ce type
+gdf_cult = gdf_temp[gdf_temp['CODE_CULTU'] == cult_code]
+# calcul des statistiques temporelles
+median_vals = gdf_cult[list_clean_dates].median(axis=0)
+Q1_vals = gdf_cult[list_clean_dates].quantile(0.25, axis=0)
+Q3_vals = gdf_cult[list_clean_dates].quantile(0.75, axis=0)
+# conversion en séries temporelles
+ts_median = pd.Series(median_vals.values, index=dti)
+ts_Q1 = pd.Series(Q1_vals.values, index=dti)
+ts_Q3 = pd.Series(Q3_vals.values, index=dti)
+```
 ```python
 fig, ax = plt.subplots()
 ax.plot(ts_y_missing, marker='x', label='original')
