@@ -1,4 +1,5 @@
 # OpenEO
+---
 
 OpenEO est un standard communautaire et une API ouverte conçus pour simplifier l'accès, le traitement et l'analyse des données d'observation de la Terre (Earth Observation, EO) depuis le cloud.
 
