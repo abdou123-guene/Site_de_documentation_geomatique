@@ -1,4 +1,5 @@
 # Apprentissage supervisé
+---
 
 L’apprentissage supervisé utilise des données **labellisées** pour
 entraîner un modèle qui prédit la classe de nouvelles parcelles.
