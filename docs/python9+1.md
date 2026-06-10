@@ -1,4 +1,5 @@
 # Reconstruction des données manquantes (imputation)
+---
 
 L’objectif de ce notebook est d’explorer différentes méthodes
 d’imputation pour reconstruire les valeurs manquantes dans les séries
