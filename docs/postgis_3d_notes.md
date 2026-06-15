@@ -1,4 +1,5 @@
-# 📊 PostGIS 3D – Mémo complet
+# PostGIS 3D – Mémo complet
+---
 
 ## 1. Vérification et correction des géométries
 
