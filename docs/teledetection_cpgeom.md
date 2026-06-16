@@ -13,8 +13,8 @@ Mettre en place une chaîne complète de classification supervisée en télédé
 ## 1. Rasterisation (création des labels)
 
 ### Objectif
-Transformer un shapefile de polygones en raster de classes. La couche ***training_dataset.shp*** créée depuis QGIS (exemple: 50 points d'entrainement par classe) à une géometries point et non polygone. 
-Avec ce code on la transforme en raster (point=pixel) pour ensuite l'utiliser sur la classification.
+Transformer un shapefile de polygones en raster de classes. La couche ***training_dataset.shp*** créée depuis QGIS (exemple: 50 points d'entrainement par classe) à une géometrie de type point et non polygone. 
+Avec ce code on la transforme en raster (chaque point donnera un pixel) pour ensuite l'utiliser sur la classification. Ces pixels d'entrainement serviront à classer tous les autres pixels de l'image.
 
 ### Code
 ```python
