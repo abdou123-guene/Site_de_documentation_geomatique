@@ -231,7 +231,21 @@ WHERE id IN (
     )
 );
 ```
+Longueur total du trajet
 
+```sql
+SELECT SUM(v.cost) AS longueur_totale
+FROM pgr_dijkstra(
+    'SELECT id, source, target, cost 
+     FROM pgrouting.voies
+     WHERE source IS NOT NULL AND target IS NOT NULL',
+    24,
+    43,
+    false
+) AS d
+JOIN pgrouting.voies v
+ON d.edge = v.id;
+```
 
 
 
