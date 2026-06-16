@@ -5,8 +5,6 @@ Ce document décrit, étape par étape, la construction d'un réseau routable à
 
 Toutes les tables de travail sont créées dans le schéma `pgrouting`.
 
----
-
 ## 1. Nettoyage préalable du schéma
 
 ```sql
@@ -15,8 +13,6 @@ DROP TABLE if exists pgrouting.voies ;
 ```
 
 Avant de relancer le script, on supprime les tables `vertices` (les nœuds du réseau) et `voies` (les tronçons) si elles existent déjà. Cela permet de relancer l'ensemble du traitement à l'identique sans erreur de type « la table existe déjà », notamment pendant les phases de test et d'ajustement du modèle.
-
----
 
 ## 2. Extraction des voies de la zone d'étude
 
@@ -40,8 +36,6 @@ Quelques points importants :
 
 Une fois la table créée, une contrainte de clé primaire est ajoutée sur `id`, ce qui est requis par les fonctions de topologie de pgRouting (l'identifiant des arêtes doit être unique).
 
----
-
 ## 3. Correction du sens de tracé des géométries
 
 ```sql
@@ -63,8 +57,6 @@ Il faut donc harmoniser les deux informations :
 
 À la fin de ce bloc, l'attribut `sens_de_circulation` ne contient plus que deux valeurs possibles : `Sens direct` et `Double sens`, et l'orientation de chaque géométrie reflète fidèlement le sens de circulation autorisé.
 
----
-
 ## 4. Création des nœuds du réseau (vertices)
 
 ```sql
@@ -78,8 +70,6 @@ FROM pgr_extractVertices('SELECT id, geom
 La fonction `pgr_extractVertices` parcourt l'ensemble des géométries de `pgrouting.voies` et en extrait tous les nœuds : c'est-à-dire les points de départ et d'arrivée de chaque tronçon. Chaque nœud distinct se voit attribuer un identifiant unique (`id`), ses coordonnées (`x`, `y`), ainsi que le nombre de tronçons entrants/sortants qui lui sont rattachés.
 
 Le résultat est stocké dans la table `pgrouting.vertices`, qui constitue la table des sommets du graphe. C'est cette table qui sera utilisée à l'étape suivante pour relier chaque tronçon à ses nœuds source et destination.
-
----
 
 ## 5. Ajout des colonnes nécessaires aux calculs de routage
 
@@ -100,8 +90,6 @@ Cette instruction ajoute à la table `pgrouting.voies` les colonnes attendues pa
 - `x` et `y` : coordonnées d'un des nœuds du tronçon, utiles pour du contrôle visuel ou du débogage.
 - `cost` : le coût (l'impédance) associé au parcours du tronçon, utilisé par les algorithmes de plus court chemin pour comparer les itinéraires.
 - `direction` : indicateur du sens de parcours autorisé sur le tronçon (voir étape 8).
-
----
 
 ## 6. Renseignement des identifiants source et target
 
@@ -128,8 +116,6 @@ La comparaison `ST_StartPoint(e.geom) = v.geom` fonctionne ici parce que les nœ
 
 À noter : si un tronçon se retrouve avec un `target` (ou `source`) resté `NULL` après cette étape, cela signifie généralement un problème de géométrie (doublon de nœud à coordonnées légèrement différentes, géométrie invalide, etc.).
 
----
-
 ## 7. Calcul du coût de chaque tronçon
 
 ```sql
@@ -140,8 +126,6 @@ UPDATE pgrouting.voies
 Le coût de chaque tronçon est ici défini comme sa longueur géométrique (`ST_Length`), exprimée dans l'unité du système de coordonnées de la couche (mètres si la projection est métrique). C'est ce coût qui sera additionné le long du trajet par `pgr_dijkstra` pour déterminer le chemin le plus court.
 
 À titre indicatif, on pourrait affiner ce coût pour obtenir un temps de parcours plutôt qu'une distance, par exemple en divisant la longueur par `vitesse_moyenne_vl` (attribut déjà présent dans la table mais non utilisé dans ce script).
-
----
 
 ## 8. Définition du sens de circulation logique
 
@@ -160,8 +144,6 @@ Cette instruction traduit l'attribut métier `sens_de_circulation` en un code st
 - `FT` (*From-To*) : circulation autorisée uniquement dans le sens de la géométrie (du point de départ vers le point d'arrivée), tel qu'il a été corrigé à l'étape 3.
 
 Cette colonne `direction` est calculée et disponible, mais elle n'est pas exploitée par l'appel à `pgr_dijkstra` réalisé plus loin, puisque celui-ci est lancé en mode non orienté (`directed = false`). Pour que le sens unique soit réellement pris en compte dans le calcul d'itinéraire, il faudrait soit appeler `pgr_dijkstra` avec `directed = true` (en s'assurant que les colonnes `source`/`target` reflètent correctement le sens autorisé), soit filtrer/dupliquer les arêtes en fonction de cette colonne `direction`.
-
----
 
 ## 9. Calcul d'un itinéraire avec pgr_dijkstra
 
@@ -184,8 +166,6 @@ Les trois derniers paramètres sont :
 
 Le résultat est une table listant la séquence des arêtes (`edge`) et des nœuds (`node`) traversés, avec le coût de chaque segment (`cost`) et le coût cumulé depuis le départ (`agg_cost`).
 
----
-
 ## 10. Visualisation du trajet calculé
 
 ```sql
@@ -204,9 +184,7 @@ Pour visualiser le trajet (par exemple dans QGIS), il ne suffit pas de récupér
 
 Le résultat peut directement être chargé comme couche dans un SIG pour être affiché sur une carte.
 
----
-
-## Pour aller plus loin
+## 11. Pour aller plus loin
 
 Ce script constitue une base de travail fonctionnelle. Quelques pistes d'amélioration possibles selon les besoins du projet :
 
@@ -214,8 +192,13 @@ Ce script constitue une base de travail fonctionnelle. Quelques pistes d'amélio
 - Remplacer le coût « distance » par un coût « temps de parcours » en combinant `st_length(geom)` et `vitesse_moyenne_vl`.
 - Vérifier qu'aucun tronçon ne possède de `source` ou `target` resté `NULL` (signe d'un problème de topologie à corriger avant tout calcul d'itinéraire).
 - Pour des réseaux plus complexes (giratoires, interdictions de tourner), envisager `pgr_trsp` qui gère les restrictions de virage.
-## Tests
-Calcul de trajet
+
+## 12. Tests
+
+Une fois le calcul d'itinéraire mis en place, il est utile de vérifier le résultat sous plusieurs angles : la liste des tronçons réellement parcourus, la longueur totale du trajet, et une estimation de la dénivelée le long du parcours.
+
+### 12.1 Calcul de trajet
+
 ```sql
 SELECT *
 FROM pgrouting.voies
@@ -231,7 +214,10 @@ WHERE id IN (
     )
 );
 ```
-Longueur total du trajet
+
+Cette requête reprend le principe de visualisation déjà utilisé précédemment (récupérer, dans `pgrouting.voies`, les tronçons dont l'`id` correspond aux arêtes renvoyées par `pgr_dijkstra`), avec une condition légèrement renforcée : `WHERE source IS NOT NULL AND target IS NOT NULL` exclut du graphe tout tronçon dont la topologie est incomplète, que ce soit côté source ou côté target, et pas uniquement côté target. C'est une sécurité supplémentaire pour garantir que seuls des tronçons correctement connectés au réseau sont pris en compte dans le calcul.
+
+### 12.2 Longueur totale du trajet
 
 ```sql
 SELECT SUM(v.cost) AS longueur_totale
@@ -246,6 +232,28 @@ FROM pgr_dijkstra(
 JOIN pgrouting.voies v
 ON d.edge = v.id;
 ```
+
+Cette requête permet de quantifier l'itinéraire calculé : elle récupère la liste des arêtes parcourues via `pgr_dijkstra`, les relie à la table `pgrouting.voies` (jointure sur `d.edge = v.id`), puis additionne la colonne `cost` de chaque tronçon. Le coût ayant été défini comme la longueur géométrique de chaque tronçon, le résultat `longueur_totale` correspond à la distance totale du trajet, exprimée dans l'unité du système de coordonnées de la couche (en mètres si la projection est métrique).
+
+### 12.3 Calcul de la pente
+
+La couche `voies` ne comportant pas d'attribut de pente, on l'estime en croisant le trajet avec la couche raster `mnt_lidar` du schéma `mnt_raster`, qui fournit l'altitude du terrain en tout point du réseau routier.
+
+```sql
+SELECT
+    v.id,
+    v.geom,
+    ST_Value(m.rast, ST_StartPoint(v.geom)) AS z_start,
+    ST_Value(m.rast, ST_EndPoint(v.geom)) AS z_end,
+    ST_Length(v.geom) AS longueur
+FROM pgrouting.voies v,
+     mnt_raster.mnt_lidar m
+WHERE ST_Intersects(v.geom, m.rast);
+```
+
+Pour chaque tronçon, `ST_Value` interroge le raster `mnt_lidar` aux points de départ (`ST_StartPoint`) et d'arrivée (`ST_EndPoint`) de la géométrie afin d'en extraire l'altitude (`z_start` et `z_end`). La longueur du tronçon (`ST_Length`) est également récupérée. Ces trois valeurs constituent les éléments nécessaires au calcul de la pente, qui peut ensuite être obtenue avec la formule `(z_end - z_start) / longueur * 100` (en %).
+
+À noter : la clause `WHERE ST_Intersects(v.geom, m.rast)` agit ici comme condition de jointure entre les tronçons et les dalles du raster. Si le MNT est découpé en plusieurs dalles, un même tronçon traversant plusieurs dalles peut apparaître en double dans le résultat ; il peut être utile de filtrer ou d'agréger les résultats en conséquence selon le découpage du raster utilisé.
 
 
 
