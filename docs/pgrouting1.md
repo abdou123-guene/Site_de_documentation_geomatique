@@ -255,37 +255,10 @@ Pour chaque tronçon, `ST_Value` interroge le raster `mnt_lidar` aux points de d
 
 À noter : la clause `WHERE ST_Intersects(v.geom, m.rast)` agit ici comme condition de jointure entre les tronçons et les dalles du raster. Si le MNT est découpé en plusieurs dalles, un même tronçon traversant plusieurs dalles peut apparaître en double dans le résultat ; il peut être utile de filtrer ou d'agréger les résultats en conséquence selon le découpage du raster utilisé.
 
-### 12.4 Exemples du professeur
-
-***calcul d'un trajet***
+### 12.4 Calcul de pente pour chaque tronçon du trajet d’un point A à un pointB
 
 ```sql
-WITH
-trajet0 as (SELECT *
- FROM pgrouting.voies
-   WHERE id in (SELECT edge
-		FROM pgr_dijkstra('SELECT  id, source, target, cost
-       FROM pgrouting.voies
-	   WHERE target is not null', 24, 43,false))
-	 ),
-trajet_point as (SELECT  st_length(geom) as longueur,(ST_DumpPoints(geom)).geom
-  					FROM trajet0
-	),
-mnt as (SELECT st_union(rast) as rast1
-	 FROM mnt_raster.vm_zone_lidar
-	 JOIN trajet_point ON st_intersects(geom,rast)) 
---longueur totale du trajet et la pente
-SELECT 1 as id, st_union(trajet0.geom) geom, sum(cost) as longueur,
- (max(st_value(rast1,trajet_point.geom))-min(st_value(rast1,trajet_point.geom)))/max(longueur)*100 as pente
-	 FROM mnt JOIN trajet_point ON st_intersects(rast1,geom)
-	    JOIN trajet0 ON st_intersects(trajet0.geom, trajet_point.geom)
- ;
-```
-
-***2eme version optimisée :***
-
-```sql
-CREATE VIEW pgrouting.v_trajet AS
+CREATE MATERIALIZED VIEW pgrouting.vm_trajets AS
 --calcul d'un trajet
 WITH
 trajet0 as (SELECT *
@@ -293,19 +266,21 @@ trajet0 as (SELECT *
    WHERE id in (SELECT edge
 		FROM pgr_dijkstra('SELECT  id, source, target, cost
        FROM pgrouting.voies
-	   WHERE target is not null', 24, 43,false))
+	   WHERE target is not null', 120, 244,false))
 	 ),
-trajet_point as (SELECT  st_length(geom) as longueur,(ST_DumpPoints(geom)).geom
+trajet_point as (SELECT  st_length(geom) as longueur,
+				(ST_DumpPoints(geom)).geom
   					FROM trajet0
 	) ,
 mnt as (SELECT st_union(rast) as rast1
 	 FROM mnt_raster.vm_zone_lidar
 	 JOIN trajet_point ON geom&&rast) 	
 --longueur totale du trajet et la pente
-SELECT 1 as id, st_union(trajet0.geom)::geometry(multilinestring,2154) geom, sum(cost) as longueur,
+SELECT  id, trajet0.geom, sum(cost) as longueur,
  (max(st_value(rast1,trajet_point.geom))-min(st_value(rast1,trajet_point.geom)))/max(longueur)*100 as pente
 	 FROM mnt CROSS JOIN trajet_point
-	    JOIN trajet0 ON trajet0.geom&& trajet_point.geom ;
+	    JOIN trajet0 ON trajet0.geom&& trajet_point.geom 
+		GROUP BY id, trajet0.geom;
 ```
 
 
