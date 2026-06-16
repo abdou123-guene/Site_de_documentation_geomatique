@@ -14,9 +14,8 @@ nav:
   - PG_Routing 2: pgrouting1.md
   - Mise en place de base de données géographique: etude_cas_bdd.md
   - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
-  - Brique de Géomatqiue et Télédétection: teledetection.md
-  - Classification supervisée d'images: teledetection_cpgeom.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
+  - Brique de Géomatqiue et Télédétection: teledetection.md
   - Initiation en python 1: python1.md
   - Initiation en python 2: python2.md
   - Initiation en python 3: python3.md
@@ -33,6 +32,7 @@ nav:
   - Initiation en python 14: python14.md
   - Initiation en python 15: python15.md
   - Classification non supervisée d'images: classification_image_kmeans.md
+  - Classification supervisée d'images: teledetection_cpgeom.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
   - Consultation dynamique de données PostgreSQL avec PHP: consultation_presentation_markdown_panel.md
   - Exemple de source de données entreprise : Readme.md
