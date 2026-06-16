@@ -12,6 +12,7 @@ nav:
   - PostGIS 3D: postgis_3d_notes.md
   - PG_Routing 1: pgrouting.md
   - PG_Routing 2: pgrouting1.md
+  - PG_Routing 2 bis: pgrouting2.md
   - Mise en place de base de données géographique: etude_cas_bdd.md
   - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
   - Brique de Géomatqiue et Télédétection: teledetection.md
