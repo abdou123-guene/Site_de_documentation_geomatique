@@ -1,4 +1,4 @@
-# Workflow Classification Raster — Buffer → Random Forest → Évaluation
+# Workflow Classification Raster - Buffer → Random Forest → Évaluation
 ---
 
 ## Objectif global
@@ -10,12 +10,12 @@ Mettre en place une chaîne complète de classification supervisée en télédé
 
 ---
 
-# 1. Rasterisation (création des labels)
+## 1. Rasterisation (création des labels)
 
-## Objectif
+### Objectif
 Transformer un shapefile de polygones en raster de classes.
 
-## Code
+### Code
 ```python
 import geopandas as gpd
 import rasterio
@@ -62,12 +62,12 @@ Résultat : raster d’apprentissage
 
 ---
 
-# 2. Random Forest
+## 2. Random Forest
 
-## Objectif
+### Objectif
 Apprendre un modèle pour prédire la classe de chaque pixel
 
-## Code (simplifié et corrigé)
+### Code (simplifié et corrigé)
 ```python
 from pathlib import Path
 import rasterio
@@ -114,12 +114,12 @@ Résultat : modèle + classification
 
 ---
 
-# 3. Évaluation
+## 3. Évaluation
 
-## Objectif
+### Objectif
 Mesurer la performance du modèle
 
-## Code corrigé
+### Code corrigé
 ```python
 import numpy as np
 import geopandas as gpd
@@ -155,7 +155,7 @@ Résultat : matrice + accuracy
 
 ---
 
-# Pipeline global
+## Pipeline global
 
 ```
 Vecteur → Raster labels
@@ -171,7 +171,7 @@ Carte classifiée
 
 ---
 
-# Bonnes pratiques
+## Bonnes pratiques
 
 - vérifier projection (CRS)
 - supprimer NoData
@@ -180,7 +180,7 @@ Carte classifiée
 
 ---
 
-# Conclusion
+## Conclusion
 
 Ce pipeline est un standard en géomatique et télédétection.
 
