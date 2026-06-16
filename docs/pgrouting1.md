@@ -1,4 +1,5 @@
 # Construction d'un graphe de routage avec pgRouting
+---
 
 Ce document décrit, étape par étape, la construction d'un réseau routable à partir de la couche `troncon_de_route` de la BD TOPO (schéma `bdtopo64`), restreinte à une zone d'étude (`public.zone`), puis l'exécution d'un calcul d'itinéraire avec **pgRouting**.
 
@@ -213,3 +214,27 @@ Ce script constitue une base de travail fonctionnelle. Quelques pistes d'amélio
 - Remplacer le coût « distance » par un coût « temps de parcours » en combinant `st_length(geom)` et `vitesse_moyenne_vl`.
 - Vérifier qu'aucun tronçon ne possède de `source` ou `target` resté `NULL` (signe d'un problème de topologie à corriger avant tout calcul d'itinéraire).
 - Pour des réseaux plus complexes (giratoires, interdictions de tourner), envisager `pgr_trsp` qui gère les restrictions de virage.
+## Tests
+Calcul de trajet
+```sql
+SELECT *
+FROM pgrouting.voies
+WHERE id IN (
+    SELECT edge
+    FROM pgr_dijkstra(
+        'SELECT id, source, target, cost 
+         FROM pgrouting.voies
+         WHERE source IS NOT NULL AND target IS NOT NULL',
+        24,
+        43,
+        false
+    )
+);
+```
+
+
+
+
+
+
+
