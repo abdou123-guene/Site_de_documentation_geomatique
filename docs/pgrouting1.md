@@ -372,16 +372,23 @@ WHERE v.id IN (
 - ***Enfin: Etape suivante : faire une fonction qui permet de trouver une chemin en entrant les coordonnées du point de départ, les coordonnées du point d’arrivée et false/true (pour voiture ou piéton)***
 
 là on arrive à une vraie étape projet / examen
+
 👉 créer une fonction pgRouting complète et réutilisable
+
 ***Objectif***
+
 Créer une fonction qui :
+
 👉 prend en entrée :
 
 ✅ coordonnées départ (X,Y)
+
 ✅ coordonnées arrivée (X,Y)
+
 ✅ mode (true = voiture / false = piéton)
 
 👉 et renvoie :
+
 ➡️ le chemin (géométrie + éventuellement pente, longueur)
 
 ```sql
