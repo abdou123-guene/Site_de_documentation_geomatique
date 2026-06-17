@@ -764,7 +764,7 @@ SELECT pgrouting.calcul_trajet(
 SELECT * FROM pgrouting.v_chemin;
 ```
 
-***DIFFÉRENCE AVEC f_trajet***
+- ***DIFFÉRENCE AVEC f_trajet***
 
 ***calcul_trajet (prof)***
 
