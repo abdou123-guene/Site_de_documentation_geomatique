@@ -331,7 +331,7 @@ WHERE v.source IS NOT NULL AND v.target IS NOT NULL;
 
 ```sql
 -- Coordonnées (EPSG:2154)
--- départ : 408042.24, 6207677.44
+-- départ : 408042.24, 6207677.44 NB: Ces coordonnées X,Y peuvent ne pas se trouver dans notre zone, donc trouver de bonnes coordonnées X,Y
 -- arrivée : 409420.85, 6208085.38
 WITH 
 -- point de départ (vertex le plus proche)
