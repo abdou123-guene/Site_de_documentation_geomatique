@@ -816,6 +816,182 @@ Ce modèle QGIS permet de calculer un itinéraire entre un point de départ et u
 'SELECT  pgrouting.calcul_trajet(' ||    rtrim( @point_depart,'[EPSG:2154]') || ',' ||    rtrim( @point_arrivee,'[EPSG:2154]')   ||  ',false);'
 ```
 
+- ***Fonction calcul_trajet1 :***
+
+La fonction calcul_trajet1 permet de calculer automatiquement un itinéraire optimal à partir de coordonnées géographiques en s’appuyant sur un réseau routier structuré en graphe.
+Elle convertit les coordonnées du point de départ et du point d’arrivée en sommets du réseau, puis applique l’algorithme de Dijkstra afin de déterminer le chemin le plus court.
+Grâce à son intégration avec une couche enrichie (vm_troncons_pente), elle permet également d’obtenir des indicateurs supplémentaires comme la longueur des tronçons et la pente, offrant ainsi une analyse plus réaliste du trajet.
+Cette fonction est particulièrement utile dans les systèmes d’aide à la décision ou les applications de type navigation, car elle automatise entièrement le processus de calcul d’itinéraire à partir de simples coordonnées.
+
+```sql
+DROP FUNCTION IF EXISTS pgrouting.calcul_trajet1(
+    REAL, REAL, REAL, REAL, BOOLEAN
+);
+
+CREATE OR REPLACE FUNCTION pgrouting.calcul_trajet1(
+    coordxd REAL,
+    coordyd REAL,
+    coordxa REAL,
+    coordya REAL,
+    direction BOOLEAN
+)
+RETURNS TABLE(
+    id BIGINT,
+    geom GEOMETRY,
+    longueur DOUBLE PRECISION,
+    pente DOUBLE PRECISION
+)
+LANGUAGE plpgsql
+AS $func$
+BEGIN
+
+RETURN QUERY 
+
+WITH 
+
+-- vertex départ
+depart AS (
+    SELECT v.id AS id_dep
+    FROM pgrouting.vertices v
+    ORDER BY v.geom <-> ST_SetSRID(ST_Point(coordxd, coordyd), 2154)
+    LIMIT 1
+),
+
+-- vertex arrivée
+arrivee AS (
+    SELECT v.id AS id_arr
+    FROM pgrouting.vertices v
+    ORDER BY v.geom <-> ST_SetSRID(ST_Point(coordxa, coordya), 2154)
+    LIMIT 1
+)
+
+-- résultat
+SELECT 
+    v.id,
+    v.geom,
+    v.longueur::DOUBLE PRECISION,
+    v.pente::DOUBLE PRECISION
+
+FROM pgrouting.vm_troncons_pente v, depart, arrivee   
+
+WHERE v.id IN (
+    SELECT d.edge
+    FROM pgr_dijkstra(
+        'SELECT id, source, target, cost
+         FROM pgrouting.voies
+         WHERE source IS NOT NULL AND target IS NOT NULL',
+        (SELECT id_dep FROM depart),
+        (SELECT id_arr FROM arrivee),
+        direction
+    ) AS d
+);
+
+END;
+$func$;
+```
+
+- ***Ajout de vertices pour le point de départ et le point d’arrivée à la table des voies et recalcul de la topologie***
+
+L’ajout de segments via la fonction pgr_findCloseEdges permet de connecter directement les points de départ et d’arrivée au réseau routier. En effet, les coordonnées fournies ne coïncident pas toujours exactement avec un sommet existant du graphe, ce qui peut empêcher le calcul d’un itinéraire.
+En insérant automatiquement des tronçons proches de ces points, on garantit leur intégration dans le réseau et on améliore la connectivité globale.
+Cette approche permet ainsi de rendre le calcul d’itinéraire plus robuste et plus réaliste, notamment pour des applications de navigation ou d’analyse spatiale basées sur des coordonnées GPS.
+
+```sql
+-- Nettoyage
+DROP TABLE IF EXISTS pgrouting.vertices CASCADE;
+DROP TABLE IF EXISTS pgrouting.voies CASCADE;
+
+-- 1. Extraction du réseau
+SELECT 
+    r.fid AS id, 
+    ST_Force2D(r.geom) AS geom, 
+    nature,
+    nombre_de_voies, 
+    largeur_de_chaussee,
+    sens_de_circulation,
+    vitesse_moyenne_vl
+INTO pgrouting.voies
+FROM bdtopo64.troncon_de_route r
+JOIN public.zone z 
+    ON ST_Intersects(r.geom, z.geom);
+
+ALTER TABLE pgrouting.voies
+ADD CONSTRAINT pkvoies PRIMARY KEY (id);
+
+-- 2. Correction sens
+UPDATE pgrouting.voies 
+SET geom = ST_Reverse(geom)
+WHERE sens_de_circulation = 'Sens inverse';
+
+UPDATE pgrouting.voies
+SET sens_de_circulation = 'Sens direct'
+WHERE sens_de_circulation = 'Sens inverse';
+
+-- 3. AJOUT POINT DÉPART
+
+INSERT INTO pgrouting.voies (id, geom)
+SELECT 
+    edge_id * 100000 AS id,  -- évite conflit
+    edge
+FROM pgr_findCloseEdges(
+    'SELECT id, geom FROM pgrouting.voies',
+    ST_SetSRID(ST_Point(408643.4, 6206906.3), 2154),
+    50
+);
+
+--  4. AJOUT POINT ARRIVÉE
+
+INSERT INTO pgrouting.voies (id, geom)
+SELECT 
+    edge_id * 200000 AS id,  -- autre série pour éviter collisions
+    edge
+FROM pgr_findCloseEdges(
+    'SELECT id, geom FROM pgrouting.voies',
+    ST_SetSRID(ST_Point(409350.3, 6206764.4), 2154),
+    50
+);
+
+-- 5. Création vertices
+SELECT DISTINCT * 
+INTO pgrouting.vertices
+FROM pgr_extractVertices(
+    'SELECT id, geom FROM pgrouting.voies ORDER BY id'
+);
+
+-- 6. Ajout colonnes nécessaires
+ALTER TABLE pgrouting.voies
+ADD COLUMN source INTEGER,
+ADD COLUMN target INTEGER,
+ADD COLUMN x REAL,
+ADD COLUMN y REAL,
+ADD COLUMN cost REAL,
+ADD COLUMN direction TEXT;
+
+-- 7. Remplissage source
+UPDATE pgrouting.voies e
+SET source = v.id, x = v.x, y = v.y
+FROM pgrouting.vertices v
+WHERE ST_DWithin(ST_StartPoint(e.geom), v.geom, 0.001);
+
+-- 8. Remplissage target
+UPDATE pgrouting.voies e
+SET target = v.id, x = v.x, y = v.y
+FROM pgrouting.vertices v
+WHERE ST_DWithin(ST_EndPoint(e.geom), v.geom, 0.001);
+
+-- 9. Cost
+UPDATE pgrouting.voies
+SET cost = ST_Length(geom);
+
+-- 10. Direction
+UPDATE pgrouting.voies 
+SET direction = CASE 
+    WHEN sens_de_circulation = 'Double sens' THEN 'B'
+    WHEN sens_de_circulation = 'Sens direct' THEN 'FT'
+    ELSE ''
+END;
+```
+
 
 
 
