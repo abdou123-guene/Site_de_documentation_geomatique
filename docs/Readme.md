@@ -1,6 +1,8 @@
-# Exemple des sources de données utilisées en agence d'urbanisme (France)
+# Quelques ources de données intéressantes (France)
 ---
-### Sources favorites: 
+
+### Liens vers les sources favorites: 
+
 [Statistiques locales (INSEE)](https://statistiques-locales.insee.fr/#c=home )  
 
 [Observatoire des territoires (ANCT)](https://www.observatoire-des-territoires.gouv.fr/outils/cartographie-interactive/#c=home)  
@@ -71,21 +73,8 @@ Pour la qualité de l'air
 - Plans situation dispositifs de production énergétique : éolien, photovoltaïque, méthanisation  
 - Plans des risques naturels  
 - Plans des risques technologiques
----
-Tableau Synthétique des Sources de Données Utilisées à l’AUDC
 
-**Légende :**  
-- <span style="color:pink;">**INSEE**</span>  
-- <span style="color:pink;">**SITADEL**</span>  
-- <span style="color:pink;">**BPE**</span>  
-- <span style="color:pink;">**IGN**</span>  
-- <span style="color:pink;">**DREAL**</span>  
-- <span style="color:pink;">**ATMO GE**</span>  
-- <span style="color:pink;">**DDT51**</span>  
-
-
-
-### Tableau des sources
+### Tableau synthétique des sources de données 
 
 | Source | Type de données | Exemples | Usages principaux |
 |--------|------------------|----------|-------------------|
@@ -99,4 +88,4 @@ Tableau Synthétique des Sources de Données Utilisées à l’AUDC
 | ATMO GE | Environnement | Qualité de l’air, polluants | Santé-environnement, suivi atmosphérique |
 | DDT51 | Risques & énergie | Risques naturels, technologiques, éolien/PV | Planification, prévention des risques |
 
-``
+
