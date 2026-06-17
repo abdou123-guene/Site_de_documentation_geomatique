@@ -581,3 +581,105 @@ SELECT ST_Union(geom)
 FROM pgrouting.f_trajet(..., false);
 ```
 
+- ***Fonction bis créer par le prof***
+
+***Différence entre les deux fonctions***
+
+- **1. Ta fonction `f_trajet`***
+
+Fonctionne avec :
+
+- coordonnées X, Y directement
+
+Avantages :
+
+- ✅ plus flexible
+- 
+- ✅ plus "application réelle"
+- 
+- ✅ style Google Maps
+
+***2. Fonction du prof `f_trajet_bis`***
+
+Fonctionne avec :
+
+- table `pgrouting.depart_arrivee`
+- 
+- colonnes : `nom`, `geom`, `d` (point départ), `a` (point arrivée)
+
+Avantages :
+
+- ✅ plus simple
+- 
+- ✅ pédagogique
+- 
+- ✅ utilisé pour démonstration
+
+## Comparaison claire
+
+| Fonction | Entrée | Avantage |
+|---|---|---|
+| `f_trajet` | coordonnées | ✅ dynamique |
+| `f_trajet_bis` | table | ✅ simple |
+
+```sql
+DROP FUNCTION IF EXISTS pgrouting.f_trajet_bis();
+
+CREATE OR REPLACE FUNCTION pgrouting.f_trajet_bis()
+RETURNS TABLE (
+    id BIGINT,
+    geom GEOMETRY,
+    longueur DOUBLE PRECISION,
+    pente DOUBLE PRECISION
+)
+AS $func$
+BEGIN
+
+RETURN QUERY
+
+WITH 
+
+-- vertex de départ
+depart AS (
+    SELECT v.id AS id_dep
+    FROM pgrouting.vertices v, pgrouting.depart_arrivee da
+    WHERE da.nom = 'd'
+    ORDER BY v.geom <-> da.geom
+    LIMIT 1
+),
+
+-- vertex d’arrivée
+arrivee AS (
+    SELECT v.id AS id_arr
+    FROM pgrouting.vertices v, pgrouting.depart_arrivee da
+    WHERE da.nom = 'a'
+    ORDER BY v.geom <-> da.geom
+    LIMIT 1
+)
+
+-- résultat final (reprend ton exemple prof)
+SELECT 
+    voies.id,
+    ST_Transform(voies.geom, 4326) AS geom,
+    voies.longueur::DOUBLE PRECISION,
+    voies.pente::DOUBLE PRECISION
+FROM pgrouting.vm_troncons_pente voies,
+     depart,
+     arrivee
+WHERE voies.id IN (
+    SELECT d.edge
+    FROM pgr_dijkstra(
+        'SELECT id, source, target, cost 
+         FROM pgrouting.voies
+         WHERE source IS NOT NULL AND target IS NOT NULL',
+        (SELECT id_dep FROM depart),
+        (SELECT id_arr FROM arrivee),
+        false
+    ) AS d
+);
+
+END;
+$func$ LANGUAGE plpgsql;
+```
+
+
