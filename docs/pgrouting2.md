@@ -913,8 +913,9 @@ SELECT
 INTO pgrouting.voies
 FROM bdtopo64.troncon_de_route r
 JOIN public.zone z 
-    ON ST_Intersects(r.geom, z.geom);
+ON ST_Intersects(r.geom, z.geom);
 
+-- clé primaire
 ALTER TABLE pgrouting.voies
 ADD CONSTRAINT pkvoies PRIMARY KEY (id);
 
@@ -927,11 +928,10 @@ UPDATE pgrouting.voies
 SET sens_de_circulation = 'Sens direct'
 WHERE sens_de_circulation = 'Sens inverse';
 
--- 3. AJOUT POINT DÉPART
-
+-- 3. AJOUT POINT DEPART
 INSERT INTO pgrouting.voies (id, geom)
 SELECT 
-    edge_id * 100000 AS id,  -- évite conflit
+    edge_id * 100000 AS id,
     edge
 FROM pgr_findCloseEdges(
     'SELECT id, geom FROM pgrouting.voies',
@@ -939,11 +939,10 @@ FROM pgr_findCloseEdges(
     50
 );
 
---  4. AJOUT POINT ARRIVÉE
-
+-- 4. AJOUT POINT ARRIVEE
 INSERT INTO pgrouting.voies (id, geom)
 SELECT 
-    edge_id * 200000 AS id,  -- autre série pour éviter collisions
+    edge_id * 200000 AS id,
     edge
 FROM pgr_findCloseEdges(
     'SELECT id, geom FROM pgrouting.voies',
@@ -952,13 +951,13 @@ FROM pgr_findCloseEdges(
 );
 
 -- 5. Création vertices
-SELECT DISTINCT * 
+SELECT DISTINCT *
 INTO pgrouting.vertices
 FROM pgr_extractVertices(
     'SELECT id, geom FROM pgrouting.voies ORDER BY id'
 );
 
--- 6. Ajout colonnes nécessaires
+-- 6. Ajout champs réseau
 ALTER TABLE pgrouting.voies
 ADD COLUMN source INTEGER,
 ADD COLUMN target INTEGER,
@@ -967,13 +966,13 @@ ADD COLUMN y REAL,
 ADD COLUMN cost REAL,
 ADD COLUMN direction TEXT;
 
--- 7. Remplissage source
+-- 7. Source (plus robuste que =)
 UPDATE pgrouting.voies e
 SET source = v.id, x = v.x, y = v.y
 FROM pgrouting.vertices v
 WHERE ST_DWithin(ST_StartPoint(e.geom), v.geom, 0.001);
 
--- 8. Remplissage target
+-- 8. Target
 UPDATE pgrouting.voies e
 SET target = v.id, x = v.x, y = v.y
 FROM pgrouting.vertices v
@@ -984,14 +983,10 @@ UPDATE pgrouting.voies
 SET cost = ST_Length(geom);
 
 -- 10. Direction
-UPDATE pgrouting.voies 
+UPDATE pgrouting.voies
 SET direction = CASE 
     WHEN sens_de_circulation = 'Double sens' THEN 'B'
     WHEN sens_de_circulation = 'Sens direct' THEN 'FT'
     ELSE ''
 END;
 ```
-
-
-
-
