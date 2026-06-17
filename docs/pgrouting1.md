@@ -581,7 +581,7 @@ SELECT ST_Union(geom)
 FROM pgrouting.f_trajet(..., false);
 ```
 
-#### Fonction bis créer par le prof
+#### Fonction bis créée par le prof
 
 - ***Différence entre les deux fonctions***
 
@@ -682,7 +682,7 @@ END;
 $func$ LANGUAGE plpgsql;
 ```
 
-#### Modification de la fonction avec des parametres 
+#### Modification de la fonction avec des paramètres 
 
 La fonction calcul_trajet crée une vue contenant le chemin calculé, ce qui permet une visualisation directe dans QGIS. À l’inverse, la fonction f_trajet renvoie directement les résultats, sans créer de vue intermédiaire.
 
