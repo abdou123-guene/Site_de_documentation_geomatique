@@ -455,6 +455,14 @@ END;
 $func$ LANGUAGE plpgsql;
 ```
 
+***Tester la fonction***
+
+***Attention :*** 
+
+- les points X et Y utilisés pour les tests doivent se situer dans la zone d’étude,
+- 
+- sinon la requête retournera 0 ligne.
+
 - ***TEST 1 – CAS DE BASE (VOITURE)***
 
 ```sql
@@ -563,5 +571,4 @@ FROM pgrouting.f_trajet(..., true);
 SELECT ST_Union(geom)
 FROM pgrouting.f_trajet(..., false);
 ```
-
 
