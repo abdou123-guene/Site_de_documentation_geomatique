@@ -2,7 +2,7 @@
 ---
 ![Télédétection](https://media.istockphoto.com/id/1444867309/fr/vectoriel/concept-dinterop%C3%A9rabilit%C3%A9-avec-banni%C3%A8re-de-mod%C3%A8le-de-jeu-dic%C3%B4nes-avec-style-de-couleur.jpg?s=612x612&w=0&k=20&c=wKbiJZdyZUGSJ_4HELCzvkHmP0XGvsf13U-ETn3frbU=)
  
-Article sur *L’interopérabilité des données géospatiales : enjeux et solutions*  
+## Article sur *L’interopérabilité des données géospatiales : enjeux et solutions*  
 [Interopérabilité des Données Géospatiales : Défis et Innovations](https://geomatique-aln.fr/linteroperabilite-des-donnees-geospatiales-enjeux-et-solutions/)  
 En bref:
 
@@ -19,27 +19,27 @@ L’interopérabilité des données géospatiales est un enjeu majeur dans un mo
 
 L’interopérabilité des données géospatiales constitue un enjeu majeur dans la gestion et l’échange d’informations au sein des systèmes d’information géographique (SIG). Elle permet la communication entre divers outils et plateformes, assurant une fluidité dans l’échange des données. Cet article explore les enjeux associés à l’interopérabilité, ainsi que les solutions pouvant être mises en place pour améliorer l’efficacité des échanges de données géospatiales.
 
-## **Normes OGC :**
+## Normes OGC :
 
 Les normes OGC sont des spécifications reconnues à l'échelle internationale qui permettent à différents systèmes d'échanger des informations de manière transparente. Elles sont organisées par domaine fonctionnel (par exemple, découverte de données, organisation). Les capacités fonctionnelles des normes de service Web sont désormais disponibles sous forme d'API Web plus modernes. Les implémenteurs sont encouragés à utiliser ces nouvelles normes d'API OGC.  
 [Normes OGC | Spécifications mondiales pour les données géospatiales interopérables](https://www.ogc.org/fr/standards/)
 
-### **ISO 19115 et ISO 19139 \- Explication**
+### ISO 19115 et ISO 19139: Explication
 
-* ISO \= Organisation internationale de normalisation  
-* 19*xxx* \= Série de normes consacrées à la géomatique / information géographique  
-* 19115 \= Numéro unique de la norme au sein de cette série
+***ISO:*** Organisation internationale de normalisation  
+***19xxx*** Série de normes consacrées à la géomatique / information géographique  
+***19115*** Numéro unique de la norme au sein de cette série
 
-Donc :
+### Donc :
 
-**➡️ *ISO 19115*** \= Norme n°19115 de la famille 19100, dédiée aux métadonnées géospatiales.
+➡️ ***ISO 19115:*** Norme n°19115 de la famille 19100, dédiée aux métadonnées géospatiales.
 
-**➡️ ISO 19139** est la norme qui définit *comment* implémenter ISO 19115, c’est‑à‑dire la *structure XML* (ou les schémas techniques) pour coder les métadonnées.
+➡️ ***ISO 19139:*** est la norme qui définit *comment* implémenter ISO 19115, c’est‑à‑dire la *structure XML* (ou les schémas techniques) pour coder les métadonnées.
 
-En résumé :
+### En résumé :
 
-* ISO 19115 \= *le contenu* → quelles métadonnées doivent être renseignées  
-* ISO 19139 \= *la forme* → comment les écrire en XML pour l’échange automatique
+***ISO 19115*** *le contenu* → quelles métadonnées doivent être renseignées  
+***ISO 19139** *la forme* → comment les écrire en XML pour l’échange automatique
 
 
 
