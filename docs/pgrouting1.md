@@ -304,3 +304,72 @@ CROSS JOIN mnt m
 GROUP BY t.id, t.geom;
 ```
 
+### 12.5 Amélioration de la requête : à partir de coordonnées carto
+point de départ :
+
+On a besoin de ***pgrouting.vm_troncons_pente***
+
+```sql
+CREATE MATERIALIZED VIEW pgrouting.vm_troncons_pente AS
+
+SELECT
+    v.id,
+    v.geom,
+    ST_Length(v.geom) AS longueur,
+
+    (
+        ST_Value(m.rast, ST_EndPoint(v.geom)) -
+        ST_Value(m.rast, ST_StartPoint(v.geom))
+    ) / ST_Length(v.geom) * 100 AS pente
+
+FROM pgrouting.voies v
+JOIN mnt_raster.mnt_lidar m
+ON ST_Intersects(v.geom, m.rast)
+WHERE v.source IS NOT NULL AND v.target IS NOT NULL;
+```
+Maintenant:
+
+```sql
+-- Coordonnées (EPSG:2154)
+-- départ : 408042.24, 6207677.44
+-- arrivée : 409420.85, 6208085.38
+WITH 
+-- point de départ (vertex le plus proche)
+depart AS (
+    SELECT id
+    FROM pgrouting.vertices
+    ORDER BY geom <-> ST_SetSRID(ST_Point(408042.24, 6207677.44), 2154)
+    LIMIT 1
+),
+-- point d'arrivée (vertex le plus proche)
+arrivee AS (
+    SELECT id
+    FROM pgrouting.vertices
+    ORDER BY geom <-> ST_SetSRID(ST_Point(409420.85, 6208085.38), 2154)
+    LIMIT 1
+)
+-- calcul et récupération du chemin
+SELECT 
+    v.id,
+    ST_Transform(v.geom, 4326) AS geom,
+    v.longueur,
+    v.pente
+FROM pgrouting.vm_troncons_pente v
+WHERE v.id IN (
+    SELECT d.edge
+    FROM depart, arrivee,
+    pgr_dijkstra(
+        $$SELECT id, source, target, cost 
+          FROM pgrouting.voies
+          WHERE source IS NOT NULL AND target IS NOT NULL$$,
+        depart.id,
+        arrivee.id,
+        false
+    ) AS d
+);
+```
+
+
+
+
+
