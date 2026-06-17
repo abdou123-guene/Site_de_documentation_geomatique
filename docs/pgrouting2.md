@@ -814,6 +814,9 @@ Ce modèle QGIS permet de calculer un itinéraire entre un point de départ et u
 
 <img width="636" height="226" alt="4" src="https://github.com/user-attachments/assets/7b851c96-35ae-48aa-8b72-f5167b2fc594" />
 
+```sql
+'SELECT  pgrouting.calcul_trajet(' ||    rtrim( @point_depart,'[EPSG:2154]') || ',' ||    rtrim( @point_arrivee,'[EPSG:2154]')   ||  ',false);'
+```
 
 
 
