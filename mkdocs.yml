@@ -33,9 +33,8 @@ nav:
   - Classification non supervisée d'images: classification_image_kmeans.md
   - Classification supervisée d'images: teledetection_cpgeom.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
-  - Consultation dynamique de données PostgreSQL avec PHP: consultation_presentation_markdown_panel.md
+  - Consultation dynamique de données PostgreSQL avec PHP: consultation_dynamique_script_php.md
   - Exemple de source de données entreprise : Readme.md
-  - Ressources BDTopo: carte_bdtopo.html
   - Carte Pays de Châlons‑en‑Champagne: carte_web.html
 extra_css:
   - css/le_style.css
