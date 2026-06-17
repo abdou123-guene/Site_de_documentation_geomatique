@@ -307,7 +307,7 @@ GROUP BY t.id, t.geom;
 ### 12.5 Amélioration de la requête : à partir de coordonnées carto
 point de départ :
 
-On a besoin de ***pgrouting.vm_troncons_pente***
+- ***D'abord on a besoin de pgrouting.vm_troncons_pente***
 
 ```sql
 CREATE MATERIALIZED VIEW pgrouting.vm_troncons_pente AS
@@ -327,7 +327,7 @@ JOIN mnt_raster.mnt_lidar m
 ON ST_Intersects(v.geom, m.rast)
 WHERE v.source IS NOT NULL AND v.target IS NOT NULL;
 ```
-Maintenant:
+- ***Ensuite:***
 
 ```sql
 -- Coordonnées (EPSG:2154)
@@ -369,7 +369,80 @@ WHERE v.id IN (
 );
 ```
 
+- ***Enfin: Etape suivante : faire une fonction qui permet de trouver une chemin en entrant les coordonnées du point de départ, les coordonnées du point d’arrivée et false/true (pour voiture ou piéton)***
 
+là on arrive à une vraie étape projet / examen
+👉 créer une fonction pgRouting complète et réutilisable
+***Objectif***
+Créer une fonction qui :
+👉 prend en entrée :
 
+✅ coordonnées départ (X,Y)
+✅ coordonnées arrivée (X,Y)
+✅ mode (true = voiture / false = piéton)
+
+👉 et renvoie :
+➡️ le chemin (géométrie + éventuellement pente, longueur)
+
+```sql
+CREATE OR REPLACE FUNCTION pgrouting.f_trajet(
+    x_dep DOUBLE PRECISION,
+    y_dep DOUBLE PRECISION,
+    x_arr DOUBLE PRECISION,
+    y_arr DOUBLE PRECISION,
+    mode_voiture BOOLEAN
+)
+RETURNS TABLE (
+    id INTEGER,
+    geom GEOMETRY,
+    longueur DOUBLE PRECISION,
+    pente DOUBLE PRECISION
+)
+AS $func$
+BEGIN
+
+RETURN QUERY
+
+WITH 
+
+depart AS (
+    SELECT id
+    FROM pgrouting.vertices
+    ORDER BY geom <-> ST_SetSRID(ST_Point(x_dep, y_dep), 2154)
+    LIMIT 1
+),
+
+arrivee AS (
+    SELECT id
+    FROM pgrouting.vertices
+    ORDER BY geom <-> ST_SetSRID(ST_Point(x_arr, y_arr), 2154)
+    LIMIT 1
+),
+
+trajet AS (
+    SELECT *
+    FROM pgr_dijkstra(
+        'SELECT id, source, target, cost 
+         FROM pgrouting.voies
+         WHERE source IS NOT NULL AND target IS NOT NULL',
+        (SELECT id FROM depart),
+        (SELECT id FROM arrivee),
+        false
+    )
+)
+
+SELECT 
+    v.id,
+    v.geom,
+    v.cost AS longueur,
+    0 AS pente  -- temporaire si pas dans voies
+
+FROM trajet t
+JOIN pgrouting.voies v
+ON t.edge = v.id;
+
+END;
+$func$ LANGUAGE plpgsql;
+```
 
 
