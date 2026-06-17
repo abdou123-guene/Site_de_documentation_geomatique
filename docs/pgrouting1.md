@@ -786,11 +786,13 @@ f_trajet (toi)
 
 ### 12.6 Modeleur graphique de QGIS
 
-En entrée, les coordonnées de départ et d’arrivée :
+Ce modèle QGIS permet de calculer un itinéraire entre un point de départ et un point d’arrivée en utilisant une base de données PostgreSQL avec l’extension pgRouting. L’utilisateur saisit soit des coordonnées (X/Y), soit directement des points géographiques en entrée du modèle. Ces informations sont ensuite transmises à une requête SQL qui appelle une fonction de calcul de trajet dans la base de données. La fonction détermine le chemin le plus court sur le réseau routier et retourne le résultat sous forme géométrique. Le modèle automatise ainsi le calcul d’itinéraire et facilite son utilisation dans QGIS.
+
+- ***En entrée, les coordonnées de départ et d’arrivée :***
 
 <img width="641" height="320" alt="1" src="https://github.com/user-attachments/assets/f314457d-e8a4-421d-9e03-e5d4e842aabb" />
 
-Algorithme “Postgresql executer SQL”:
+- ***Algorithme “Postgresql executer SQL”:***
 
 <img width="601" height="447" alt="2" src="https://github.com/user-attachments/assets/78f1afd6-1203-4193-8130-0247beecb5cd" />
 
@@ -799,7 +801,7 @@ Algorithme “Postgresql executer SQL”:
 
 ```
 
-Amelioration du modèle:
+- ***Amelioration du modèle:***
 
 <img width="371" height="224" alt="3" src="https://github.com/user-attachments/assets/7b0da4db-3017-46dc-b07e-d7801c5000bd" />
 
@@ -808,7 +810,7 @@ Amelioration du modèle:
 'SELECT  pgrouting.calcul_trajet(' ||  @xy_depart   || ',' ||  @xy_arrivee  ||  ',false);'
 ```
 
-Encore mieux !
+- ***Encore mieux !***
 
 <img width="636" height="226" alt="4" src="https://github.com/user-attachments/assets/7b851c96-35ae-48aa-8b72-f5167b2fc594" />
 
