@@ -593,11 +593,11 @@ FROM pgrouting.f_trajet(..., false);
 
 ***Avantages :***
 
-✅ plus flexible
+- plus flexible ✅ 
 
-✅ plus "application réelle"
+- plus "application réelle" ✅ 
 
-✅ style Google Maps
+- style Google Maps ✅ 
 
 ***2. Fonction du prof `f_trajet_bis`***
 
@@ -607,13 +607,13 @@ table `pgrouting.depart_arrivee`
 
 colonnes : `nom`, `geom`, `d` (point départ), `a` (point arrivée)
 
-Avantages :
+***Avantages :***
 
-✅ plus simple
+- plus simple ✅ 
 
-✅ pédagogique
+- pédagogique ✅ 
 
-✅ utilisé pour démonstration
+- utilisé pour démonstration ✅ 
 
 #### Comparaison claire
 
@@ -766,23 +766,21 @@ SELECT * FROM pgrouting.v_chemin;
 
 ***DIFFÉRENCE AVEC f_trajet***
 
-Résumé simple (à dire au prof) :
+***calcul_trajet (prof)***
 
-calcul_trajet (prof)
+- crée une vue (v_chemin) ✅ 
 
-✅ crée une vue (v_chemin)
+- utilisée pour visualisation QGIS ✅ 
 
-✅ utilisée pour visualisation QGIS
+- pas de retour direct ❌ 
 
-❌ pas de retour direct
+***f_trajet (toi)***
 
-f_trajet (toi)
+- retourne directement le résultat ✅ 
 
-✅ retourne directement le résultat
+- plus moderne / flexible ✅ 
 
-✅ plus moderne / flexible
-
-✅ pas besoin de vue
+- pas besoin de vue ✅ 
 
 ### 12.6 Modeleur graphique de QGIS
 
