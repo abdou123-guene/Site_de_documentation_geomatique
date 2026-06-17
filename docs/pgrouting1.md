@@ -764,10 +764,9 @@ SELECT pgrouting.calcul_trajet(
 SELECT * FROM pgrouting.v_chemin;
 ```
 
-- ***DIFFÉRENCE AVEC f_trajet***
-- 
-Résumé simple (à dire au prof) :
+***DIFFÉRENCE AVEC f_trajet***
 
+Résumé simple (à dire au prof) :
 
 calcul_trajet (prof)
 
@@ -776,7 +775,6 @@ calcul_trajet (prof)
 ✅ utilisée pour visualisation QGIS
 
 ❌ pas de retour direct
-
 
 f_trajet (toi)
 
