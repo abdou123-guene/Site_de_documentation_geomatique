@@ -393,7 +393,7 @@ CREATE OR REPLACE FUNCTION pgrouting.f_trajet(
     mode_voiture BOOLEAN
 )
 RETURNS TABLE (
-    id INTEGER,
+    id BIGINT,
     geom GEOMETRY,
     longueur DOUBLE PRECISION,
     pente DOUBLE PRECISION
@@ -406,27 +406,32 @@ RETURN QUERY
 WITH 
 
 depart AS (
-    SELECT id
-    FROM pgrouting.vertices
-    ORDER BY geom <-> ST_SetSRID(ST_Point(x_dep, y_dep), 2154)
+    SELECT vtx.id AS id_dep
+    FROM pgrouting.vertices vtx
+    ORDER BY vtx.geom <-> ST_SetSRID(ST_Point(x_dep, y_dep), 2154)
     LIMIT 1
 ),
 
 arrivee AS (
-    SELECT id
-    FROM pgrouting.vertices
-    ORDER BY geom <-> ST_SetSRID(ST_Point(x_arr, y_arr), 2154)
+    SELECT vtx.id AS id_arr
+    FROM pgrouting.vertices vtx
+    ORDER BY vtx.geom <-> ST_SetSRID(ST_Point(x_arr, y_arr), 2154)
     LIMIT 1
 ),
 
 trajet AS (
     SELECT *
     FROM pgr_dijkstra(
-        'SELECT id, source, target, cost 
-         FROM pgrouting.voies
-         WHERE source IS NOT NULL AND target IS NOT NULL',
-        (SELECT id FROM depart),
-        (SELECT id FROM arrivee),
+        'SELECT v.id, v.source, v.target, v.cost 
+         FROM pgrouting.voies v
+         WHERE v.source IS NOT NULL 
+           AND v.target IS NOT NULL
+           AND (
+               ' || mode_voiture || ' = TRUE 
+               OR v.nature NOT IN (''autoroute'', ''voie rapide'')
+           )',
+        (SELECT id_dep FROM depart),
+        (SELECT id_arr FROM arrivee),
         false
     )
 )
@@ -434,12 +439,17 @@ trajet AS (
 SELECT 
     v.id,
     v.geom,
-    v.cost AS longueur,
-    0 AS pente  -- temporaire si pas dans voies
+    v.cost::DOUBLE PRECISION AS longueur,
+
+    (
+        ST_Value(m.rast, ST_EndPoint(v.geom)) -
+        ST_Value(m.rast, ST_StartPoint(v.geom))
+    ) / NULLIF(ST_Length(v.geom), 0) * 100 AS pente
 
 FROM trajet t
-JOIN pgrouting.voies v
-ON t.edge = v.id;
+JOIN pgrouting.voies v ON t.edge = v.id
+LEFT JOIN mnt_raster.mnt_lidar m 
+ON ST_Intersects(v.geom, m.rast);
 
 END;
 $func$ LANGUAGE plpgsql;
