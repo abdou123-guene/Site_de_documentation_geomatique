@@ -583,37 +583,37 @@ FROM pgrouting.f_trajet(..., false);
 
 - ***Fonction bis créer par le prof***
 
-***Différence entre les deux fonctions***
+- ***Différence entre les deux fonctions***
 
 - **1. Ta fonction `f_trajet`***
 
-Fonctionne avec :
+***Fonctionne avec :***
 
 - coordonnées X, Y directement
 
-Avantages :
+***Avantages :***
 
-- ✅ plus flexible
-- 
-- ✅ plus "application réelle"
-- 
-- ✅ style Google Maps
+✅ plus flexible
+
+✅ plus "application réelle"
+
+✅ style Google Maps
 
 ***2. Fonction du prof `f_trajet_bis`***
 
-Fonctionne avec :
+***Fonctionne avec :***
 
-- table `pgrouting.depart_arrivee`
-- 
-- colonnes : `nom`, `geom`, `d` (point départ), `a` (point arrivée)
+table `pgrouting.depart_arrivee`
+
+colonnes : `nom`, `geom`, `d` (point départ), `a` (point arrivée)
 
 Avantages :
 
-- ✅ plus simple
-- 
-- ✅ pédagogique
-- 
-- ✅ utilisé pour démonstration
+✅ plus simple
+
+✅ pédagogique
+
+✅ utilisé pour démonstration
 
 ## Comparaison claire
 
