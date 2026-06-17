@@ -445,4 +445,113 @@ END;
 $func$ LANGUAGE plpgsql;
 ```
 
+- ***TEST 1 – CAS DE BASE (VOITURE)***
+
+```sql
+SELECT *
+FROM pgrouting.f_trajet(
+    408042.24, 6207677.44,
+    409420.85, 6208085.38,
+    true
+);
+```
+
+- ***TEST 2 - MODE PIÉTON***
+
+```sql
+SELECT *
+FROM pgrouting.f_trajet(
+    408042.24, 6207677.44,
+    409420.85, 6208085.38,
+    false
+);
+```
+
+- ***TEST 3 - TRAJET COURT (VOISIN)***
+
+```sql
+SELECT *
+FROM pgrouting.f_trajet(
+    408000, 6207600,
+    408100, 6207650,
+    true
+);
+```
+
+- ***TEST 4 - TRAJET LONG***
+
+```sql
+SELECT *
+FROM pgrouting.f_trajet(
+    408000, 6207000,
+    410000, 6209000,
+    true
+);
+```
+
+- ***TEST 5 - VÉRIFIER LA LIGNE CONTINUE***
+
+```sql
+SELECT ST_Union(geom)
+FROM pgrouting.f_trajet(
+    408042.24, 6207677.44,
+    409420.85, 6208085.38,
+    true
+);
+```
+
+- ***TEST 6 - LONGUEUR TOTALE***
+
+```sql
+SELECT SUM(longueur) AS distance_totale
+FROM pgrouting.f_trajet(
+    408042.24, 6207677.44,
+    409420.85, 6208085.38,
+    true
+);
+```
+- ***TEST 7 – PENTE MOYENNE***
+
+```sql
+SELECT AVG(pente) AS pente_moyenne
+FROM pgrouting.f_trajet(
+    408042.24, 6207677.44,
+    409420.85, 6208085.38,
+    true
+);
+```
+
+- ***TEST 8 – CAS LIMITE (POINTS IDENTIQUES)***
+
+```sql
+SELECT *
+FROM pgrouting.f_trajet(
+    408042.24, 6207677.44,
+    408042.24, 6207677.44,
+    true
+);
+```
+
+- ***TEST 9 – POINT HORS ZONE***
+
+```sql
+SELECT *
+FROM pgrouting.f_trajet(
+    100000, 1000000,
+    200000, 2000000,
+    true
+);
+```
+
+- ***TEST 10 – COMPARAISON VOITURE / PIÉTON***
+
+```sql
+-- voiture
+SELECT ST_Union(geom)
+FROM pgrouting.f_trajet(..., true);
+-- piéton
+SELECT ST_Union(geom)
+FROM pgrouting.f_trajet(..., false);
+```
+
 
