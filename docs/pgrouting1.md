@@ -615,7 +615,7 @@ Avantages :
 
 ✅ utilisé pour démonstration
 
-## Comparaison claire
+#### Comparaison claire
 
 | Fonction | Entrée | Avantage |
 |---|---|---|
