@@ -9,8 +9,8 @@ nav:
   - Admin et Base de données géographique : aide_sql.md
   - Quelques exemples de scripts SQL fréquents en géomatique: abdou_julien_base_de_donnees.md
   - PostGIS 3D: postgis_3d_notes.md
-  - PG_Routing 1: pgrouting.md
-  - PG_Routing 2: pgrouting1.md
+  - pgRouting 1: pgrouting.md
+  - pgRouting 2: pgrouting1.md
   - Mise en place de base de données géographique: etude_cas_bdd.md
   - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
