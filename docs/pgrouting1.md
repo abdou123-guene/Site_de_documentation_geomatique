@@ -581,7 +581,7 @@ SELECT ST_Union(geom)
 FROM pgrouting.f_trajet(..., false);
 ```
 
-- ***Fonction bis créer par le prof***
+#### Fonction bis créer par le prof
 
 - ***Différence entre les deux fonctions***
 
