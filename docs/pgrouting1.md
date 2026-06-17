@@ -307,7 +307,7 @@ GROUP BY t.id, t.geom;
 ### 12.5 Amélioration de la requête : à partir de coordonnées carto
 point de départ :
 
-- ***D'abord on a besoin de pgrouting.vm_troncons_pente***
+#### D'abord on a besoin de pgrouting.vm_troncons_pente
 
 ```sql
 CREATE MATERIALIZED VIEW pgrouting.vm_troncons_pente AS
@@ -327,7 +327,7 @@ JOIN mnt_raster.mnt_lidar m
 ON ST_Intersects(v.geom, m.rast)
 WHERE v.source IS NOT NULL AND v.target IS NOT NULL;
 ```
-- ***Ensuite:***
+#### Ensuite:
 
 ***NB:*** Ces coordonnées X,Y peuvent ne pas se trouver dans notre zone, donc trouver de bonnes coordonnées X,Y.
 
@@ -371,7 +371,7 @@ WHERE v.id IN (
 );
 ```
 
-- ***Enfin: Etape suivante : faire une fonction qui permet de trouver une chemin en entrant les coordonnées du point de départ, les coordonnées du point d’arrivée et false/true (pour voiture ou piéton)***
+#### Enfin: Etape suivante : faire une fonction qui permet de trouver une chemin en entrant les coordonnées du point de départ, les coordonnées du point d’arrivée et false/true (pour voiture ou piéton)
 
 là on arrive à une vraie étape projet / examen
 
@@ -464,13 +464,13 @@ END;
 $func$ LANGUAGE plpgsql;
 ```
 
-***Tester la fonction***
+#### Tester la fonction
 
 ***Attention :*** 
 
-- les points X et Y utilisés pour les tests doivent se situer dans la zone d’étude,
-- 
-- sinon la requête retournera 0 ligne.
+les points X et Y utilisés pour les tests doivent se situer dans la zone d’étude,
+
+sinon la requête retournera 0 ligne.
 
 - ***TEST 1 – CAS DE BASE (VOITURE)***
 
