@@ -682,4 +682,109 @@ END;
 $func$ LANGUAGE plpgsql;
 ```
 
+#### Modification de la fonction avec des parametres 
+
+La fonction calcul_trajet crée une vue contenant le chemin calculé, ce qui permet une visualisation directe dans QGIS. À l’inverse, la fonction f_trajet renvoie directement les résultats, sans créer de vue intermédiaire.
+
+- ***FONCTION FINALE (style prof)***
+```sql
+DROP FUNCTION IF EXISTS pgrouting.calcul_trajet(
+    DOUBLE PRECISION,
+    DOUBLE PRECISION,
+    DOUBLE PRECISION,
+    DOUBLE PRECISION,
+    BOOLEAN
+);
+
+CREATE OR REPLACE FUNCTION pgrouting.calcul_trajet(
+    coordxd DOUBLE PRECISION, 
+    coordyd DOUBLE PRECISION,
+    coordxa DOUBLE PRECISION,
+    coordya DOUBLE PRECISION,
+    direction BOOLEAN
+)
+RETURNS void
+LANGUAGE plpgsql
+AS $func$
+BEGIN
+
+EXECUTE '
+CREATE OR REPLACE VIEW pgrouting.v_chemin AS
+
+WITH 
+
+depart AS (
+    SELECT v.id
+    FROM pgrouting.vertices v
+    ORDER BY v.geom <-> ST_SetSRID(ST_Point(' || coordxd || ',' || coordyd || '),2154)
+    LIMIT 1
+),
+
+arrivee AS (
+    SELECT v.id
+    FROM pgrouting.vertices v
+    ORDER BY v.geom <-> ST_SetSRID(ST_Point(' || coordxa || ',' || coordya || '),2154)
+    LIMIT 1
+)
+
+SELECT v.id, 
+       ST_Transform(v.geom,4326) AS geom,
+       v.longueur,
+       v.pente
+
+FROM pgrouting.vm_troncons_pente v, depart, arrivee
+
+WHERE v.id IN (
+    SELECT d.edge
+    FROM pgr_dijkstra(
+        ''SELECT id, source, target, cost 
+          FROM pgrouting.voies
+          WHERE source IS NOT NULL AND target IS NOT NULL'',
+        depart.id,
+        arrivee.id,
+        ' || direction || '
+    ) AS d
+);
+';
+
+END;
+$func$;
+```
+
+- ***UTILISATION***
+
+```sql
+SELECT pgrouting.calcul_trajet(
+    408469.9, 6206799.2,
+    407316.9, 6207491.0,
+    false
+);
+
+-- puis
+SELECT * FROM pgrouting.v_chemin;
+```
+
+- ***DIFFÉRENCE AVEC f_trajet***
+- 
+Résumé simple (à dire au prof) :
+
+
+calcul_trajet (prof)
+
+✅ crée une vue (v_chemin)
+
+✅ utilisée pour visualisation QGIS
+
+❌ pas de retour direct
+
+
+f_trajet (toi)
+
+✅ retourne directement le résultat
+
+✅ plus moderne / flexible
+
+✅ pas besoin de vue
+
+
 
