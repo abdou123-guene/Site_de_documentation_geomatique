@@ -220,17 +220,15 @@ Cette requête reprend le principe de visualisation déjà utilisé précédemme
 ### 12.2 Longueur totale du trajet
 
 ```sql
-SELECT SUM(v.cost) AS longueur_totale
-FROM pgr_dijkstra(
-    'SELECT id, source, target, cost 
-     FROM pgrouting.voies
-     WHERE source IS NOT NULL AND target IS NOT NULL',
-    24,
-    43,
-    false
-) AS d
-JOIN pgrouting.voies v
-ON d.edge = v.id;
+SELECT
+    v.id,
+    v.geom,
+    ST_Value(m.rast, ST_StartPoint(v.geom)) AS z_start,
+    ST_Value(m.rast, ST_EndPoint(v.geom)) AS z_end,
+    ST_Length(v.geom) AS longueur
+FROM pgrouting.voies v,
+     mnt_raster.mnt_zone m
+WHERE ST_Intersects(v.geom, m.rast);
 ```
 
 Cette requête permet de quantifier l'itinéraire calculé : elle récupère la liste des arêtes parcourues via `pgr_dijkstra`, les relie à la table `pgrouting.voies` (jointure sur `d.edge = v.id`), puis additionne la colonne `cost` de chaque tronçon. Le coût ayant été défini comme la longueur géométrique de chaque tronçon, le résultat `longueur_totale` correspond à la distance totale du trajet, exprimée dans l'unité du système de coordonnées de la couche (en mètres si la projection est métrique).
@@ -245,10 +243,15 @@ SELECT
     v.geom,
     ST_Value(m.rast, ST_StartPoint(v.geom)) AS z_start,
     ST_Value(m.rast, ST_EndPoint(v.geom)) AS z_end,
-    ST_Length(v.geom) AS longueur
-FROM pgrouting.voies v,
-     mnt_raster.mnt_lidar m
-WHERE ST_Intersects(v.geom, m.rast);
+    ST_Length(v.geom) AS longueur,
+    --calcul de la pente
+    (
+        ST_Value(m.rast, ST_EndPoint(v.geom)) -
+        ST_Value(m.rast, ST_StartPoint(v.geom))
+    ) / ST_Length(v.geom) AS pente
+FROM pgrouting.voies v
+JOIN mnt_raster.mnt_zone m
+ON ST_Intersects(v.geom, m.rast);
 ```
 
 Pour chaque tronçon, `ST_Value` interroge le raster `mnt_lidar` aux points de départ (`ST_StartPoint`) et d'arrivée (`ST_EndPoint`) de la géométrie afin d'en extraire l'altitude (`z_start` et `z_end`). La longueur du tronçon (`ST_Length`) est également récupérée. Ces trois valeurs constituent les éléments nécessaires au calcul de la pente, qui peut ensuite être obtenue avec la formule `(z_end - z_start) / longueur * 100` (en %).
@@ -258,31 +261,46 @@ Pour chaque tronçon, `ST_Value` interroge le raster `mnt_lidar` aux points de d
 ### 12.4 Calcul de pente pour chaque tronçon du trajet d’un point A à un pointB
 
 ```sql
-CREATE MATERIALIZED VIEW pgrouting.vm_trajets AS
---calcul d'un trajet
-WITH
-trajet0 as (SELECT *
- FROM pgrouting.voies
-   WHERE id in (SELECT edge
-		FROM pgr_dijkstra('SELECT  id, source, target, cost
-       FROM pgrouting.voies
-	   WHERE target is not null', 120, 244,false))
-	 ),
-trajet_point as (SELECT  st_length(geom) as longueur,
-				(ST_DumpPoints(geom)).geom
-  					FROM trajet0
-	) ,
-mnt as (SELECT st_union(rast) as rast1
-	 FROM mnt_raster.vm_zone_lidar
-	 JOIN trajet_point ON geom&&rast) 	
---longueur totale du trajet et la pente
-SELECT  id, trajet0.geom, sum(cost) as longueur,
- (max(st_value(rast1,trajet_point.geom))-min(st_value(rast1,trajet_point.geom)))/max(longueur)*100 as pente
-	 FROM mnt CROSS JOIN trajet_point
-	    JOIN trajet0 ON trajet0.geom&& trajet_point.geom 
-		GROUP BY id, trajet0.geom;
+CREATE materialized VIEW pgrouting.vm_trajets AS
+WITH trajet0 AS (
+    SELECT *
+    FROM pgrouting.voies
+    WHERE id IN (
+        SELECT edge
+        FROM pgr_dijkstra(
+            'SELECT id, source, target, cost 
+             FROM pgrouting.voies
+             WHERE source IS NOT NULL AND target IS NOT NULL',
+            120,
+            244,
+            false
+        )
+    )
+),
+trajet_point AS (
+    SELECT 
+        t.id,
+        ST_Length(t.geom) AS longueur,
+        (ST_DumpPoints(t.geom)).geom AS geom
+    FROM trajet0 t
+),
+mnt AS (
+    SELECT ST_Union(rast) AS rast1
+    FROM mnt_raster.mnt_zone r
+    JOIN trajet_point tp 
+    ON tp.geom && r.rast
+)
+SELECT  
+    t.id,
+    t.geom,
+    SUM(t.cost) AS longueur,
+    (
+        MAX(ST_Value(m.rast1, tp.geom)) - 
+        MIN(ST_Value(m.rast1, tp.geom))
+    ) / SUM(tp.longueur) * 100 AS pente
+FROM trajet0 t
+JOIN trajet_point tp ON tp.id = t.id
+CROSS JOIN mnt m
+GROUP BY t.id, t.geom;
 ```
-
-
-
 
