@@ -11,7 +11,7 @@ Le script utilise deux variables :
 - une variable pour définir le chemin de l’exécutable FME (`fme.exe`)  
 - une variable pour définir le chemin du workspace (`.fmw`)  
 
-### Contenu du fichier `arbre_stats.bat`
+***Contenu du fichier `arbre_stats.bat`***
 
 ```bat
 @echo off
