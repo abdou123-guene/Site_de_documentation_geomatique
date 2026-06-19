@@ -33,6 +33,7 @@ nav:
   - Classification non supervisée d'images: classification_image_kmeans.md
   - Classification supervisée d'images: teledetection_cpgeom.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
+  - Automatiser l'execution de projet FME: automatisaion_fme.md
   - Consultation dynamique de données PostgreSQL avec PHP: consultation_dynamique_script_php.md
   - Exemple de source de données entreprise : Readme.md
   - Carte Pays de Châlons‑en‑Champagne: carte_web.html
