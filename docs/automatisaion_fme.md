@@ -84,7 +84,7 @@ Cette mise en place permet :
 
 Cette solution correspond à une pratique professionnelle courante en géomatique et en gestion de données automatisées.
 
-## 3. Exemple de projets FME
+## 3. Exemples de projets FME
 
 <img width="1918" height="1040" alt="arbre_secteur" src="https://github.com/user-attachments/assets/a39729ce-53d8-46c3-b6ed-feaef0ba5fa5" />
 
