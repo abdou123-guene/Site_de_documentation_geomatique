@@ -14,7 +14,7 @@ nav:
   - Mise en place de base de données géographique: etude_cas_bdd.md
   - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
-  - Brique de Géomatqiue et Télédétection: teledetection.md
+  - Brique de Télédétection et Géomatqiue: teledetection.md
   - Initiation en python 1: python1.md
   - Initiation en python 2: python2.md
   - Initiation en python 3: python3.md
