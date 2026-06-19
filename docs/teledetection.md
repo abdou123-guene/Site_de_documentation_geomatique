@@ -2,8 +2,6 @@
 ---
 Paul Passy \- paul.passy@u-paris.fr 
 
-![Télédétection](https://www.aquaportail.com/pictures2208/teledetection.jpg)
-
 [Ressources importantes](https://briques-de-geomatique.readthedocs.io/fr/latest/telede-theorie-missions-donnees.html)
 
 [Orfeo ToolBox (OTB)](https://www.orfeo-toolbox.org/CookBook/First_Steps.html)
