@@ -31,6 +31,9 @@ C:\Users\aguene\Downloads\FME_projet\EXERCICES\exo_arbre\work
 
 Son exécution permet de lancer automatiquement le traitement FME et de générer les fichiers de sortie attendus.
 
+<img width="1206" height="442" alt="1-pour executer le projet fme par script bash egalement possible automatique telle heure" src="https://github.com/user-attachments/assets/bf3316d1-4ff7-4013-b5a7-6ea45aa55082" />
+
+
 ## 2. Planification automatique avec le Planificateur de tâches Windows
 
 Afin d’automatiser complètement le traitement, le script Batch a été planifié avec le Planificateur de tâches Windows.
@@ -67,6 +70,8 @@ que le fichier .fmw existe au bon emplacement
 que le PC est allumé à l’heure prévue
 que la tâche est autorisée à s’exécuter même en arrière-plan
 
+<img width="1480" height="570" alt="2-demarrer l&#39;execution automatique avec planificateur de tache de windows" src="https://github.com/user-attachments/assets/6992a277-5b6c-4614-ac73-f686c6fecf0d" />
+
 
 ### Conclusion
 Cette mise en place permet :
@@ -78,3 +83,15 @@ Cette mise en place permet :
 ✅ de simuler un cas réel utilisé en bureau d’étude ou en entreprise
 
 Cette solution correspond à une pratique professionnelle courante en géomatique et en gestion de données automatisées.
+
+## 3. Exemple de projets FME
+
+<img width="1918" height="1040" alt="arbre_secteur" src="https://github.com/user-attachments/assets/a39729ce-53d8-46c3-b6ed-feaef0ba5fa5" />
+
+<img width="1918" height="1036" alt="projet fme" src="https://github.com/user-attachments/assets/b3d771c5-af4d-45d6-8130-fd5de9215824" />
+
+<img width="1919" height="1033" alt="population impactée_projet" src="https://github.com/user-attachments/assets/3c8c6fce-831c-4dff-a9f4-ca4a8502df3b" />
+
+
+
+
