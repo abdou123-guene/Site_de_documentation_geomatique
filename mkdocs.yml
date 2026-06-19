@@ -5,16 +5,20 @@ theme:
 
 nav:
   - Accueil: index.md
-  - Interopérabilité des données en géomatique: Interoperabilite.md
+  - Mise en place de base de données géographique: etude_cas_bdd.md
   - Admin et Base de données géographique : aide_sql.md
   - Quelques exemples de scripts SQL fréquents en géomatique: abdou_julien_base_de_donnees.md
   - PostGIS 3D: postgis_3d_notes.md
   - pgRouting 1: pgrouting1.md
   - pgRouting 2: pgrouting2.md
-  - Mise en place de base de données géographique: etude_cas_bdd.md
+  - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
   - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
   - Brique de Télédétection et Géomatqiue: teledetection.md
+  - Automatiser l'execution de projet FME: automatisaion_fme.md
+  - Consultation dynamique de données PostgreSQL avec PHP: consultation_dynamique_script_php.md
+  - Classification non supervisée d'images: classification_image_kmeans.md
+  - Classification supervisée d'images: teledetection_cpgeom.md
   - Initiation en python 1: python1.md
   - Initiation en python 2: python2.md
   - Initiation en python 3: python3.md
@@ -30,11 +34,7 @@ nav:
   - Initiation en python 13: python13.md
   - Initiation en python 14: python14.md
   - Initiation en python 15: python15.md
-  - Classification non supervisée d'images: classification_image_kmeans.md
-  - Classification supervisée d'images: teledetection_cpgeom.md
-  - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
-  - Automatiser l'execution de projet FME: automatisaion_fme.md
-  - Consultation dynamique de données PostgreSQL avec PHP: consultation_dynamique_script_php.md
+  - Interopérabilité des données en géomatique: Interoperabilite.md
   - Exemple de source de données entreprise : Readme.md
   - Carte Pays de Châlons‑en‑Champagne: carte_web.html
 extra_css:
