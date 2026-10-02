@@ -3,7 +3,7 @@
 
 [Documentation Lizmap](https://docs.lizmap.com/current/en/introduction.html)
 
-[Aller plus loin)](https://www.lizmap.com)
+[Aller plus loin](https://www.lizmap.com)
 
 
 *Toutes les étapes, de l'installation à la publication d'un projet QGIS*
