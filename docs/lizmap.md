@@ -1,11 +1,7 @@
-# Documentation en télédétection 
+# Liz map 
 ---
-Paul Passy \- paul.passy@u-paris.fr 
 
-[Ressources importantes](https://briques-de-geomatique.readthedocs.io/fr/latest/telede-theorie-missions-donnees.html)
+[Documentation Lizmap](https://docs.lizmap.com/current/en/introduction.html)
 
-[Orfeo ToolBox (OTB)](https://www.orfeo-toolbox.org/CookBook/First_Steps.html)
+[Aller plus loin)](https://www.lizmap.com)
 
-[Présentation des principaux portails de téléchargement des images de télédétection](https://gitlab.huma-num.fr/ppassy/m1_tgae_portails.git)
-
-[Documentation sur les produits ESRI](https://pro.arcgis.com/fr/pro-app/latest/help/data/geodatabases/overview/table-basics.htm)
