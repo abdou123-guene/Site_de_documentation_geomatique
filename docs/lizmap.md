@@ -1,5 +1,7 @@
 # Mise en place de Lizmap
 
+[![Télécharger en PDF](https://img.shields.io/badge/📄_T%C3%A9l%C3%A9charger-PDF-0ea5e9?style=for-the-badge)](Lizmap_mise_en_place_AUDC.pdf)
+
 *Toutes les étapes, de l'installation à la publication d'un projet QGIS*
 
 > **Document de présentation** à destination de la direction et de la DSI.
