@@ -5,14 +5,6 @@
 > **Document de présentation** à destination de la direction et de la DSI.
 > Les versions précises (QGIS, Lizmap, PHP) sont à faire valider par le prestataire au moment de l'installation, car elles évoluent régulièrement. Les durées indiquées sont des ordres de grandeur, à confirmer par un devis détaillé.
 
-## Sommaire
-
-1. [Ce qu'on installe, et pourquoi](#1-ce-quon-installe-et-pourquoi)
-2. [Les étapes, dans l'ordre](#2-les-étapes-dans-lordre)
-3. [La mise en ligne d'un projet QGIS](#3-la-mise-en-ligne-dun-projet-qgis)
-4. [Répartition des responsabilités à valider](#4-répartition-des-responsabilités-à-valider)
-5. [Points de vigilance](#5-points-de-vigilance)
-
 ---
 
 ## 1. Ce qu'on installe, et pourquoi
