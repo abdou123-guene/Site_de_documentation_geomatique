@@ -19,7 +19,7 @@
 
 Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaires qui s'articulent les unes aux autres.
 
-![Architecture de la plateforme Lizmap](images/architecture-lizmap.png)
+<img width="2400" height="1720" alt="architecture-lizmap" src="https://github.com/user-attachments/assets/a703f0ea-65e8-4023-ae7e-6c96b01ff277" />
 
 | Brique | Rôle |
 |---|---|
@@ -36,7 +36,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 
 ## 2. Les étapes, dans l'ordre
 
-![Les 10 étapes de mise en place de Lizmap](images/etapes-deploiement.png)
+<img width="2800" height="1240" alt="etapes-deploiement" src="https://github.com/user-attachments/assets/c6006f58-d5c9-4a33-82bc-deedf9368ca5" />
 
 ### Étape 0 — Décisions préalables
 **Durée estimée :** 1 à 2 jours de réflexion (réunion de cadrage)
@@ -137,7 +137,7 @@ Dans l'interface d'administration :
 
 Déroulé que le géomaticien appliquera au quotidien, une fois la plateforme en place :
 
-![Déroulé de publication d'un projet QGIS](images/publication-projet.png)
+<img width="2400" height="1000" alt="publication-projet" src="https://github.com/user-attachments/assets/d921a111-8e1c-4892-abb4-a7af8038192e" />
 
 1. **Préparation dans QGIS** : les données proviennent de PostGIS via le fichier de service partagé, ou de fichiers référencés en chemins relatifs.
 2. **Configuration avec l'extension Lizmap** : couches, popups, outils, mise en page d'impression, filtres. L'enregistrement produit les fichiers `monprojet.qgz` et `monprojet.qgz.cfg`.
