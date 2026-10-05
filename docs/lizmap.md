@@ -5,7 +5,7 @@
 > **Document de présentation** à destination de la direction et de la DSI.
 > Les versions précises (QGIS, Lizmap, PHP) sont à faire valider par le prestataire au moment de l'installation, car elles évoluent régulièrement. Les durées indiquées sont des ordres de grandeur, à confirmer par un devis détaillé.
 
-[Orfeo ToolBox (OTB)](https://www.orfeo-toolbox.org/CookBook/First_Steps.html) 
+[Documentation officielle de Lizmap](https://docs.lizmap.com/current/en/introduction.html ) 
 ---
 
 ## 1. Ce qu'on installe, et pourquoi
