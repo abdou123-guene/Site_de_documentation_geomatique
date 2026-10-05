@@ -6,6 +6,9 @@
 > Les versions précises (QGIS, Lizmap, PHP) sont à faire valider par le prestataire au moment de l'installation, car elles évoluent régulièrement. Les durées indiquées sont des ordres de grandeur, à confirmer par un devis détaillé.
 
 [Documentation officielle de Lizmap](https://docs.lizmap.com/current/en/introduction.html ) 
+
+[Pour aller plus loin avec 3liz](https://www.3liz.com/) 
+
 ---
 
 ## 1. Ce qu'on installe, et pourquoi
@@ -24,8 +27,6 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 | **PostgreSQL / PostGIS** *(recommandé)* | Stocke les données géographiques. Lizmap peut aussi s'appuyer sur une base pour la gestion de ses propres comptes utilisateurs (à défaut, SQLite). |
 | **Redis** *(optionnel)* | Gestion des sessions et mise en cache ; utile en cas de forte charge ou de plusieurs instances. |
 | **HTTPS** | Certificat TLS et nom de domaine dédié. |
-
----
 
 ## 2. Les étapes, dans l'ordre
 
@@ -124,8 +125,6 @@ Dans l'interface d'administration :
 
 > Pour un prestataire expérimenté : **entre 4 et 8 jours de prestation** au total, auxquels s'ajoutent les délais propres à la DSI (provisionnement de la VM, DNS, certificat, ouverture de ports), qui sont souvent le facteur qui allonge le plus le calendrier réel. Ces chiffres restent indicatifs : un devis détaillé demeure nécessaire.
 
----
-
 ## 3. La mise en ligne d'un projet QGIS
 
 Déroulé que le géomaticien appliquera au quotidien, une fois la plateforme en place :
@@ -138,8 +137,6 @@ Déroulé que le géomaticien appliquera au quotidien, une fois la plateforme en
 4. **Détection automatique par Lizmap** : le projet apparaît sur la page d'accueil du dépôt correspondant, avec les droits qui lui sont appliqués.
 5. **Test dans le navigateur**, avec un compte représentatif de chaque profil d'utilisateur concerné.
 6. **Mise à jour** : il suffit de remplacer les fichiers. Si les données résident dans PostGIS, elles sont à jour en temps réel, sans republication nécessaire. Penser à vider le cache des tuiles si celui-ci est activé.
-
----
 
 ## 4. Répartition des responsabilités à valider
 
@@ -154,8 +151,6 @@ Déroulé que le géomaticien appliquera au quotidien, une fois la plateforme en
 | Sauvegardes | ✔ | Mise en place | Contrôle |
 
 *Ce tableau est une base de discussion à valider formellement entre les parties, idéalement annexée au contrat de prestation ou de maintenance.*
-
----
 
 ## 5. Points de vigilance
 
