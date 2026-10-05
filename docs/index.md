@@ -33,6 +33,8 @@ Le site s’organise en différentes thématiques essentielles :
 
 - *D’autres rubriques seront ajoutées progressivement : Base de données, GDAL, télédétection, traitements Python, métadonnées, etc.*
 
+<img width="1254" height="1254" alt="ChatGPT Image 5 oct  2026, 14_10_52" src="https://github.com/user-attachments/assets/5ca73a4a-1f64-408f-9a6a-9c6d735fa429" />
+
 
 
 
