@@ -161,3 +161,12 @@ Déroulé que le géomaticien appliquera au quotidien, une fois la plateforme en
 - **Données sensibles** : tout ce qui est publié reste interrogeable techniquement via les services OGC (WMS/WFS), même si une couche est masquée dans l'interface. Les droits d'accès doivent être configurés au niveau du service, et non se limiter à un masquage visuel.
 - **Dépendance au prestataire** : exiger une documentation complète et un réel transfert de compétences afin de conserver une autonomie opérationnelle.
 - **Coût récurrent** : au-delà du coût d'installation initial, prévoir le budget de maintenance, des mises à jour régulières et, le cas échéant, de l'hébergement.
+
+## 6. "Bénéfices pour l'AUDC"
+
+- centralisation des projets cartographiques ;
+- diffusion sécurisée en interne et auprès des partenaires ;
+- réduction des exports manuels PDF ;
+- mise à jour des données en temps réel via PostGIS ;
+- valorisation du travail géomatique ;
+- autonomie interne après transfert de compétences.
