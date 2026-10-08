@@ -34,7 +34,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 
 <img width="2800" height="1240" alt="etapes-deploiement" src="https://github.com/user-attachments/assets/c6006f58-d5c9-4a33-82bc-deedf9368ca5" />
 
-### Étape 0 — Décisions préalables
+### Étape 0 - Décisions préalables
 **Durée estimée :** 1 à 2 jours de réflexion (réunion de cadrage)
 
 À trancher avant de lancer le prestataire, car ces choix changent le prix et l'architecture :
@@ -46,7 +46,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 - **Authentification** : comptes Lizmap internes, ou annuaire LDAP / Active Directory.
 - **Répartition des responsabilités** après la mise en place *(voir section 4)*.
 
-### Étape 1 — Préparation de l'infrastructure
+### Étape 1 - Préparation de l'infrastructure
 **Responsable :** DSI · **Durée :** quelques jours, selon ses délais internes
 
 - Création d'une VM Linux (Debian ou Ubuntu LTS). Dimensionnement de départ indicatif : **4 vCPU, 8 à 16 Go de RAM, 100 Go de disque**, à ajuster selon le volume de données et le nombre d'utilisateurs simultanés.
@@ -55,7 +55,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 - Accès temporaire pour le prestataire : SSH ou VPN, avec compte nominatif disposant de droits `sudo`.
 - Si une instance PostGIS existe déjà : fournir adresse, port, nom de la base et un compte technique dédié.
 
-### Étape 2 — Installation du socle serveur
+### Étape 2 - Installation du socle serveur
 **Responsable :** prestataire · **Durée :** environ 0,5 à 1 jour
 
 - Mise à jour du système, configuration du pare-feu, installation de Nginx (ou Apache) et de PHP‑FPM avec les extensions requises.
@@ -63,7 +63,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 - Configuration du serveur web pour transmettre les requêtes cartographiques à QGIS Server (FastCGI).
 - En cas de déploiement **Docker** : écriture ou adaptation d'un `docker-compose.yml` (Lizmap, QGIS Server, PostGIS, Redis) avec volumes persistants pour les projets et la configuration. Le dépôt Docker officiel sert de base, mais sa configuration d'exemple doit être durcie avant mise en production (mots de passe, exposition des ports, etc.).
 
-### Étape 3 — Installation de Lizmap Web Client
+### Étape 3 - Installation de Lizmap Web Client
 **Responsable :** prestataire · **Durée :** environ 0,5 jour
 
 - Téléchargement et déploiement de Lizmap Web Client, avec les droits appropriés sur les dossiers sensibles (`var/`, configuration, cache).
@@ -72,7 +72,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 - Configuration de la connexion à la base des comptes (SQLite par défaut ; PostgreSQL recommandé en production).
 - Contrôle de bon fonctionnement : la page d'accueil de Lizmap s'affiche, l'administration est accessible, QGIS Server répond correctement aux requêtes.
 
-### Étape 4 — HTTPS et sécurisation
+### Étape 4 - HTTPS et sécurisation
 **Responsables :** prestataire et DSI · **Durée :** environ 0,5 jour
 
 - Mise en place d'un certificat TLS (Let's Encrypt si le serveur est joignable depuis Internet, sinon certificat fourni par la DSI) et redirection automatique de HTTP vers HTTPS.
@@ -80,7 +80,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 - Selon le contexte : reverse proxy géré par la DSI, filtrage par adresse IP, VPN pour les contenus à usage interne.
 - **Isolation de QGIS Server** : il ne doit jamais être exposé directement sur Internet, uniquement via Lizmap et le serveur web.
 
-### Étape 5 — Connexion aux données
+### Étape 5 - Connexion aux données
 **Responsables :** prestataire et géomaticien · **Durée :** environ 0,5 à 1 jour
 *Étape souvent sous-estimée : c'est elle qui détermine si les projets publiés fonctionnent réellement.*
 
@@ -88,7 +88,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 - **Fichiers** (GeoPackage, rasters, etc.) : ils doivent être déposés sur le serveur aux côtés du projet, ou sur un partage réseau monté sur le serveur. Les chemins Windows (`P:\...`) ne fonctionnent pas côté serveur Linux : il est indispensable d'utiliser des chemins relatifs au projet.
 - Création d'un compte technique dédié (ex. `svc_lizmap`) avec des droits minimaux : lecture seule, et écriture uniquement si l'édition en ligne est prévue.
 
-### Étape 6 — Configuration de Lizmap
+### Étape 6 - Configuration de Lizmap
 **Responsables :** prestataire, puis géomaticien · **Durée :** environ 0,5 jour
 
 Dans l'interface d'administration :
@@ -99,7 +99,7 @@ Dans l'interface d'administration :
 - **Options générales** : titre, logo, thème graphique, adresse d'envoi des e-mails, langue, gestion du cache des tuiles.
 - **Droits au niveau du projet** : certains réglages fins se définissent directement dans l'extension QGIS (filtres par groupe d'utilisateurs, accès restreint à certaines couches).
 
-### Étape 7 — Projet pilote et recette
+### Étape 7 - Projet pilote et recette
 **Responsables :** géomaticien et prestataire · **Durée :** 1 à 2 jours
 
 - Préparation d'un projet QGIS de test avec infobulles, table attributaire, mise en page d'impression, filtres et, si possible, un graphique.
@@ -107,7 +107,7 @@ Dans l'interface d'administration :
 - Tests fonctionnels : affichage, temps de réponse, impression PDF, contrôle d'accès par groupe, consultation sur mobile, comportement avec plusieurs utilisateurs simultanés.
 - Corrections éventuelles : versions d'extensions, droits sur les dossiers, polices ou symboles manquants côté serveur, etc.
 
-### Étape 8 — Passage en exploitation
+### Étape 8 - Passage en exploitation
 **Responsables :** DSI et prestataire · **Durée :** environ 0,5 à 1 jour
 
 - **Sauvegardes** : projets et fichiers `.cfg`, configuration Lizmap, base des comptes, base PostGIS — avec un test de restauration effectif, pas seulement la vérification que la sauvegarde s'exécute.
@@ -116,7 +116,7 @@ Dans l'interface d'administration :
 - **Procédure de mise à jour** (Lizmap, QGIS Server, extension Lizmap Server, système d'exploitation) et règle de compatibilité des versions avec QGIS Desktop.
 - **Documentation** : schéma d'architecture, emplacement des fichiers, comptes techniques (conservés dans un coffre-fort à mots de passe), procédures d'exploitation courantes.
 
-### Étape 9 — Formation et mise en production
+### Étape 9 - Formation et mise en production
 **Durée :** 0,5 à 1 jour
 
 - Transfert de compétences vers les équipes internes : administration, publication de projets, dépannage courant.
