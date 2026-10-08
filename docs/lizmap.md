@@ -18,6 +18,8 @@
 - **3Liz** , éditeur de la solution Lizmap, propose le service d'installation et d'hébergement. Les détails figurent dans le lien ci-dessus.
 - **IDGEO** (mon école) propose aussi l'installation, qui semble plus pertinente et moins coûteuse. Je pourrais établir les premiers contacts en m'appuyant sur mon statut d'alternant.
 
+[Site officiel d'IDGEO de Toulouse](https://idgeo.fr/offre-de-services) 
+
 ## 1. Ce qu'on installe, et pourquoi
 
 Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaires qui s'articulent les unes aux autres.
