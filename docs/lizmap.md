@@ -13,7 +13,7 @@
 
 ---
 
-**Prestataires possibles:**
+## Prestataires possibles:
 
 - **3Liz** , éditeur de la solution Lizmap, propose le service d'installation et d'hébergement. Les détails figurent dans le lien ci-dessus.
 - **IDGEO** (mon école) propose aussi l'installation, qui semble plus pertinente et moins coûteuse. Je pourrais établir les premiers contacts en m'appuyant sur mon statut d'alternant.
