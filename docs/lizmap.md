@@ -2,11 +2,11 @@
 
 [![Télécharger en PDF](https://img.shields.io/badge/📄_T%C3%A9l%C3%A9charger-PDF-0ea5e9?style=for-the-badge)](Lizmap_mise_en_place_AUDC.pdf)
 
-*Toutes les étapes, de l'installation à la publication d'un projet QGIS*
+**Toutes les étapes, de l'installation à la publication d'un projet QGIS**
 
-> **Document de présentation** à destination de la direction et de la DSI.
+- **Document de présentation** à destination de la direction et de la DSI.
 
-> Les versions précises (QGIS, Lizmap, PHP) sont à faire valider par le prestataire au moment de l'installation, car elles évoluent régulièrement. Les durées indiquées sont des ordres de grandeur, à confirmer par un devis détaillé.
+- Les versions précises (QGIS, Lizmap, PHP) sont à faire valider par le prestataire au moment de l'installation, car elles évoluent régulièrement. Les durées indiquées sont des ordres de grandeur, à confirmer par un devis détaillé.
 
 [Documentation officielle de Lizmap](https://docs.lizmap.com/current/en/introduction.html ) 
 
