@@ -25,7 +25,14 @@
 
 Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaires qui s'articulent les unes aux autres.
 
-<img width="2400" height="1720" alt="architecture-lizmap" src="https://github.com/user-attachments/assets/a703f0ea-65e8-4023-ae7e-6c96b01ff277" />
+<img width="1536" height="1024" alt="Designer" src="https://github.com/user-attachments/assets/c5f3b2d7-0e3e-419c-8554-c0677f022f8b" />
+
+**Répartition simple**
+
+Le géomaticien : étapes 1, 2, 3 et 6, puis contrôle fonctionnel de l’étape 5.
+ DSI / prestataire : installation et administration technique des étapes 4 et 5, sécurité, sauvegardes et disponibilité du serveur.
+
+Une fois l’installation terminée, le géomaticien devrait donc être autonome pour préparer, déposer, mettre à jour et tester les projets, sans intervenir dans la configuration HTTPS ou l’administration du serveur Linux.
 
 | Brique | Rôle |
 |---|---|
