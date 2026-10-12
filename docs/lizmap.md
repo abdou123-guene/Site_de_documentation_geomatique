@@ -29,9 +29,9 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 
 **Répartition simple**
 
-Le géomaticien : étapes 1, 2, 3 et 6, puis contrôle fonctionnel de l’étape 5.
+**Géomaticien :** étapes 1, 2, 3 et 6, puis contrôle fonctionnel de l’étape 5.
 
-DSI / prestataire : installation et administration technique des étapes 4 et 5, sécurité, sauvegardes et disponibilité du serveur.
+**DSI / prestataire :** installation et administration technique des étapes 4 et 5, sécurité, sauvegardes et disponibilité du serveur.
 
 Une fois l’installation terminée, le géomaticien devrait donc être autonome pour préparer, déposer, mettre à jour et tester les projets, sans intervenir dans la configuration HTTPS ou l’administration du serveur Linux.
 
