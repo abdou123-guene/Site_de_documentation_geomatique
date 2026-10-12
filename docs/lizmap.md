@@ -33,7 +33,7 @@ Lizmap n'est pas un logiciel unique, mais un ensemble de briques complémentaire
 
 **DSI / prestataire :** installation et administration technique des étapes 4 et 5, sécurité, sauvegardes et disponibilité du serveur.
 
-Une fois l’installation terminée, le géomaticien devrait donc être autonome pour préparer, déposer, mettre à jour et tester les projets, sans intervenir dans la configuration HTTPS ou l’administration du serveur Linux.
+**Une fois l’installation terminée, le géomaticien devrait donc être autonome pour préparer, déposer, mettre à jour et tester les projets, sans intervenir dans la configuration HTTPS ou l’administration du serveur Linux.**
 
 | Brique | Rôle |
 |---|---|
