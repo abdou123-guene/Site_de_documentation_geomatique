@@ -1,4 +1,4 @@
---Nœud de départ : tout tronçon dont le champ from
+--Nœud de départ : tout tronçon dont le champ from 
 SELECT t.id
 FROM geo_standards.troncon_cheminement AS t
 LEFT JOIN geo_standards.noeud_cheminement AS n
