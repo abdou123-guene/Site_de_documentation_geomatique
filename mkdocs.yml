@@ -44,6 +44,6 @@ nav:
   - Interopérabilité des données en géomatique: Interoperabilite.md
   - Exemple de source de données entreprise : Readme.md
   - Carte Pays de Châlons‑en‑Champagne: carte_web.html
-  - ETL EDC 3: index.html
+  - ETL interactif: etl/index.html
 extra_css:
   - css/le_style.css
