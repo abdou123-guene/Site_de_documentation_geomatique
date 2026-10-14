@@ -86,11 +86,11 @@
 .wy-nav-side,
 .wy-side-scroll,
 .wy-menu.wy-menu-vertical {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+  background: #DCEAF3 !important;
+  background-color: #DCEAF3 !important;
 }
 .wy-nav-side {
-  border-right: 1px solid #dbe8f3 !important;
+  border-right: 1px solid #215F9A !important;
 }
 
 /* ---- Liens du menu (niveau 1) avec ligne fine de séparation ---- */
