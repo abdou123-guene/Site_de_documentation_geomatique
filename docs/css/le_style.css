@@ -61,16 +61,17 @@
 
 
 /* =========================================================
-   THÈME BLEU CLAIR ET ORANGE (forcé)
-   Bleu clair : #2f9fdc / #e6f4fc / #cde9f8
-   Orange     : #f28c28 / #d9731a
+   THÈME BLEU ET BLEU CLAIR (forcé)
+   Bleu       : #1f78c1 (foncé : #165a93)
+   Bleu clair : #e6f2fb / #cfe4f5 / #f3f9fe
+   Lignes     : #dbe8f3
    ========================================================= */
 
 /* ---- Bandeau du haut (titre + recherche) et barre mobile ---- */
 .wy-side-nav-search,
 .wy-nav-top {
-  background: #2f9fdc !important;
-  background-color: #2f9fdc !important;
+  background: #1f78c1 !important;
+  background-color: #1f78c1 !important;
 }
 .wy-side-nav-search > a,
 .wy-side-nav-search .wy-dropdown > a,
@@ -78,7 +79,7 @@
   color: #ffffff !important;
 }
 .wy-side-nav-search input[type=text] {
-  border-color: #f28c28 !important;
+  border-color: #165a93 !important;
 }
 
 /* ---- Barre latérale : fond blanc ---- */
@@ -89,51 +90,54 @@
   background-color: #ffffff !important;
 }
 .wy-nav-side {
-  border-right: 1px solid #dceaf3 !important;
+  border-right: 1px solid #dbe8f3 !important;
 }
 
-/* ---- Liens du menu (niveau 1) ---- */
+/* ---- Liens du menu (niveau 1) avec ligne fine de séparation ---- */
 .wy-menu-vertical a,
 .wy-menu-vertical li.toctree-l1 > a {
   color: #333333 !important;
   background: #ffffff !important;
+  border-bottom: 1px solid #dbe8f3 !important;
+  border-top: none !important;
 }
 .wy-menu-vertical a:hover,
 .wy-menu-vertical li.toctree-l1 > a:hover {
-  background: #fde8d2 !important;
-  color: #d9731a !important;
+  background: #e6f2fb !important;
+  color: #1f78c1 !important;
 }
 
 /* ---- Section ouverte (niveau 1 courant) ---- */
 .wy-menu-vertical li.current,
 .wy-menu-vertical li.toctree-l1.current {
-  background: #e6f4fc !important;
+  background: #e6f2fb !important;
 }
 .wy-menu-vertical li.toctree-l1.current > a {
-  background: #e6f4fc !important;
-  color: #d9731a !important;
+  background: #e6f2fb !important;
+  color: #1f78c1 !important;
   font-weight: bold;
-  border-top: 1px solid #cde9f8 !important;
-  border-bottom: 1px solid #cde9f8 !important;
+  border-top: 1px solid #cfe4f5 !important;
+  border-bottom: 1px solid #cfe4f5 !important;
 }
 
-/* ---- Sous-niveaux (2, 3, 4) : remplace les gris du thème ---- */
+/* ---- Sous-niveaux (2, 3, 4) avec lignes plus discrètes ---- */
 .wy-menu-vertical li.toctree-l2 > a,
 .wy-menu-vertical li.toctree-l3 > a,
 .wy-menu-vertical li.toctree-l4 > a,
 .wy-menu-vertical li.current li.toctree-l2 > a,
 .wy-menu-vertical li.current li.toctree-l3 > a,
 .wy-menu-vertical li.current li.toctree-l4 > a {
-  background: #f3faff !important;
+  background: #f3f9fe !important;
   color: #333333 !important;
-  border-right: 1px solid #cde9f8 !important;
+  border-right: 1px solid #cfe4f5 !important;
+  border-bottom: 1px solid #e3eef8 !important;
 }
 .wy-menu-vertical li.toctree-l2 > a:hover,
 .wy-menu-vertical li.toctree-l3 > a:hover,
 .wy-menu-vertical li.toctree-l4 > a:hover,
 .wy-menu-vertical li.current li > a:hover {
-  background: #cde9f8 !important;
-  color: #d9731a !important;
+  background: #cfe4f5 !important;
+  color: #165a93 !important;
 }
 
 /* ---- Page active dans les sous-niveaux ---- */
@@ -141,21 +145,21 @@
 .wy-menu-vertical li.toctree-l2.current > a,
 .wy-menu-vertical li.toctree-l3.current > a {
   background: #ffffff !important;
-  color: #d9731a !important;
+  color: #1f78c1 !important;
   font-weight: bold;
 }
 
 /* ---- Petits boutons +/- d'ouverture des sections ---- */
 .wy-menu-vertical li span.toctree-expand,
 .wy-menu-vertical li.current > a span.toctree-expand {
-  color: #f28c28 !important;
+  color: #1f78c1 !important;
 }
 
-/* ---- Barre Previous / Next en bas : orange ---- */
+/* ---- Barre Previous / Next en bas ---- */
 .rst-versions,
 .rst-versions .rst-current-version,
 .rst-versions .rst-other-versions {
-  background: #f28c28 !important;
+  background: #1f78c1 !important;
   color: #ffffff !important;
 }
 .rst-versions .rst-current-version a,
@@ -166,15 +170,15 @@
 /* ---- Boutons Previous / Next en bas de page ---- */
 .rst-footer-buttons .btn,
 footer .btn {
-  background: #f28c28 !important;
-  border-color: #d9731a !important;
+  background: #1f78c1 !important;
+  border-color: #165a93 !important;
   color: #ffffff !important;
 }
 
 /* ---- Liens dans les pages ---- */
 .rst-content a {
-  color: #d9731a !important;
+  color: #1f78c1 !important;
 }
 .rst-content a:hover {
-  color: #2f9fdc !important;
+  color: #165a93 !important;
 }
