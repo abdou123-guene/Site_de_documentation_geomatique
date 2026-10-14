@@ -56,18 +56,18 @@
 
 
 /* =========================================================
-   THÈME BLEU (forcé)
-   Bleu principal  : #1f78c1 (foncé : #165a93)
-   Bleu 85 %       : #418cca  (barre latérale)
-   Bleu sous-menu  : #2b6fae
-   Lignes          : #86b6de
+   THÈME ROSE AUDC 51 (forcé)
+   Rose principal  : #c8187a (foncé : #a01262)
+   Rose 85 %       : #d03b8e  (barre latérale)
+   Rose sous-menu  : #b01a74
+   Lignes          : #e583b6
    ========================================================= */
 
 /* ---- Bandeau du haut (titre + recherche) et barre mobile ---- */
 .wy-side-nav-search,
 .wy-nav-top {
-  background: #1f78c1 !important;
-  background-color: #1f78c1 !important;
+  background: #c8187a !important;
+  background-color: #c8187a !important;
 }
 .wy-side-nav-search > a,
 .wy-side-nav-search .wy-dropdown > a,
@@ -75,15 +75,15 @@
   color: #ffffff !important;
 }
 .wy-side-nav-search input[type=text] {
-  border-color: #165a93 !important;
+  border-color: #a01262 !important;
 }
 
-/* ---- Barre latérale : bleu à 85 % ---- */
+/* ---- Barre latérale : rose à 85 % ---- */
 .wy-nav-side,
 .wy-side-scroll,
 .wy-menu.wy-menu-vertical {
-  background: #418cca !important;
-  background-color: #418cca !important;
+  background: #d03b8e !important;
+  background-color: #d03b8e !important;
 }
 .wy-nav-side {
   border-right: none !important;
@@ -93,27 +93,27 @@
 .wy-menu-vertical a,
 .wy-menu-vertical li.toctree-l1 > a {
   color: #ffffff !important;
-  background: #418cca !important;
-  border-bottom: 1px solid #86b6de !important;
+  background: #d03b8e !important;
+  border-bottom: 1px solid #e583b6 !important;
   border-top: none !important;
 }
 .wy-menu-vertical a:hover,
 .wy-menu-vertical li.toctree-l1 > a:hover {
-  background: #165a93 !important;
+  background: #a01262 !important;
   color: #ffffff !important;
 }
 
 /* ---- Section ouverte (niveau 1 courant) ---- */
 .wy-menu-vertical li.current,
 .wy-menu-vertical li.toctree-l1.current {
-  background: #2b6fae !important;
+  background: #b01a74 !important;
 }
 .wy-menu-vertical li.toctree-l1.current > a {
-  background: #165a93 !important;
+  background: #a01262 !important;
   color: #ffffff !important;
   font-weight: bold;
-  border-top: 1px solid #86b6de !important;
-  border-bottom: 1px solid #86b6de !important;
+  border-top: 1px solid #e583b6 !important;
+  border-bottom: 1px solid #e583b6 !important;
 }
 
 /* ---- Sous-niveaux (2, 3, 4) ---- */
@@ -123,16 +123,16 @@
 .wy-menu-vertical li.current li.toctree-l2 > a,
 .wy-menu-vertical li.current li.toctree-l3 > a,
 .wy-menu-vertical li.current li.toctree-l4 > a {
-  background: #2b6fae !important;
+  background: #b01a74 !important;
   color: #ffffff !important;
   border-right: none !important;
-  border-bottom: 1px solid #5a9bd0 !important;
+  border-bottom: 1px solid #c9529b !important;
 }
 .wy-menu-vertical li.toctree-l2 > a:hover,
 .wy-menu-vertical li.toctree-l3 > a:hover,
 .wy-menu-vertical li.toctree-l4 > a:hover,
 .wy-menu-vertical li.current li > a:hover {
-  background: #104a7a !important;
+  background: #8a0f54 !important;
   color: #ffffff !important;
 }
 
@@ -141,7 +141,7 @@
 .wy-menu-vertical li.toctree-l2.current > a,
 .wy-menu-vertical li.toctree-l3.current > a {
   background: #ffffff !important;
-  color: #1f78c1 !important;
+  color: #c8187a !important;
   font-weight: bold;
 }
 
@@ -155,7 +155,7 @@
 .rst-versions,
 .rst-versions .rst-current-version,
 .rst-versions .rst-other-versions {
-  background: #1f78c1 !important;
+  background: #c8187a !important;
   color: #ffffff !important;
 }
 .rst-versions .rst-current-version a,
@@ -166,15 +166,15 @@
 /* ---- Boutons Previous / Next en bas de page ---- */
 .rst-footer-buttons .btn,
 footer .btn {
-  background: #1f78c1 !important;
-  border-color: #165a93 !important;
+  background: #c8187a !important;
+  border-color: #a01262 !important;
   color: #ffffff !important;
 }
 
 /* ---- Liens dans les pages ---- */
 .rst-content a {
-  color: #1f78c1 !important;
+  color: #c8187a !important;
 }
 .rst-content a:hover {
-  color: #165a93 !important;
+  color: #a01262 !important;
 }
