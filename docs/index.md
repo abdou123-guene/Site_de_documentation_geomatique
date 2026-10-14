@@ -5,7 +5,12 @@
 ## Auteur:
 ### **GUENE Abdou Lahat**  
 Géomaticien - AUDC Châlons-en-Champagne  
-**Mail :** [guenelahad890@gmail.com](mailto:guenelahad890@gmail.com)
+
+<p align="center">
+  📍 <strong>Adresse :</strong> <a href="https://www.google.com/maps/search/?api=1&query=42+place+de+la+R%C3%A9publique+51000+Ch%C3%A2lons-en-Champagne" target="_blank">42 place de la République, 51000 Châlons-en-Champagne</a>
+  <br>
+  ✉️ <strong>Mail :</strong> <a href="mailto:guenelahad@gmail.com">guenelahad@gmail.com</a>
+</p>
 
 Site développé dans le cadre de l’amélioration continue des outils en géomatique.
 Ce site rassemble l’ensemble des ressources, méthodes et bonnes pratiques utilisées pour la production, la gestion et l’analyse des données géomatiques intéressantes.  
