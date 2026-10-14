@@ -78,14 +78,14 @@
   border-color: #a01262 !important;
 }
 
-/* ---- Barre latérale : rose à 40 % ---- */
-.wy-nav-side {
-  background: rgba(208, 59, 142, 0.4) !important;
-  border-right: none !important;
-}
+/* ---- Barre latérale : rose #F4D8F1 ---- */
+.wy-nav-side,
 .wy-side-scroll,
 .wy-menu.wy-menu-vertical {
-  background: transparent !important;
+  background: #F4D8F1 !important;
+}
+.wy-nav-side {
+  border-right: none !important;
 }
 
 /* ---- Liens du menu (niveau 1) avec ligne fine de séparation ---- */
