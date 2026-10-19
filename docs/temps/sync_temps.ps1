@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Synchronise les fichiers CSV de gestion du temps (dossier partagé du serveur) vers le dépôt Git, puis publie.
 
@@ -14,6 +14,7 @@
 
 .PARAMETER Source
     Dossier du serveur qui contient un CSV par personne (ex. Prenom_NOM.csv).
+    Par défaut : Z:\public\gestion_temps_audc
 
 .PARAMETER Repo
     Copie locale du dépôt Git (dossier qui contient .git).
@@ -28,11 +29,14 @@
     Fichier journal. Par défaut : sync_temps.log, à côté du dépôt (hors du dépôt).
 
 .EXAMPLE
-    .\sync_temps.ps1 -Source '\\SERVEUR\Partage\GestionTemps' -Repo 'C:\git\methodes_travaux_audc51'
+    .\sync_temps.ps1
+
+.EXAMPLE
+    .\sync_temps.ps1 -Source '\\SERVEUR\public\gestion_temps_audc' -NoPush
 #>
 [CmdletBinding()]
 param(
-    [string]$Source = '\\SERVEUR\Partage\GestionTemps',
+    [string]$Source = 'Z:\public\gestion_temps_audc',
     [string]$Repo = 'C:\git\methodes_travaux_audc51',
     [string]$Branch = 'main',
     [switch]$NoPush,
@@ -53,8 +57,18 @@ function Write-Log {
 
 function Invoke-Git {
     param([string[]]$GitArgs)
-    $out = & git -C $Repo @GitArgs 2>&1
-    if ($LASTEXITCODE -ne 0) {
+    # Git écrit sa progression sur stderr : avec 'Stop', Windows PowerShell 5.1 y verrait une erreur.
+    # On se fie donc uniquement au code de sortie.
+    $previous = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        $out = & git -C $Repo @GitArgs 2>&1 | ForEach-Object { "$_" }
+        $code = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $previous
+    }
+    if ($code -ne 0) {
         throw ('git {0} a échoué : {1}' -f ($GitArgs -join ' '), ($out -join ' '))
     }
     return $out
@@ -64,7 +78,9 @@ try {
     Write-Log 'Début de la synchronisation'
 
     if (-not (Get-Command git -ErrorAction SilentlyContinue)) { throw "Git n'est pas installé ou introuvable dans le PATH." }
-    if (-not (Test-Path -LiteralPath $Source)) { throw "Dossier source introuvable : $Source" }
+    if (-not (Test-Path -LiteralPath $Source)) {
+        throw "Dossier source introuvable : $Source (un lecteur mappé comme Z: n'existe pas en tâche planifiée : utiliser le chemin UNC \\SERVEUR\...)"
+    }
     if (-not (Test-Path -LiteralPath (Join-Path $Repo '.git'))) { throw "Dépôt Git introuvable : $Repo" }
 
     $dataDir = Join-Path $Repo 'docs/temps/data'
@@ -75,15 +91,15 @@ try {
 
     # 2. CSV valides sur le serveur
     $valid = @()
-    $candidates = Get-ChildItem -LiteralPath $Source -Filter '*.csv' -File |
-        Where-Object { $_.Name -notlike '~*' -and $_.Name -notlike 'modele*' }
+    $candidates = @(Get-ChildItem -LiteralPath $Source -Filter '*.csv' -File |
+        Where-Object { $_.Name -notlike '~*' -and $_.Name -notlike 'modele*' })
     foreach ($f in $candidates) {
         if ($f.Length -eq 0 -or $f.Length -gt 5MB) {
             Write-Log "Ignoré (vide ou trop volumineux) : $($f.Name)" 'WARN'
             continue
         }
         $first = Get-Content -LiteralPath $f.FullName -TotalCount 1 -Encoding UTF8
-        if ($first -notmatch '(?i)date') {
+        if (-not $first -or $first -notmatch '(?i)date') {
             Write-Log "Ignoré (pas de colonne DATES dans l'en-tête) : $($f.Name)" 'WARN'
             continue
         }
@@ -98,7 +114,7 @@ try {
         Copy-Item -LiteralPath $f.FullName -Destination (Join-Path $dataDir $f.Name) -Force
     }
     $names = @($valid | ForEach-Object { $_.Name })
-    $obsolete = Get-ChildItem -LiteralPath $dataDir -Filter '*.csv' -File | Where-Object { $names -notcontains $_.Name }
+    $obsolete = @(Get-ChildItem -LiteralPath $dataDir -Filter '*.csv' -File | Where-Object { $names -notcontains $_.Name })
     foreach ($o in $obsolete) {
         Remove-Item -LiteralPath $o.FullName -Force
         Write-Log "Retiré du dépôt (absent du serveur) : $($o.Name)"
@@ -116,9 +132,14 @@ try {
     $indexPath = Join-Path $dataDir 'index.json'
     $oldList = @()
     if (Test-Path -LiteralPath $indexPath) {
-        $old = Get-Content -LiteralPath $indexPath -Raw -Encoding UTF8 | ConvertFrom-Json
-        if ($old.PSObject.Properties.Name -contains 'personnes') {
-            $oldList = @($old.personnes | ForEach-Object { '{0}|{1}' -f $_.nom, $_.fichier })
+        try {
+            $old = Get-Content -LiteralPath $indexPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            if ($old.PSObject.Properties.Name -contains 'personnes') {
+                $oldList = @($old.personnes | ForEach-Object { '{0}|{1}' -f $_.nom, $_.fichier })
+            }
+        }
+        catch {
+            Write-Log "index.json illisible, il sera régénéré : $($_.Exception.Message)" 'WARN'
         }
     }
 
