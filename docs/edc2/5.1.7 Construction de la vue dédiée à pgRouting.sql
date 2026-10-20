@@ -1,4 +1,4 @@
-ELECT
+SELECT
     t.id::bigint AS id,
     t.noeud_depart_id::bigint AS source,
     t.noeud_arrivee_id::bigint AS target,
