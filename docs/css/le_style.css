@@ -1,38 +1,38 @@
-/* =========================================================
-   MISE EN PAGE
-   ========================================================= */
-
+/* 1) Pleine largeur du conteneur principal, sans limite arbitraire */
 .wy-nav-content {
   max-width: none !important;
   width: 100% !important;
-  padding: 24px 32px !important;
+  padding: 24px 32px !important;   /* un peu d’air */
 }
 
-/* Desktop : le thème affiche la barre latérale dès 769px */
-@media screen and (min-width: 769px) {
+/* 2) RÉTABLIR la marge laissée pour la sidebar sur desktop */
+@media screen and (min-width: 1024px) {
   .wy-nav-content-wrap {
-    margin-left: 300px !important;
+    margin-left: 300px !important;   /* largeur de la barre latérale */
   }
   .wy-nav-side {
-    width: 300px !important;
+    width: 300px !important;         /* cohérent avec la marge ci-dessus */
   }
 }
 
-/* Mobile : le contenu prend toute la largeur */
-@media screen and (max-width: 768px) {
+/* 3) Sur mobile/tablette, on laisse le contenu prendre toute la largeur */
+@media screen and (max-width: 1023.98px) {
   .wy-nav-content-wrap {
     margin-left: 0 !important;
   }
 }
 
-/* Largeur de lecture du texte, centré */
+/* 4) Contrainte de lisibilité du bloc de texte (au centre),
+      tout en laissant tableaux/images/code s’étaler si besoin */
+.rst-content > .section,
+.rst-content .document,
 .rst-content {
-  max-width: 1200px !important;
+  max-width: 1200px !important;      /* ajuste 1100–1400 selon ton écran */
   margin-left: auto !important;
   margin-right: auto !important;
 }
 
-/* Tableaux, images, code */
+/* 5) Tables, images, code : utiliser la largeur disponible proprement */
 .rst-content table.docutils {
   display: block;
   width: 100% !important;
@@ -41,7 +41,7 @@
 }
 .rst-content table.docutils th,
 .rst-content table.docutils td {
-  white-space: nowrap;
+  white-space: nowrap;               /* évite les retours moches */
 }
 
 .rst-content img {
@@ -49,86 +49,13 @@
   height: auto !important;
 }
 
-.rst-content pre {
+.rst-content pre,
+.rst-content code {
   max-width: 100% !important;
   overflow-x: auto;
 }
 
-/* Évite les barres de défilement horizontales parasites */
+/* 6) Évite les barres de défilement horizontales “fantômes” */
 .wy-body-for-nav {
   overflow-x: hidden !important;
-}
-
-
-/* =========================================================
-   THÈME BLEU FONCÉ ET NOIR
-   Couleurs relevées sur la capture de référence :
-     Bleu            : #226baa  (bandeau, liens)   foncé : #1a5486
-     Noir du menu    : #272525
-     Texte du menu   : #d0d0d0
-     Section ouverte : #fbfbfb   Sous-titres : #dcdcdc
-   ========================================================= */
-
-/* ---- Bandeau du haut (titre + recherche) et barre mobile ---- */
-.wy-side-nav-search,
-.wy-nav-top {
-  background-color: #226baa !important;
-}
-.wy-side-nav-search > a,
-.wy-side-nav-search .wy-dropdown > a,
-.wy-nav-top a {
-  color: #ffffff !important;
-}
-.wy-side-nav-search input[type=text] {
-  border-color: #1a5486 !important;
-}
-
-/* ---- Barre latérale noire ---- */
-.wy-nav-side,
-.wy-side-scroll,
-.wy-menu.wy-menu-vertical {
-  background: #272525 !important;
-}
-.wy-menu-vertical a {
-  color: #d0d0d0;
-}
-.wy-menu-vertical a:hover {
-  background-color: #4a4747 !important;
-  color: #ffffff !important;
-}
-
-/* ---- Section ouverte : ligne claire, sous-titres sur fond gris ---- */
-.wy-menu-vertical li.current {
-  background: #dcdcdc !important;
-}
-.wy-menu-vertical li.toctree-l1.current > a {
-  background: #fbfbfb !important;
-  color: #272525 !important;
-  font-weight: bold;
-}
-.wy-menu-vertical li.current a {
-  color: #4a4747 !important;
-}
-.wy-menu-vertical li.toctree-l1.current > a:hover {
-  background: #fbfbfb !important;
-  color: #272525 !important;
-}
-.wy-menu-vertical li.current li > a:hover {
-  background: #c9c9c9 !important;
-  color: #272525 !important;
-}
-
-/* ---- Barre Previous / Next en bas ---- */
-.rst-versions,
-.rst-versions .rst-current-version {
-  background: #272525 !important;
-  color: #ffffff !important;
-}
-
-/* ---- Liens dans les pages ---- */
-.rst-content a {
-  color: #226baa;
-}
-.rst-content a:hover {
-  color: #1a5486;
 }
