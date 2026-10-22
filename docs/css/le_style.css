@@ -1,5 +1,7 @@
 /* =========================================================
    MISE EN PAGE
+   Les couleurs ne sont pas modifiées : le thème readthedocs
+   garde son style par défaut (bandeau bleu, menu noir).
    ========================================================= */
 
 .wy-nav-content {
@@ -8,6 +10,7 @@
   padding: 24px 32px !important;
 }
 
+/* Desktop : le thème affiche la barre latérale dès 769px */
 @media screen and (min-width: 769px) {
   .wy-nav-content-wrap {
     margin-left: 300px !important;
@@ -17,18 +20,21 @@
   }
 }
 
+/* Mobile : le contenu prend toute la largeur */
 @media screen and (max-width: 768px) {
   .wy-nav-content-wrap {
     margin-left: 0 !important;
   }
 }
 
+/* Largeur de lecture du texte, centré */
 .rst-content {
   max-width: 1200px !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
 
+/* Tableaux, images, code */
 .rst-content table.docutils {
   display: block;
   width: 100% !important;
@@ -50,157 +56,7 @@
   overflow-x: auto;
 }
 
+/* Évite les barres de défilement horizontales parasites */
 .wy-body-for-nav {
   overflow-x: hidden !important;
-}
-
-
-/* =========================================================
-   THÈME ROSE AUDC 51 (forcé)
-   Rose principal   : #c8187a (foncé : #a01262)
-   Rose 85 %        : #d03b8e  (sections du menu)
-   Rose très foncé  : #7a0d4a  (section ouverte, bandes)
-   Rose très pâle   : #fdeef6  (sous-titres)
-   Lignes           : #e583b6 (sections) / #f1c3dc (sous-titres)
-   ========================================================= */
-
-/* ---- Bandeau du haut (titre + recherche) et barre mobile ---- */
-.wy-side-nav-search,
-.wy-nav-top {
-  background: #c8187a !important;
-  background-color: #c8187a !important;
-}
-.wy-side-nav-search > a,
-.wy-side-nav-search .wy-dropdown > a,
-.wy-nav-top a {
-  color: #ffffff !important;
-}
-.wy-side-nav-search input[type=text] {
-  border-color: #a01262 !important;
-}
-
-/* ---- Barre latérale ---- */
-.wy-nav-side,
-.wy-side-scroll,
-.wy-menu.wy-menu-vertical {
-  background: #d03b8e !important;
-  background-color: #d03b8e !important;
-}
-.wy-nav-side {
-  border-right: none !important;
-}
-
-/* ---- SECTIONS (niveau 1) : rose soutenu, texte blanc ---- */
-.wy-menu-vertical li.toctree-l1 > a {
-  color: #ffffff !important;
-  background: #d03b8e !important;
-  border-bottom: 1px solid #e583b6 !important;
-  border-top: none !important;
-  font-weight: normal;
-}
-.wy-menu-vertical li.toctree-l1 > a:hover {
-  background: #a01262 !important;
-  color: #ffffff !important;
-}
-
-/* ---- SECTION OUVERTE : rose très foncé, texte blanc gras ---- */
-.wy-menu-vertical li.toctree-l1.current {
-  background: #7a0d4a !important;
-}
-.wy-menu-vertical li.toctree-l1.current > a,
-.wy-menu-vertical li.toctree-l1.current > a.current {
-  background: #7a0d4a !important;
-  color: #ffffff !important;
-  font-weight: bold;
-  border-top: none !important;
-  border-bottom: 2px solid #ffffff !important;
-}
-
-/* ---- BLOC DES SOUS-TITRES : fond très pâle, bande foncée ---- */
-.wy-menu-vertical li.toctree-l1.current > ul {
-  background: #fdeef6 !important;
-  border-left: 6px solid #7a0d4a !important;
-  border-bottom: 4px solid #7a0d4a !important;
-}
-
-/* ---- Sous-titres (niveaux 2, 3, 4) : texte foncé, plus petit, décalé ---- */
-.wy-menu-vertical li.toctree-l2 > a,
-.wy-menu-vertical li.toctree-l3 > a,
-.wy-menu-vertical li.toctree-l4 > a,
-.wy-menu-vertical li.current li.toctree-l2 > a,
-.wy-menu-vertical li.current li.toctree-l3 > a,
-.wy-menu-vertical li.current li.toctree-l4 > a {
-  background: #fdeef6 !important;
-  color: #4a0a2f !important;
-  font-size: 0.9em;
-  font-weight: normal;
-  border-right: none !important;
-  border-bottom: 1px solid #f1c3dc !important;
-  padding-right: 1em !important;
-}
-.wy-menu-vertical li.toctree-l2 > a,
-.wy-menu-vertical li.current li.toctree-l2 > a {
-  padding-left: 2.2em !important;
-}
-.wy-menu-vertical li.toctree-l3 > a,
-.wy-menu-vertical li.current li.toctree-l3 > a {
-  padding-left: 3.2em !important;
-}
-.wy-menu-vertical li.toctree-l4 > a,
-.wy-menu-vertical li.current li.toctree-l4 > a {
-  padding-left: 4.2em !important;
-}
-.wy-menu-vertical li.toctree-l2 > a:hover,
-.wy-menu-vertical li.toctree-l3 > a:hover,
-.wy-menu-vertical li.toctree-l4 > a:hover,
-.wy-menu-vertical li.current li > a:hover {
-  background: #f7c9e0 !important;
-  color: #7a0d4a !important;
-}
-
-/* ---- Sous-titre actif : bien visible ---- */
-.wy-menu-vertical li.toctree-l2.current > a,
-.wy-menu-vertical li.toctree-l3.current > a,
-.wy-menu-vertical li.toctree-l4.current > a {
-  background: #c8187a !important;
-  color: #ffffff !important;
-  font-weight: bold;
-}
-
-/* ---- Petits boutons +/- d'ouverture des sections ---- */
-.wy-menu-vertical li span.toctree-expand {
-  color: #ffffff !important;
-}
-.wy-menu-vertical li.toctree-l2 span.toctree-expand,
-.wy-menu-vertical li.toctree-l3 span.toctree-expand,
-.wy-menu-vertical li.toctree-l4 span.toctree-expand {
-  color: #7a0d4a !important;
-}
-
-/* ---- Barre Previous / Next en bas ---- */
-.rst-versions,
-.rst-versions .rst-current-version,
-.rst-versions .rst-other-versions {
-  background: #c8187a !important;
-  color: #ffffff !important;
-}
-.rst-versions .rst-current-version a,
-.rst-versions .rst-other-versions a {
-  color: #ffffff !important;
-}
-
-/* ---- Boutons Previous / Next en bas de page ---- */
-.rst-footer-buttons .btn,
-footer .btn {
-  background: #c8187a !important;
-  border-color: #a01262 !important;
-  color: #ffffff !important;
-}
-
-/* ---- Liens dans les pages ---- */
-.rst-content a {
-  color: #c8187a !important;
-}
-.rst-content a:hover {
-  color: #a01262 !important;
 }
