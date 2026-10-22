@@ -1,7 +1,5 @@
 /* =========================================================
    MISE EN PAGE
-   Les couleurs ne sont pas modifiées : le thème readthedocs
-   garde son style par défaut (bandeau bleu, menu noir).
    ========================================================= */
 
 .wy-nav-content {
@@ -59,4 +57,78 @@
 /* Évite les barres de défilement horizontales parasites */
 .wy-body-for-nav {
   overflow-x: hidden !important;
+}
+
+
+/* =========================================================
+   THÈME BLEU FONCÉ ET NOIR
+   Couleurs relevées sur la capture de référence :
+     Bleu            : #226baa  (bandeau, liens)   foncé : #1a5486
+     Noir du menu    : #272525
+     Texte du menu   : #d0d0d0
+     Section ouverte : #fbfbfb   Sous-titres : #dcdcdc
+   ========================================================= */
+
+/* ---- Bandeau du haut (titre + recherche) et barre mobile ---- */
+.wy-side-nav-search,
+.wy-nav-top {
+  background-color: #226baa !important;
+}
+.wy-side-nav-search > a,
+.wy-side-nav-search .wy-dropdown > a,
+.wy-nav-top a {
+  color: #ffffff !important;
+}
+.wy-side-nav-search input[type=text] {
+  border-color: #1a5486 !important;
+}
+
+/* ---- Barre latérale noire ---- */
+.wy-nav-side,
+.wy-side-scroll,
+.wy-menu.wy-menu-vertical {
+  background: #272525 !important;
+}
+.wy-menu-vertical a {
+  color: #d0d0d0;
+}
+.wy-menu-vertical a:hover {
+  background-color: #4a4747 !important;
+  color: #ffffff !important;
+}
+
+/* ---- Section ouverte : ligne claire, sous-titres sur fond gris ---- */
+.wy-menu-vertical li.current {
+  background: #dcdcdc !important;
+}
+.wy-menu-vertical li.toctree-l1.current > a {
+  background: #fbfbfb !important;
+  color: #272525 !important;
+  font-weight: bold;
+}
+.wy-menu-vertical li.current a {
+  color: #4a4747 !important;
+}
+.wy-menu-vertical li.toctree-l1.current > a:hover {
+  background: #fbfbfb !important;
+  color: #272525 !important;
+}
+.wy-menu-vertical li.current li > a:hover {
+  background: #c9c9c9 !important;
+  color: #272525 !important;
+}
+
+/* ---- Barre Previous / Next en bas ---- */
+.rst-versions,
+.rst-versions .rst-current-version {
+  background: #272525 !important;
+  color: #ffffff !important;
+}
+
+/* ---- Liens dans les pages ---- */
+.rst-content a {
+  color: #226baa;
+}
+.rst-content a:hover {
+  color: #1a5486;
 }
