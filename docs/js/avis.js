@@ -3,14 +3,14 @@
   var css = document.createElement('style');
   css.textContent =
     '#avis-open{position:fixed;bottom:16px;left:16px;z-index:9999;padding:10px 16px;' +
-    'background:#c8187a;color:#fff;border:none;border-radius:24px;font-weight:bold;' +
+    'background:#226baa;color:#fff;border:none;border-radius:24px;font-weight:bold;' +
     'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3);font-size:14px;}' +
-    '#avis-open:hover{background:#a01262;}' +
+    '#avis-open:hover{background:#1a5486;}' +
     '@media screen and (min-width:769px){#avis-open{left:316px;}}' +
-    '#avis-dialog{border:1px solid #c8187a;border-radius:10px;padding:20px;width:90%;' +
+    '#avis-dialog{border:1px solid #226baa;border-radius:10px;padding:20px;width:90%;' +
     'max-width:480px;text-align:left;}' +
     '#avis-dialog::backdrop{background:rgba(0,0,0,.4);}' +
-    '#avis-dialog h3{margin-top:0;color:#c8187a;}' +
+    '#avis-dialog h3{margin-top:0;color:#226baa;}' +
     '#avis-dialog input[type=text],#avis-dialog textarea{width:100%;box-sizing:border-box;' +
     'padding:8px;margin-bottom:10px;}' +
     '#avis-dialog .avis-btn{padding:8px 18px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;}' +
@@ -28,7 +28,7 @@
     '<input type="hidden" name="_subject" value="Documentation AUDC 51 - Suggestion">' +
     '<input type="hidden" name="_captcha" value="false">' +
     '<input type="text" name="_honey" style="display:none">' +
-    '<button type="submit" class="avis-btn" style="background:#c8187a;color:#fff;">Envoyer</button> ' +
+    '<button type="submit" class="avis-btn" style="background:#226baa;color:#fff;">Envoyer</button> ' +
     '<button type="button" id="avis-close" class="avis-btn" style="background:#eee;color:#333;">Annuler</button>' +
     '<p id="avis-status"></p></form></dialog>';
   document.body.appendChild(wrap);
