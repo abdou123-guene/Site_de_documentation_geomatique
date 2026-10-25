@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCD – base d’accessibilité PMR (interactif)</title>
+<style>
+:root{--bg:#f4f6f8;--pn:#fff;--tx:#18202b;--mu:#5d6b7c;--bd:#cfd7e0;--ln:#7d8a99;--ac:#0b6bcb;--hl:#e8590c;
+--g-transport:#2f9e6b;--f-transport:#e3f4ea;--g-travaux:#d9822b;--f-travaux:#fdf0e1;--g-core:#b8921a;--f-core:#fbf5d8;
+--g-lin:#3f78c4;--f-lin:#e4eefb;--g-pon:#7a5acd;--f-pon:#eee9fb;--g-qual:#b4467a;--f-qual:#fbe6ef}
+:root[data-theme=dark]{--bg:#12161c;--pn:#1b212a;--tx:#e6ebf1;--mu:#98a5b5;--bd:#2f3946;--ln:#7d8a99;--ac:#5aa6f5;--hl:#ff9a52;
+--g-transport:#3fb985;--f-transport:#173226;--g-travaux:#e59a48;--f-travaux:#38281a;--g-core:#d5ae3b;--f-core:#352e14;
+--g-lin:#5f95de;--f-lin:#192a44;--g-pon:#9a80ee;--f-pon:#272044;--g-qual:#d36a9b;--f-qual:#3d1d2d}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,"Segoe UI",Roboto,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:10px 14px;background:var(--pn);border-bottom:1px solid var(--bd)}
+h1{font-size:16px;margin:0 auto 0 0;font-weight:650}
+button,input{font:inherit;color:var(--tx);background:var(--pn);border:1px solid var(--bd);border-radius:6px;padding:5px 10px}
+button{cursor:pointer}button:hover{border-color:var(--ac)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+input{min-width:200px}
+.legend{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px;border-bottom:1px solid var(--bd);background:var(--pn)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:3px 10px;font-size:13px}
+.chip i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+.chip[aria-pressed=false]{opacity:.45;text-decoration:line-through}
+main{flex:1;display:flex;min-height:0}
+#cv{flex:1;min-width:0;position:relative}
+svg{width:100%;height:100%;display:block;touch-action:none;cursor:grab}svg:active{cursor:grabbing}
+aside{width:320px;overflow:auto;background:var(--pn);border-left:1px solid var(--bd);padding:14px}
+aside h2{font-size:15px;margin:0 0 4px}
+aside .sub{color:var(--mu);margin:0 0 10px;font-size:13px}
+aside ul{list-style:none;margin:0 0 14px;padding:0;font-size:13px}
+aside li{padding:2px 0;border-bottom:1px solid var(--bd)}
+aside li.pk{font-weight:650}
+aside h3{font-size:13px;margin:12px 0 4px;color:var(--mu);font-weight:600}
+aside a{color:var(--ac);cursor:pointer;text-decoration:underline}
+#cnt{color:var(--mu);font-size:13px}
+@media(max-width:760px){main{flex-direction:column}aside{width:auto;height:38%;border-left:0;border-top:1px solid var(--bd)}}
+</style>
+</head>
+<body>
+<header>
+  <h1>MCD · base d’accessibilité PMR</h1>
+  <input id="q" type="search" placeholder="Chercher une table ou un champ" aria-label="Chercher une table ou un champ">
+  <span id="cnt" aria-live="polite"></span>
+  <button id="zi" aria-label="Zoom avant">+</button>
+  <button id="zo" aria-label="Zoom arrière">−</button>
+  <button id="fit">Ajuster</button>
+  <button id="rs">Réinitialiser</button>
+  <button id="esvg">SVG</button>
+  <button id="epng">PNG</button>
+  <button id="th">Thème</button>
+</header>
+<div class="legend" id="lg" role="group" aria-label="Filtrer par groupe"></div>
+<main>
+  <div id="cv"><svg id="svg" role="img" aria-label="Modèle conceptuel de données"></svg></div>
+  <aside id="pn" aria-live="polite"></aside>
+</main>
+<script>
+const G={transport:"Transport (GTFS)",travaux:"Travaux",core:"Réseau piéton (cœur CNIG)",lin:"Équipements d’accès linéaires",pon:"Équipements d’accès ponctuels",qual:"Contrôle qualité"};
+const XF=1.5,W=170;
+// [id, groupe, titre, x, y, attributs (le premier est la clé), type]
+const E=[
+["arret","transport","transport.arret",25,125,"stop_id,stop_name,stop_lat,stop_lon,location_type,stop_code,parent_station,wheelchair_boarding,geom"],
+["tarret","transport","transport.temps_arret",170,165,"",'a',130],
+["trips","transport","transport.trips",345,165,"trip_id"],
+["routes","transport","transport.routes",540,148,"route_id,route_short_name,route_long_name,route_type"],
+["typetx","travaux","travaux.type_tx",1090,25,"id_type_tx,libelle_type_tx,description"],
+["chantier","travaux","travaux.chantier",1090,172,"id_chantier,description,date_debut,date_fin,date_maj,localisations,geom,id_moa,id_type_tx,id_statut"],
+["statut","travaux","travaux.statut",917,215,"id_statut,libelle_statut,description"],
+["moa","travaux","travaux.moa",1277,200,"id_moa,nom_moa,type_moa,contact"],
+["asso4","travaux","Asso_4 (impact chantier)",1265,385,"id_chantier,id_troncon,id_noeud,type_impact",'a'],
+["chem","core","Cheminement",740,290,"idCheminement,nom"],
+["ctc","core","Cheminement_Troncon_Cheminement",695,358,"",'a',250],
+["obstacle","core","Obstacle",530,438,"idObstacle,typeObstacle,largeurUtile,positionObstacle,longueurObstacle,rappelObstacle,reperabiliteVisuelle,largeurObstacle,hauteurObsPoseSol,hauteurSousObs,geom"],
+["circ","core","Circulation",530,638,"idCirculation,typeSol,largeurPassageUtile,etatRevetement,eclairage,transition,typePassage,repereLineaire,couvert"],
+["troncon","core","Troncon_Cheminement",1018,541,"idTroncon,longueur,typeTroncon,statutVoie,pente,devers,accessibiliteGlobale,geom"],
+["noeud","core","Noeud",1518,455,"idNoeud,altitude,bandeEveilVigilance,hauteurRessaut,abaissePente,abaisseTrottoir,controleBEV,bandeInterception,geom"],
+["stat","core","Stationnement_PMR",1910,550,"idStationnement,typeStationnement,etatRevetement,largeurStat,longueurStat,bandLatSecurite,surLongueur,signalPMR,marquageSol,pente,devers,typeSol,geom"],
+["quai","lin","Quai",535,990,"idQuai,etatRevetement,hauteur,largeurPassage,signalisationPorte,dispositifVigilance,diamZoneManoeuvre"],
+["trav","lin","Traversee",662,990,"idTraversee,etatRevetement,marquageSol,eclairage,feuPietons,aideSonore,repereLineaire,presenceIlot,chausseeBombee,covisibilite"],
+["rampe","lin","Rampe",800,990,"idRampe,etatRevetement,largeurUtile,mainCourante,distPalierRepos,chasseRoue,aireRotation,poidsSupporte"],
+["escalator","lin","Escalator",922,990,"idEscalator,sens,dispositifVigilance,largeurUtile,detecteur,surveillance"],
+["tapis","lin","Tapis_Roulant",1057,990,"idTapis,sens,dispositifVigilance,largeurUtile,detecteur"],
+["escalier","lin","Escalier",1210,990,"idEscalier,etatRevetement,mainCourante,dispositifVigilance,contrasteVisuel,mainCouranteContinue,largeurUtile,prolongMainCourante,nbMarches,nbVoleeMarches,hauteurMarche,giron"],
+["entree","pon","Entree",1395,903,"idEntree,adresse,type,rampe,rampeSonnette,ascenseur,escalierNbMarche,escalierMainCourante,reperabilite,reperageEltsVitres,signaletique,largeurPassage,controleAcces,entreeAccueilVisible,eclairage,typePorte,typeOuverture,espaceManoeuvre,largManoeuvreExt,longManoeuvreExt,largManoeuvreInt,longManoeuvreInt,typePoignee,effortOuverture"],
+["elev","pon","Elevateur",1523,903,"idElevateur,largeurUtile,boutonsEnRelief,typeOuverture,largeurPlateforme,longueurPlateforme,utilisableAutonomie,etatRevetement,supervision,autrePorteSortie,chargeMaximum,accompagnateur"],
+["passel","pon","Passage_Selectif",1663,903,"idPassageSelectif,passageMecanique,largeurUtile,profondeur,contrasteVisuel"],
+["asc","pon","Ascenceur",1835,903,"idAscenseur,largeurUtile,diamManoeuvreFauteuil,largeurCabine,longueurCabine,boutonsEnRelief,annonceSonore,signalEtage,boucleInducMagnet,miroir,eclairage,voyantAlerte,typeOuverture,mainCourante,hauteurMainCourante,etatRevetement,supervision,autrePorteSortie"],
+["photos","qual","qualite.photos",1110,1520,"id_photo,date_photo,idQuai,idTraversee,idRampe,idEscalator,idTapis,idEntree,idElevateur,idPassageSelectif,idEscalier,idAscenseur,idCirculation,idObstacle,attributs,url_photo"]
+];
+// [a, b, cardinalité côté a, cardinalité côté b, étiquette, courbure]
+const D=[
+["obstacle","troncon","1,1","0,n"],["circ","troncon","1,1","0,1"],
+["troncon","noeud","0,1","0,n","to"],["troncon","noeud","0,1","0,n","from",70],
+...["quai","trav","rampe","escalator","tapis","escalier"].map(i=>[i,"troncon","1,1","0,1"]),
+...["entree","elev","passel","asc","stat"].map(i=>[i,"noeud","1,1","0,1"]),
+["chem","ctc","1,n","0,n"],["ctc","troncon","0,n","0,n"],
+["chantier","typetx","1,1","0,n"],["chantier","statut","1,1","0,n"],["chantier","moa","1,1","0,n"],
+["chantier","asso4","0,n","0,n"],["asso4","troncon","0,n","0,n"],["asso4","noeud","0,n","0,n"],
+["arret","tarret","1,n","1,n"],["tarret","trips","1,n","1,n"],["trips","routes","0,1","1,n"],
+["arret","quai","1,n","1,1"],
+...["quai","trav","rampe","escalator","tapis","escalier","entree","elev","passel","asc","circ","obstacle"].map(i=>["photos",i,"0,1","0,n"])
+];
+const $=s=>document.querySelector(s),NS="http://www.w3.org/2000/svg";
+const svg=$("#svg"),M={};
+E.forEach(r=>{const a=r[5]?r[5].split(","):[];const e={id:r[0],g:r[1],t:r[2],x:r[3]*XF,y:r[4],a,k:r[6]||"e",w:r[7]||W};
+ e.h=(e.k==="a"&&!a.length)?30:28+a.length*13+6;e.cx=e.x+e.w/2;e.cy=e.y+e.h/2;M[e.id]=e});
+function clip(e,p){const dx=p.x-e.cx,dy=p.y-e.cy;if(!dx&&!dy)return{x:e.cx,y:e.cy};
+ const s=Math.min(dx?e.w/2/Math.abs(dx):1e9,dy?e.h/2/Math.abs(dy):1e9);return{x:e.cx+dx*s,y:e.cy+dy*s}}
+let h=`<style>
+.e rect.b{fill:var(--f);stroke:var(--g);stroke-width:1.5}.e rect.hd{fill:var(--g)}
+.e text{fill:var(--tx);font:10.5px system-ui,sans-serif}.e text.ti{fill:#fff;font-weight:700;font-size:11.5px}.e .pk{font-weight:700;text-decoration:underline}
+.e{cursor:pointer;transition:opacity .15s}.e:focus-visible rect.b,.e.sel rect.b{stroke:var(--hl);stroke-width:3}
+.l path{fill:none;stroke:var(--ln);stroke-width:1.4}.l text{fill:var(--mu);font:10px system-ui,sans-serif}.l.q{opacity:.4}.l.q path{stroke-dasharray:5 4}
+.l.on{opacity:1}.l.on path{stroke:var(--hl);stroke-width:2.4}.l.on text{fill:var(--hl);font-weight:700}
+.dim{opacity:.13}.hid{display:none}
+</style><g id="edges">`;
+const ED=D.map((d,i)=>{const A=M[d[0]],B=M[d[1]],k=d[5]||0;
+ const mid={x:(A.cx+B.cx)/2,y:(A.cy+B.cy)/2},dx=B.cx-A.cx,dy=B.cy-A.cy,n=Math.hypot(dx,dy)||1;
+ const c={x:mid.x-dy/n*k,y:mid.y+dx/n*k},p=clip(A,c),q=clip(B,c);
+ const near=(P,Q,o)=>{const l=Math.hypot(Q.x-P.x,Q.y-P.y)||1,u=(Q.x-P.x)/l,v=(Q.y-P.y)/l;return[P.x+u*20-v*o,P.y+v*20+u*o]};
+ const [ax,ay]=near(p,c,9),[bx,by]=near(q,c,9);
+ const lbl=d[4]?`<text x="${(p.x+2*c.x+q.x)/4}" y="${(p.y+2*c.y+q.y)/4-4}" text-anchor="middle">${d[4]}</text>`:"";
+ h+=`<g class="l${A.g==="qual"||B.g==="qual"?" q":""}" data-i="${i}"><path d="M${p.x} ${p.y}Q${c.x} ${c.y} ${q.x} ${q.y}"/><text x="${ax}" y="${ay}" text-anchor="middle">${d[2]}</text><text x="${bx}" y="${by}" text-anchor="middle">${d[3]}</text>${lbl}</g>`;
+ return{a:d[0],b:d[1],ca:d[2],cb:d[3],l:d[4]}});
+h+="</g>";
+E.forEach(r=>{const e=M[r[0]];
+ h+=`<g class="e" data-id="${e.id}" tabindex="0" role="button" aria-label="Table ${e.t}" style="--g:var(--g-${e.g});--f:var(--f-${e.g})"><rect class="b" x="${e.x}" y="${e.y}" width="${e.w}" height="${e.h}" rx="${e.k==="a"?15:5}"/>`;
+ if(e.k==="e")h+=`<rect class="hd" x="${e.x}" y="${e.y}" width="${e.w}" height="22" rx="5"/><text class="ti" x="${e.cx}" y="${e.y+15}" text-anchor="middle">${e.t}</text>`;
+ else h+=`<text x="${e.cx}" y="${e.y+(e.a.length?16:19)}" text-anchor="middle" style="font-weight:700">${e.t}</text>`;
+ e.a.forEach((a,i)=>{h+=`<text class="${i===0&&e.k==="e"?"pk":""}" x="${e.x+8}" y="${e.y+(e.k==="e"?37:32)+i*13}">${a}</text>`});
+ h+="</g>"});
+svg.innerHTML=h;
+const EL={};svg.querySelectorAll(".e").forEach(n=>EL[n.dataset.id]=n);
+const LL=[...svg.querySelectorAll(".l")];
+// légende
+const hidden=new Set(),lg=$("#lg");
+Object.keys(G).forEach(k=>{const b=document.createElement("button");b.className="chip";b.setAttribute("aria-pressed","true");b.style.setProperty("--c",`var(--g-${k})`);b.innerHTML=`<i></i>${G[k]}`;
+ b.onclick=()=>{hidden.has(k)?hidden.delete(k):hidden.add(k);b.setAttribute("aria-pressed",!hidden.has(k));refresh()};lg.appendChild(b)});
+// sélection / recherche
+let sel=null,qs="";
+function refresh(){
+ const nb=new Set(sel?[sel]:[]);ED.forEach(e=>{if(e.a===sel)nb.add(e.b);if(e.b===sel)nb.add(e.a)});
+ const q=qs.trim().toLowerCase(),mt=new Set(q?E.filter(r=>(r[2]+" "+r[5]).toLowerCase().includes(q)).map(r=>r[0]):[]);
+ E.forEach(r=>{const n=EL[r[0]],g=M[r[0]].g;n.classList.toggle("hid",hidden.has(g));n.classList.toggle("sel",r[0]===sel);
+  n.classList.toggle("dim",sel?!nb.has(r[0]):q?!mt.has(r[0]):false)});
+ LL.forEach((n,i)=>{const e=ED[i],on=sel&&(e.a===sel||e.b===sel);
+  n.classList.toggle("hid",hidden.has(M[e.a].g)||hidden.has(M[e.b].g));n.classList.toggle("on",!!on);n.classList.toggle("dim",(sel&&!on)||(!sel&&!!q))});
+ $("#cnt").textContent=q?`${mt.size} table(s)`:"";return mt}
+function panel(){const p=$("#pn");
+ if(!sel){p.innerHTML=`<h2>Mode d’emploi</h2><p class="sub">Cliquez sur une table pour voir ses champs et ses liens. Molette ou boutons pour zoomer, glisser pour déplacer. Les pastilles filtrent par groupe.</p>`;return}
+ const e=M[sel];let s=`<h2>${e.t}</h2><p class="sub">${G[e.g]}</p><h3>Champs (${e.a.length})</h3><ul>`;
+ e.a.forEach((a,i)=>s+=`<li${i===0&&e.k==="e"?' class="pk"':""}>${a}${i===0&&e.k==="e"?" · clé":""}</li>`);
+ s+="</ul><h3>Liens</h3><ul>";
+ ED.forEach(d=>{if(d.a!==sel&&d.b!==sel)return;const o=d.a===sel?d.b:d.a,m=d.a===sel?d.ca:d.cb,t=d.a===sel?d.cb:d.ca;
+  s+=`<li>(${m}) → <a data-go="${o}">${M[o].t}</a> (${t})${d.l?` · champ « ${d.l} »`:""}</li>`});
+ p.innerHTML=s+"</ul>";p.querySelectorAll("[data-go]").forEach(a=>a.onclick=()=>{pick(a.dataset.go,true)})}
+function pick(id,zoom){sel=id;refresh();panel();if(id&&zoom)focusOn(M[id])}
+// vue
+const cv=$("#cv");let V={x:0,y:0,w:1,h:1},B;
+function bounds(){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;E.forEach(r=>{const e=M[r[0]];if(hidden.has(e.g))return;x0=Math.min(x0,e.x);y0=Math.min(y0,e.y);x1=Math.max(x1,e.x+e.w);y1=Math.max(y1,e.y+e.h)});return{x:x0-40,y:y0-40,w:x1-x0+80,h:y1-y0+80}}
+function apply(){svg.setAttribute("viewBox",`${V.x} ${V.y} ${V.w} ${V.h}`)}
+function fit(){B=bounds();const cw=cv.clientWidth,ch=cv.clientHeight,s=Math.min(cw/B.w,ch/B.h);V={w:cw/s,h:ch/s,x:B.x+B.w/2-cw/s/2,y:B.y+B.h/2-ch/s/2};apply()}
+function zoom(f,px,py){const cx=px??V.x+V.w/2,cy=py??V.y+V.h/2;V={x:cx-(cx-V.x)*f,y:cy-(cy-V.y)*f,w:V.w*f,h:V.h*f};apply()}
+function focusOn(e){const cw=cv.clientWidth,ch=cv.clientHeight,w=Math.max(e.w*3.2,900),s=cw/w;V={w,h:ch/s,x:e.cx-w/2,y:e.cy-ch/s/2};apply()}
+function pt(ev){const r=svg.getBoundingClientRect();return[V.x+(ev.clientX-r.left)/r.width*V.w,V.y+(ev.clientY-r.top)/r.height*V.h]}
+svg.addEventListener("wheel",ev=>{ev.preventDefault();const[x,y]=pt(ev);zoom(ev.deltaY>0?1.15:1/1.15,x,y)},{passive:false});
+let drag=null,moved=0;
+svg.addEventListener("pointerdown",ev=>{if(ev.target.closest(".e"))return;drag={x:ev.clientX,y:ev.clientY};moved=0;svg.setPointerCapture(ev.pointerId)});
+svg.addEventListener("pointermove",ev=>{if(!drag)return;const r=svg.getBoundingClientRect(),dx=ev.clientX-drag.x,dy=ev.clientY-drag.y;moved+=Math.abs(dx)+Math.abs(dy);
+ V.x-=dx/r.width*V.w;V.y-=dy/r.height*V.h;drag={x:ev.clientX,y:ev.clientY};apply()});
+svg.addEventListener("pointerup",()=>{if(drag&&moved<4)pick(null);drag=null});
+svg.addEventListener("click",ev=>{const n=ev.target.closest(".e");if(n)pick(n.dataset.id===sel?null:n.dataset.id)});
+svg.addEventListener("keydown",ev=>{const n=ev.target.closest(".e");if(n&&(ev.key==="Enter"||ev.key===" ")){ev.preventDefault();pick(n.dataset.id)}});
+$("#zi").onclick=()=>zoom(1/1.3);$("#zo").onclick=()=>zoom(1.3);$("#fit").onclick=fit;
+$("#rs").onclick=()=>{hidden.clear();lg.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed","true"));$("#q").value="";qs="";sel=null;refresh();panel();fit()};
+$("#q").oninput=ev=>{qs=ev.target.value;sel=null;refresh();panel()};
+$("#q").onkeydown=ev=>{if(ev.key==="Enter"){const m=[...refresh()];if(m.length)pick(m[0],true)}};
+// thème
+const root=document.documentElement;
+root.dataset.theme=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+$("#th").onclick=()=>{root.dataset.theme=root.dataset.theme==="dark"?"light":"dark"};
+// exports
+const VARS=["--bg","--tx","--mu","--ln","--hl",...Object.keys(G).flatMap(k=>["--g-"+k,"--f-"+k])];
+function ser(){const b=bounds(),c=svg.cloneNode(true),cs=getComputedStyle(root);let st="background:"+cs.getPropertyValue("--bg")+";";
+ VARS.forEach(v=>st+=v+":"+cs.getPropertyValue(v)+";");c.querySelectorAll(".dim").forEach(n=>n.classList.remove("dim"));
+ c.setAttribute("viewBox",`${b.x} ${b.y} ${b.w} ${b.h}`);c.setAttribute("width",b.w);c.setAttribute("height",b.h);c.setAttribute("style",st);c.setAttribute("xmlns",NS);
+ return{s:new XMLSerializer().serializeToString(c),b,bg:cs.getPropertyValue("--bg")}}
+function dl(u,n){const a=document.createElement("a");a.href=u;a.download=n;a.click()}
+$("#esvg").onclick=()=>{const o=ser(),u=URL.createObjectURL(new Blob([o.s],{type:"image/svg+xml"}));dl(u,"mcd.svg");setTimeout(()=>URL.revokeObjectURL(u),2000)};
+$("#epng").onclick=()=>{const o=ser(),u=URL.createObjectURL(new Blob([o.s],{type:"image/svg+xml"})),im=new Image(),k=1.5;
+ im.onload=()=>{const c=document.createElement("canvas");c.width=o.b.w*k;c.height=o.b.h*k;const x=c.getContext("2d");x.fillStyle=o.bg;x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+  c.toBlob(b=>{const p=URL.createObjectURL(b);dl(p,"mcd.png");setTimeout(()=>URL.revokeObjectURL(p),2000)});URL.revokeObjectURL(u)};im.src=u};
+addEventListener("resize",()=>{V.h=V.w*cv.clientHeight/cv.clientWidth;apply()});
+refresh();panel();fit();
+</script>
+</body>
+</html>
