@@ -114,6 +114,8 @@ La démarche suit l'**ISO 19157-1**, qui distingue l'évaluation **interne** (su
 ![Étapes du contrôle et nombre de contrôles exécutés](images/03_cycle_controle.jpg)
 *Étapes du contrôle et nombre de contrôles exécutés.*
 
+[Tableau de bord contrôle qualité](https://djimoyelmardo.github.io/dashbord_qualite_edc_acces/tableau_bord_qualite_supabase.html)
+
 Deux principes structurent le dispositif :
 
 - **La recette conditionne l'intégration** : la livraison est conservée à l'identique, en lecture seule, et toute correction intervient à l'intégration.
@@ -340,6 +342,8 @@ Le dépôt NeTEx est imposé par la réglementation (arrêté du 28 mai 2024). T
 
 ![Architecture de diffusion préconisée](images/07_architecture_diffusion.jpg)
 *Une base, trois canaux (catalogue, services, Point d'accès national) et deux publics (open data, extranet).*
+
+[Prototype de l'application PMR sur la démonstration](http://djimoyelmardo.github.io/dashbord_qualite_edc_acces/prototype)
 
 - La base n'est jamais exposée directement : tout passe par des **vues de diffusion** (aucune photographie, aucune anomalie de contrôle, valeur non relevée publiée comme « inconnue »).
 - Le catalogue compte **12 jeux** (9 open data, 3 extranet). Les fiches **ISO 19139** sont générées depuis la base, avec le rapport qualité ISO 19157.
