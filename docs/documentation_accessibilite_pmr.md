@@ -4,6 +4,14 @@
 > Équipe : Cabinet ACMM Géomatique (ABDI AHMED Chafii, DJIMOYEL ALLAHNDIGTA Mardochée, GUENE Abdou Lahat, MOSCA Manon).
 
 <p align="center">
+<img width="245" height="100" alt="logo idgeo cmjn 400x100mm sans ombre" src="https://github.com/user-attachments/assets/1d4e1e65-f6bf-4856-b1cb-85316fe4651d" />
+</p>
+
+<p align="center">
+<img width="2894" height="664" alt="logo-CPGEOM" src="https://github.com/user-attachments/assets/0c665be8-0b63-490f-8a1c-06b6ef74d991" />
+</p>
+
+<p align="center">
 <img width="617" height="665" alt="Image1" src="https://github.com/user-attachments/assets/c1f0eb31-09f7-4698-8270-d638ec5bae89" />
 </p>
 
