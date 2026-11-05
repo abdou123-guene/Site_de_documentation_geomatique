@@ -1,6 +1,8 @@
 # Mise en place d'une base de données géographiques
 
+<p align="center">
 <img width="245" height="100" alt="logo idgeo cmjn 400x100mm sans ombre" src="https://github.com/user-attachments/assets/1d4e1e65-f6bf-4856-b1cb-85316fe4651d" />
+</p>
 
 **Année:** 2025-2027
 
