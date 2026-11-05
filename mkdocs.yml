@@ -46,6 +46,7 @@ nav:
   - Exemple de source de données entreprise : Readme.md
   - Carte Pays de Châlons‑en‑Champagne: carte_web.html
   - ETL interactif: etl/index.html
+  - Exemple de MCD interactif: etl/mcd.html
 
 extra_css:
   - css/le_style.css
