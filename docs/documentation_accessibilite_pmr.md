@@ -9,8 +9,8 @@
 
 **Année:** 2025-2027
 
-**Auteurs:** - GUENE Abdou Lahat - ABDI AHMED Chafii - DJIMOYEL ALLAHNDIGTA Mardochée - MOSCA Manon
----
+**Auteurs:**  - GUENE Abdou Lahat - ABDI AHMED Chafii - DJIMOYEL ALLAHNDIGTA Mardochée - MOSCA Manon
+
 
 ## 1. En bref
 
