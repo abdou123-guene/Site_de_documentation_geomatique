@@ -74,6 +74,8 @@ La base est organisée en **quatre schémas métiers**, avec les profils `SuperA
 ![Modèle conceptuel de données (MCD) de la base](images/02_mcd.png)
 *Modèle conceptuel de données (MCD) : accessibilité CNIG, transport, travaux et contrôle qualité.*
 
+[MCD interactif](https://abdou123-guene.github.io/Site_de_documentation_geomatique/etl/mcd.html)
+
 ### 3.3 Intégration et actualisation
 
 Les données ont été importées avec **QGIS**, des scripts **SQL** et **GTFS Go**. Les modalités d'actualisation dépendent de la fréquence d'évolution de chaque jeu :
