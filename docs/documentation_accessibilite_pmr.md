@@ -3,7 +3,9 @@
 > Documentation technique du projet de l'étude de cas **A3 « Exploiter des données à dominante géographique »** (CP Géomaticien, IDGEO), réalisée pour l'agglomération fictive de **Losse-en-Gelaisse**, avec les données d'**Anglet** comme territoire test.
 > Équipe : Cabinet ACMM Géomatique (ABDI AHMED Chafii, DJIMOYEL ALLAHNDIGTA Mardochée, GUENE Abdou Lahat, MOSCA Manon).
 
+<p align="center">
 <img width="617" height="665" alt="Image1" src="https://github.com/user-attachments/assets/c1f0eb31-09f7-4698-8270-d638ec5bae89" />
+</p>
 
 **Année:** 2025-2027
 
