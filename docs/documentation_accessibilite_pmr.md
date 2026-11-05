@@ -3,20 +3,11 @@
 > Documentation technique du projet de l'étude de cas **A3 « Exploiter des données à dominante géographique »** (CP Géomaticien, IDGEO), réalisée pour l'agglomération fictive de **Losse-en-Gelaisse**, avec les données d'**Anglet** comme territoire test.
 > Équipe : Cabinet ACMM Géomatique (ABDI AHMED Chafii, DJIMOYEL ALLAHNDIGTA Mardochée, GUENE Abdou Lahat, MOSCA Manon).
 
-## Sommaire
+<img width="617" height="665" alt="Image1" src="https://github.com/user-attachments/assets/c1f0eb31-09f7-4698-8270-d638ec5bae89" />
 
-1. [En bref](#1-en-bref)
-2. [Contexte et objectifs](#2-contexte-et-objectifs)
-3. [Données et base de données](#3-données-et-base-de-données)
-4. [Contrôle qualité des données livrées](#4-contrôle-qualité-des-données-livrées)
-5. [Analyses d'accessibilité](#5-analyses-daccessibilité)
-6. [Études prospectives : IA et aménagements](#6-études-prospectives--ia-et-aménagements)
-7. [Diffusion et solution web](#7-diffusion-et-solution-web)
-8. [Conclusion et recommandations](#8-conclusion-et-recommandations)
-9. [Limites et points de vigilance](#9-limites-et-points-de-vigilance)
-10. [Scripts, reproductibilité et ressources](#10-scripts-reproductibilité-et-ressources)
-11. [Sources, licences et remerciements](#11-sources-licences-et-remerciements)
+**Année:** 2025-2027
 
+**Auteurs:** - GUENE Abdou Lahat - ABDI AHMED Chafii - DJIMOYEL ALLAHNDIGTA Mardochée - MOSCA Manon
 ---
 
 ## 1. En bref
