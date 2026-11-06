@@ -10,6 +10,8 @@
 
 [Documentation officielle de Lizmap](https://docs.lizmap.com/current/en/introduction.html ) 
 
+[3Liz - Geodatadays 2022](https://docs.3liz.org/presentations/2022-09-geodatadays-lizmap.html#/1) 
+
 [Pour aller plus loin avec 3liz](https://www.3liz.com/) 
 
 [Tableau de bord des projet carographiques d'AUDC](https://abdou123-guene.github.io/tableau-de-bord-etudes-carto-audc/) 
