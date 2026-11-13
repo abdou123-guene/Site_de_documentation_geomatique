@@ -21,6 +21,7 @@ nav:
   - Page web avec OpenLayers:ajout point: openlayer_alwaysdata_dessin.md
   - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
   - Mise en place Lizmap: lizmap.md
+  - Comment utiliser Lizmap ? : formation-lizmap.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
   - Brique de Télédétection et Géomatqiue: teledetection.md
   - Automatiser l'execution de projet FME: automatisaion_fme.md
