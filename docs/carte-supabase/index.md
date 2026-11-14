@@ -1,6 +1,6 @@
 # Carte des tronçons : de Supabase/PostGIS à une application web en ligne
 
-### 🌍 Voir l'application en ligne : **https://carte-supabase.onrender.com**
+### 🌍 Voir l'application en ligne : [https://carte-supabase.onrender.com/](https://carte-supabase.onrender.com/)
 
 > L'hébergement est gratuit : si le site n'a pas été visité depuis un moment, la première ouverture peut prendre 30 à 50 secondes (le service "se réveille"). Patientez, la carte apparaît ensuite.
 
@@ -388,7 +388,7 @@ Le déploiement suivant est passé au statut **Live**.
 
 ## 10. Résultat final
 
-- Application en ligne : **https://carte-supabase.onrender.com**
+- Application en ligne : [https://carte-supabase.onrender.com/](https://carte-supabase.onrender.com/)
 - Code source : dépôt GitHub `abdou123-guene/carte_supabase`
 - Données lues en direct depuis la vue `geo_standards.v_troncon_pgrouting` de Supabase
 - Redéploiement automatique à chaque modification du dépôt
@@ -460,6 +460,6 @@ ls -a                            # voir les fichiers cachés
 
 **Adresses utiles**
 
-- Application : https://carte-supabase.onrender.com
-- Liste des colonnes de la vue : https://carte-supabase.onrender.com/api/colonnes
-- Données GeoJSON : https://carte-supabase.onrender.com/api/troncons
+- Application : [https://carte-supabase.onrender.com/](https://carte-supabase.onrender.com/)
+- Liste des colonnes de la vue : [https://carte-supabase.onrender.com/api/colonnes](https://carte-supabase.onrender.com/api/colonnes)
+- Données GeoJSON : [https://carte-supabase.onrender.com/api/troncons](https://carte-supabase.onrender.com/api/troncons)
