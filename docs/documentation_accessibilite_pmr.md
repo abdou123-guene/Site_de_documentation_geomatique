@@ -273,6 +273,30 @@ Le score final est la **moyenne géométrique** des deux scores : un arrêt doit
 | 35 à 54 | Moyenne |
 | Moins de 35 | Faible |
 
+*score_demande* = (
+                0.70 * score_population
+                +
+                0.30 * score_lignes
+            )
+
+*score_accessibilite* = (
+                0.50 * score_distance
+                +
+                0.35 * score_obstacles
+                +
+                0.10 * deficit_troncons
+                +
+                0.05 * deficit_noeuds
+            )
+
+Calcul du *score final* combine le *score de demande* et le *score d'accessibilité*
+
+*score_final* = math.sqrt(
+                score_demande
+                *
+                score_accessibilite
+            )
+
 ![Outil de priorisation des arrêts dans QGIS](images/04_outil_qgis_arrets.png)
 
 ![Carte des arrêts prioritaires du réseau de transports](images/04_carte_arrets_prioritaires.jpg)
