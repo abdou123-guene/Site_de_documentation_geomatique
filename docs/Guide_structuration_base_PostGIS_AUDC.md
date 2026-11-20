@@ -1,7 +1,9 @@
 # Guide de structuration de la base de données PostgreSQL/PostGIS de l'AUDC
 
 **Projet** : passage à Lizmap Cloud (3liz, offre Standard) et base de données partagée
+
 **Public** : gestionnaire principal de la base, futurs gestionnaires suppléants, équipe SIG
+
 **Version** : 1.0 – novembre 2026 (document de travail, à faire évoluer)
 
 > Ce guide propose une structure **de départ** : schémas, règles de nommage, droits, méthodes de chargement, publication dans Lizmap, volumétrie, sauvegardes et gouvernance. Les points marqués **« À confirmer »** dépendent d'informations que seul 3liz ou la DSI peut donner.
