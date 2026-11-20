@@ -8,29 +8,6 @@
 
 ---
 
-## Sommaire
-
-1. [Ce que l'offre permet et ne permet pas](#1-ce-que-loffre-permet-et-ne-permet-pas)
-2. [Principes d'organisation](#2-principes-dorganisation)
-3. [Arborescence des schémas](#3-arborescence-des-schémas)
-4. [Détail de chaque schéma](#4-détail-de-chaque-schéma)
-5. [Règles de nommage et de qualité](#5-règles-de-nommage-et-de-qualité)
-6. [Rôles et droits](#6-rôles-et-droits)
-7. [Charger les données](#7-charger-les-données)
-8. [Vues de diffusion pour Lizmap](#8-vues-de-diffusion-pour-lizmap)
-9. [QGIS et Lizmap : bonnes pratiques de publication](#9-qgis-et-lizmap--bonnes-pratiques-de-publication)
-10. [Surveiller le volume (100 Go)](#10-surveiller-le-volume-100-go)
-11. [Sauvegardes et restauration](#11-sauvegardes-et-restauration)
-12. [Documentation et traçabilité](#12-documentation-et-traçabilité)
-13. [Gouvernance et rôle du gestionnaire](#13-gouvernance-et-rôle-du-gestionnaire)
-14. [Plan de démarrage](#14-plan-de-démarrage)
-15. [Checklists](#15-checklists)
-16. [Erreurs fréquentes à éviter](#16-erreurs-fréquentes-à-éviter)
-17. [Questions à confirmer avec 3liz et la DSI](#17-questions-à-confirmer-avec-3liz-et-la-dsi)
-18. [Annexes](#18-annexes)
-
----
-
 ## 1. Ce que l'offre permet et ne permet pas
 
 D'après la proposition de 3liz (n° 261120_0014) et l'échange avec leur équipe :
