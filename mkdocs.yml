@@ -17,6 +17,7 @@ nav:
   - pgRouting 1: pgrouting1.md
   - pgRouting 2: pgrouting2.md
   - Manipulation de données avec commandes GDAL: GDAL_Ubuntu.md
+  - Comment structurer une base de données PostGIS?: Guide_structuration_base_PostGIS_AUDC.md
   - Geoserver et diffusion de flux: GeoServer_QGIS_notes.md
   - Page web avec OpenLayers: openlayer_alwaysdata.md
   - Page web avec OpenLayers:ajout point: openlayer_alwaysdata_dessin.md
