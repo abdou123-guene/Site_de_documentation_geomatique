@@ -253,7 +253,13 @@ Le réseau CNIG est prolongé par les voies de la BD TOPO (pente estimée sur le
 
 **Profils des quartiers** : les îlots A et C ont les plus fortes proportions de cheminements conformes (environ 37 %), F (8 %) et B (10 %) les plus faibles. B et E concentrent les tronçons bloquants (21 % et 17 %). G et H sont surtout contraints par la pente (près de 20 % du réseau à 5 % ou plus).
 
+Chaque carreau habité est classé selon sa densité, en trois classes de même effectif calculées sur les carreaux de la commune : **faible jusqu'à 850 habitants par km²**, **moyenne de 875 à 2 500**, **forte à partir de 2 525**. 17 fragments de carreaux presque **inhabités** (8 habitants en tout) **ne sont pas classés**. La desserte d'un carreau est la **part de ses adresses à 15 minutes ou moins** : **faible en dessous d'un tiers**, **moyenne d'un à deux tiers**, **bonne au-delà** ; pour un carreau sans adresse, elle est mesurée par la **part de son réseau atteinte**. Un carreau est prioritaire **s'il est à la fois de densité forte et de desserte faible**.
+
 ![Croisement densité de population et desserte des carreaux à 15 minutes](images/04_densite_desserte_carreaux.jpg)
+
+Les points de départ des trajets sont les **12 590 adresses** d'Anglet de la Base Adresse Nationale. Chacune est rattachée au tronçon praticable le plus proche, **à moins de 50 m** : en hypothèse de référence, **12 298** le sont, les autres sont « non reliées ». Le temps d'une adresse est celui de cet accès, parcouru en ligne droite, ajouté au temps du réseau jusqu'à l'arrêt le plus proche.
+Les habitants sont portés par les adresses, de deux façons selon la question posée. Pour la densité, la population de chaque carreau INSEE de 200 m est répartie à parts égales entre les adresses du carreau : **12 315 adresses se trouvent dans un carreau habité**. Pour l'âge, la population du recensement de 2023 de chaque IRIS, 43 271 habitants au total, est répartie de la même façon entre les adresses de l'IRIS.
+Cet indicateur a été préféré à une autre méthode courante, qui **compte la population dans une bande tracée autour des tronçons atteints**. Avec cette méthode, la part des habitants à 15 minutes d'un arrêt accessible dépend surtout de la largeur choisie pour la bande : elle vaut **31,7 % pour une bande de 10 m** de part et d'autre des tronçons, **44,8 % pour 15 m**, **66,1 % pour 25 m** et **90,8 % pour 50 m**, et **98,6 % si l'on compte tous les habitants des carreaux touchés**. Mesurer le temps depuis chaque adresse évite cette convention.
 
 ![Synthèse comparative des huit îlots](images/04_synthese_quartiers.jpg)
 
@@ -296,6 +302,12 @@ Calcul du **score final** combine le **score de demande** et le **score d'access
                 *
                 score_accessibilite
             )
+
+L’outil analyse chaque arrêt individuellement **à partir d’un rayon de 200 mètres**. Il prend en compte la **population située autour de l’arrêt**, le **nombre de lignes de transport** qui le desservent, ainsi que différents éléments du réseau de cheminement piéton : **tronçons**, **nœuds**, **obstacles** et **distance entre l’arrêt et le cheminement accessible le plus proche**.
+Une attention particulière est également portée à l’accessibilité des **arrêts pour les personnes à mobilité réduite (PMR)**. Pour cela, deux couches distinctes sont utilisées : une couche correspondant aux arrêts de transport en commun et une couche recensant les arrêts accessibles aux PMR. Une correspondance spatiale est recherchée entre ces deux couches afin d’identifier les arrêts pour lesquels un arrêt PMR est présent à proximité. Cette information permet de calculer un déficit d’accessibilité PMR, intégré au score d’accessibilité.
+Pour chaque arrêt, deux scores principaux sont calculés. **Le premier correspond au score de demande**. Il repose principalement sur la population présente dans le rayon de 200 mètres, qui représente **70 % du score de demande**, et sur le nombre de lignes de transport desservant l’arrêt, qui **représente 30 %**.
+**Le second correspond au score d’accessibilité**. Il prend en compte plusieurs dimensions : **la distance entre l’arrêt et le réseau de cheminement**, **la présence d’obstacles**, **le déficit en tronçons**, **le déficit en nœuds** ainsi que **le déficit d’accessibilité PMR**. Dans le modèle actuel, ces critères sont pondérés afin de donner davantage d’importance à la distance et à l’accessibilité PMR, tout en conservant les autres caractéristiques du cheminement.
+La distance entre l’arrêt et le réseau de cheminement est notamment analysée selon plusieurs seuils : 5 m, 10 m, 20 m, 30 m et 50 m. Plus l’arrêt est éloigné du cheminement identifié, **plus son déficit d’accessibilité est important**. De la même manière, un arrêt ne disposant pas d’une correspondance.
 
 ![Outil de priorisation des arrêts dans QGIS](images/04_outil_qgis_arrets.png)
 
