@@ -319,7 +319,7 @@ La distance entre l’arrêt et le réseau de cheminement est notamment analysé
 
 ### 6.1 Faisabilité de la détection par IA
 
-Objectif : assister le **contrôle qualité** et la **mise à jour** des données (passages piétons, mobilier urbain, obstacles), jamais remplacer la validation humaine. Les performances sont mesurées avec la **précision** `P = TP / (TP + FP)` (absence de fausses alarmes) et le **rappel** `R = TP / (TP + FN)` (absence d'omissions).
+**Objectif :** assister le **contrôle qualité** et la **mise à jour** des données (passages piétons, mobilier urbain, obstacles), jamais remplacer la validation humaine. Les performances sont mesurées avec la **précision** `P = TP / (TP + FP)` (absence de fausses alarmes) et le **rappel** `R = TP / (TP + FN)` (absence d'omissions).
 
 | Famille testée | Outil | Statut |
 |---|---|---|
@@ -346,6 +346,71 @@ Objectif : assister le **contrôle qualité** et la **mise à jour** des donnée
 ![Obstacles verticaux sur les photographies 360° Panoramax](images/05_obstacles_panoramax.jpg)
 
 **Chaîne YOLOv8n en trois scripts Python** : (1) préparation du jeu d'apprentissage (tuiles de 640 × 640 px, annotations au format YOLO), (2) entraînement (100 époques, lot de 8), (3) détection par tuiles (seuil de confiance 0,40) et export GeoPackage.
+
+> Fiche de compréhension sur la chaîne Python de détection (parties 3.2.2 et 5.1 du rapport, annexe A.10).
+
+### En bref
+
+Le **script 1** ne crée pas le Shapefile et n'entraîne pas le modèle : il **prépare** les données d'entraînement. L'**entraînement** au sens strict est fait par le **script 2**.
+
+#### Ce que fait le script 1
+
+Le chemin `data_entrainement.shp` est un **paramètre d'entrée** du script : le Shapefile existe avant lui. Le script :
+
+1. découpe le PCRS en **tuiles de 640 × 640 pixels** ;
+2. repère, dans chaque tuile, les objets présents dans le Shapefile ;
+3. les convertit en **boîtes englobantes**, enregistrées au format YOLO (un fichier texte par image).
+
+Il produit donc le **jeu d'apprentissage** (images et annotations). Le modèle n'apprend encore rien.
+
+#### Les étapes de la chaîne
+
+| Étape | Script | Rôle |
+|---|---|---|
+| 0. Constituer le Shapefile des objets | Avant le script 1 | Repérer et délimiter les passages piétons et le mobilier urbain |
+| 1. Préparer le jeu d'apprentissage | **Script 1** | Tuiles de 640 × 640 px et annotations YOLO |
+| 2. Entraîner le modèle | **Script 2** | 100 époques, lot de 8 images, poids du meilleur modèle dans `best.pt` |
+| 3. Détecter | **Script 3** | Appliquer le modèle au PCRS (seuil de confiance 0,40) et exporter en GeoPackage |
+
+```
+Shapefile des objets ──► Script 1 ──► images + annotations (jeu d'apprentissage)
+                                              │
+                                              ▼
+                                   Script 2 : entraînement ──► best.pt
+                                                                  │
+                                                                  ▼
+                                              Script 3 : détection ──► detections.gpkg
+```
+
+**Vocabulaire** : tout ce qui sert à fabriquer les exemples (étapes 0 et 1) s'appelle la **préparation des données d'entraînement**. Le mot **entraînement** désigne l'étape 2.
+
+#### D'où vient le Shapefile ?
+
+Il a été créé depuis QGIS. **SAM 3** a servi à pré-annoter les candidats pour constituer le jeu d'apprentissage. 
+
+#### Pourquoi la qualité des annotations compte
+
+- Dans les images d'entraînement, **tout objet réel doit être annoté**. Ce qui ne l'est pas est considéré comme du fond : le modèle apprend à ne pas le détecter.
+- À l'évaluation, un objet « existe » s'il figure dans les annotations. Un vrai passage piéton oublié dans le Shapefile ferait compter une détection correcte comme **fausse alarme**.
+- Dans le fichier `data.yaml` généré par le script 2, `val: images/train` : la validation utilise **les mêmes images** que l'entraînement. Les indicateurs (précision 1,00, rappel 0,918, mAP@50 0,95) mesurent donc la faisabilité, pas la capacité de généralisation. Une évaluation sur un jeu de test indépendant reste nécessaire.
+
+#### À dire à l'oral
+
+> « Le script 1 transforme des objets déjà repérés dans un Shapefile en annotations YOLO : c'est la préparation des données. L'entraînement proprement dit est le script 2. »
+
+Une fois le script 1 terminé, le Shapefile n'intervient plus : l'information des objets est contenue dans les fichiers d'annotations (.txt).
+
+Ce que le script 1 en fait
+Il croise le Shapefile avec les tuiles pour chaque image :
+
+- il repère les objets dont la géométrie touche la tuile ;
+- il transforme leur emprise (coordonnées géographiques) en coordonnées dans l'image ;
+- il les écrit dans un fichier texte au format YOLO : classe, centre x, centre y, largeur, hauteur (entre 0 et 1).
+
+Le Shapefile sert donc de source de vérité, et les annotations en sont la traduction au format que YOLO comprend. La colonne classe du Shapefile (0 = passage piéton, 1 = mobilier urbain) décide de l'étiquette de chaque boîte.
+
+Une conséquence
+Si le Shapefile est faux ou incomplet, les annotations le seront aussi, et le modèle apprendra les mêmes erreurs. La qualité de ce fichier est donc la clé de tout le reste, d'où l'intérêt de savoir comment il a été constitué.
 
 ![Architecture de la chaîne YOLO](images/05_architecture_yolo.png)
 
