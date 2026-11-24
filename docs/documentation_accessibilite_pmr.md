@@ -394,23 +394,54 @@ Il a été créé depuis QGIS. **SAM 3** a servi à pré-annoter les candidats p
 - À l'évaluation, un objet « existe » s'il figure dans les annotations. Un vrai passage piéton oublié dans le Shapefile ferait compter une détection correcte comme **fausse alarme**.
 - Dans le fichier `data.yaml` généré par le script 2, `val: images/train` : la validation utilise **les mêmes images** que l'entraînement. Les indicateurs (précision 1,00, rappel 0,918, mAP@50 0,95) mesurent donc la faisabilité, pas la capacité de généralisation. Une évaluation sur un jeu de test indépendant reste nécessaire.
 
-#### À dire à l'oral
+#### NB
 
 > « Le script 1 transforme des objets déjà repérés dans un Shapefile en annotations YOLO : c'est la préparation des données. L'entraînement proprement dit est le script 2. »
 
 Une fois le script 1 terminé, le Shapefile n'intervient plus : l'information des objets est contenue dans les fichiers d'annotations (.txt).
 
-Ce que le script 1 en fait
+**Ce que le script 1 en fait**
+
 Il croise le Shapefile avec les tuiles pour chaque image :
 
 - il repère les objets dont la géométrie touche la tuile ;
 - il transforme leur emprise (coordonnées géographiques) en coordonnées dans l'image ;
 - il les écrit dans un fichier texte au format YOLO : classe, centre x, centre y, largeur, hauteur (entre 0 et 1).
 
-Le Shapefile sert donc de source de vérité, et les annotations en sont la traduction au format que YOLO comprend. La colonne classe du Shapefile (0 = passage piéton, 1 = mobilier urbain) décide de l'étiquette de chaque boîte.
+**Le Shapefile sert donc de source de vérité, et les annotations en sont la traduction au format que YOLO comprend. La colonne classe du Shapefile (0 = passage piéton, 1 = mobilier urbain) décide de l'étiquette de chaque boîte.**
 
-Une conséquence
+**Une conséquence**
+
 Si le Shapefile est faux ou incomplet, les annotations le seront aussi, et le modèle apprendra les mêmes erreurs. La qualité de ce fichier est donc la clé de tout le reste, d'où l'intérêt de savoir comment il a été constitué.
+
+**NB :** Oui, dans la zone utilisée pour l'entraînement, il faut numériser tous les objets des classes à détecter. Pas ceux de toute la commune, seulement ceux des images que le modèle va voir.
+
+**Pourquoi ?**
+
+Le modèle ne sait pas qu'un objet existe, sauf si vous le lui avez annoté. Un passage piéton visible sur l'image mais absent du Shapefile est traité comme du fond, et le modèle apprend à l'ignorer. Un oubli est donc une mauvaise leçon donnée au modèle. À l'évaluation, une détection correcte sur cet objet serait comptée comme fausse alarme.
+
+**Un détail du script 1 à connaître**
+
+Le script contient if len(objets) == 0: continue : il écarte les tuiles sans aucun objet. Deux conséquences :
+
+Le modèle ne voit que des tuiles contenant au moins un objet annoté. Il n'a donc presque pas d'exemples de zones « vides » (routes, toits, champs), ce qui peut augmenter les fausses alarmes.
+Si une tuile contient un objet numérisé et deux objets oubliés, elle est gardée, et les deux oubliés deviennent des exemples erronés. C'est un risque réel quand on numérise seulement une partie du territoire.
+
+**Comment faire correctement dans QGIS ?**
+
+- Délimiter une zone d'entraînement (quelques quartiers variés, par exemple).
+
+- Numériser exhaustivement dans cette zone : tout passage piétons, tout objet de la classe visée. Un oubli est pire qu'un objet mal dessiné.
+
+- Se limiter à cette zone : découper le PCRS à l'emprise de la zone avant le script 1, ou ne garder que les tuiles de la zone, pour qu'aucune tuile n'ait d'objet non annoté.
+
+- Varier les exemples : marquages usés, ombres, différents types de rues.
+
+- Définir la classe précisément : la classe mobilier_urbain est vague. Le rapport a testé les places PMR, il faut alors n'annoter que celles-ci.
+
+**Comment repérer des oublis ?**
+
+Faites une première détection, puis regardez les fausses alarmes : certaines sont en fait de vrais objets que vous aviez oubliés. Ajoutez-les au Shapefile et réentraînez. Une partie de ce travail est facilitée par la pré-annotation avec SAM 3 : il propose des candidats que vous validez ou rejetez, au lieu de tout dessiner à la main.
 
 ![Architecture de la chaîne YOLO](images/05_architecture_yolo.png)
 
