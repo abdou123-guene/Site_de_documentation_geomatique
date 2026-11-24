@@ -180,7 +180,9 @@ Une **chaîne ETL** dans le Modeleur graphique de QGIS automatise le calcul à l
 
 L'auteur a écrit « sous l'incertitude du MNT » parce que l'écart d'altitude recherché pour contrôler un dévers de **2 % sur 1 m** est seulement de :
 
-$$1\,m \times \frac{2}{100} = 0{,}02\,m = 2\,cm$$
+<p align="center">
+<img width="228" height="51" alt="Capture d&#39;écran 2026-11-24 160646" src="https://github.com/user-attachments/assets/12953356-6bf2-4cfa-97b4-24b0c165d856" />
+</p>
 
 Or le **MNT possède lui-même une marge d'erreur verticale**, appelée **incertitude altimétrique**.
 
@@ -206,11 +208,15 @@ Le résultat de 2 % ne peut donc pas être considéré comme suffisamment fiable
 
 Si l'altitude de chaque point comporte une incertitude de **5 cm**, l'incertitude approximative sur la différence entre les deux altitudes est :
 
-$$\sqrt{5^2 + 5^2} \approx 7{,}1\,cm$$
+<p align="center">
+<img width="148" height="39" alt="Capture d&#39;écran 2026-11-24 160705" src="https://github.com/user-attachments/assets/bf44efef-05a9-4553-8f82-4c6d5f690e75" />
+</p>
 
 Sur une distance de 1 m, cela représente environ :
 
-$$\frac{7{,}1\,cm}{100\,cm} \times 100 = 7{,}1\%$$
+<p align="center">
+<img width="170" height="47" alt="Capture d&#39;écran 2026-11-24 160712" src="https://github.com/user-attachments/assets/95acf77a-8f9b-454c-bc75-b12cc8c8818f" />
+</p>
 
 Une incertitude de 7,1 % est nettement supérieure au seuil de 2 %. Dans ce cas, le MNT ne permet pas de déclarer avec certitude qu'un trottoir est conforme ou non conforme.
 
