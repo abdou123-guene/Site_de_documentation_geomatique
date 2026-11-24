@@ -176,7 +176,7 @@ Une **chaîne ETL** dans le Modeleur graphique de QGIS automatise le calcul à l
 
 #### Incertitude du MNT et contrôle d'un dévers de 2 %
 
-##### 1. Pourquoi « sous l'incertitude du MNT » ?
+##### Pourquoi « sous l'incertitude du MNT » ?
 
 L'auteur a écrit « sous l'incertitude du MNT » parce que l'écart d'altitude recherché pour contrôler un dévers de **2 % sur 1 m** est seulement de :
 
@@ -202,7 +202,7 @@ Incertitude possible du MNT : ±5 cm
 
 Le résultat de 2 % ne peut donc pas être considéré comme suffisamment fiable. On dit que cette différence est **inférieure**, ou « **sous** », l'incertitude du MNT.
 
-##### 2. Exemple d'incertitude
+##### Exemple d'incertitude
 
 Si l'altitude de chaque point comporte une incertitude de **5 cm**, l'incertitude approximative sur la différence entre les deux altitudes est :
 
