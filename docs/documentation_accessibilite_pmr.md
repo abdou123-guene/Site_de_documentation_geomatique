@@ -174,6 +174,46 @@ Une **chaîne ETL** dans le Modeleur graphique de QGIS automatise le calcul à l
 
 > **Limite du dévers** : le seuil réglementaire de 2 % correspond à un écart de 2 cm sur 1 m, plus petit que l'incertitude du MNT. À cette échelle, l'écart mesuré reflète surtout le bruit du modèle. Les valeurs de dévers calculées ne peuvent pas servir de mesure de contrôle. Un modèle plus précis (LiDAR HD) pourrait lever cette limite.
 
+#### Incertitude du MNT et contrôle d'un dévers de 2 %
+
+##### 1. Pourquoi « sous l'incertitude du MNT » ?
+
+L'auteur a écrit « sous l'incertitude du MNT » parce que l'écart d'altitude recherché pour contrôler un dévers de **2 % sur 1 m** est seulement de :
+
+$$1\,m \times \frac{2}{100} = 0{,}02\,m = 2\,cm$$
+
+Or le **MNT possède lui-même une marge d'erreur verticale**, appelée **incertitude altimétrique**.
+
+**Exemple**
+
+Si le MNT estime :
+
+- point gauche : **12,48 m** ;
+- point droit : **12,50 m** ;
+
+l'écart calculé est de **2 cm**, donc le dévers estimé est de **2 %**.
+
+Mais si la précision altimétrique du MNT est, par exemple, de **±5 cm**, la différence mesurée de **2 cm** est plus petite que l'erreur possible de la donnée :
+
+```text
+Écart recherché : 2 cm
+Incertitude possible du MNT : ±5 cm
+```
+
+Le résultat de 2 % ne peut donc pas être considéré comme suffisamment fiable. On dit que cette différence est **inférieure**, ou « **sous** », l'incertitude du MNT.
+
+##### 2. Exemple d'incertitude
+
+Si l'altitude de chaque point comporte une incertitude de **5 cm**, l'incertitude approximative sur la différence entre les deux altitudes est :
+
+$$\sqrt{5^2 + 5^2} \approx 7{,}1\,cm$$
+
+Sur une distance de 1 m, cela représente environ :
+
+$$\frac{7{,}1\,cm}{100\,cm} \times 100 = 7{,}1\%$$
+
+Une incertitude de 7,1 % est nettement supérieure au seuil de 2 %. Dans ce cas, le MNT ne permet pas de déclarer avec certitude qu'un trottoir est conforme ou non conforme.
+
 ### 4.4 Validation du socle avant analyse
 
 Avant tout calcul d'itinéraire, quatre contrôles successifs vérifient que les tables du réseau sont exploitables.
