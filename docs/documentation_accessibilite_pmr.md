@@ -100,6 +100,22 @@ Les données ont été importées avec **QGIS**, des scripts **SQL** et **GTFS G
 
 ## 4. Contrôle qualité des données livrées
 
+**1. ISO 19115 : décrire les données avec des métadonnées**
+
+L’ISO 19115-1 définit les informations nécessaires pour décrire une ressource géographique : identification, emprise, dates, qualité, contenu, système de référence, conditions d’accès, distribution et responsable. Elle sert notamment au catalogage, à la découverte des données et à l’évaluation de leur aptitude à l’usage.
+
+**2. ISO 19139 : encoder les métadonnées en XML**
+
+L’ISO/TS 19139-1:2019 définit des règles d’encodage XML pour les schémas conceptuels décrivant des ressources géographiques. Elle permet donc de traduire une structure de métadonnées en un document XML lisible et échangeable par des logiciels.
+
+**3. ISO 19119 : décrire les services géographiques**
+
+L’ISO 19119:2016 concerne les services géographiques, leur architecture, leur classification et leur spécification de manière interopérable. Elle permet notamment de faciliter la publication et la découverte des services.
+
+**4. ISO 19157 : évaluer la qualité des données**
+
+L’ISO 19157-1:2023 définit les principes permettant de décrire, mesurer, évaluer et rapporter la qualité des données géographiques. Elle s’adresse aussi bien aux producteurs qu’aux utilisateurs qui veulent vérifier si un jeu de données est adapté à un usage donné. Elle ne fixe pas elle-même les seuils minimaux acceptables, qui doivent venir du cahier des charges ou d’une spécification de produit.
+
 ### 4.1 Cadre : la norme ISO 19157
 
 La démarche suit l'**ISO 19157-1**, qui distingue l'évaluation **interne** (sur les seules données livrées) de l'évaluation **externe** (confrontation à une source indépendante). Les 118 contrôles se répartissent selon les cinq éléments de qualité :
