@@ -24,6 +24,7 @@ nav:
   - Automatisation de cartes thématiques sur QGIS: Methodologie_carto_diag_auto.md
   - Mise en place Lizmap: lizmap.md
   - Comment utiliser Lizmap ? : formation-lizmap.md
+  - Exemple d'intercae pour partager des données: Guide_portail_donnees_AUDC_test_supabase.md
   - Cartographie avec Rstudio: rstudio_geomatique.md
   - Brique de Télédétection et Géomatqiue: teledetection.md
   - Automatiser l'execution de projet FME: automatisaion_fme.md
