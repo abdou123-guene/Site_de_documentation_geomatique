@@ -8,8 +8,8 @@ WITH chemin AS (
            AND cost IS NOT NULL
            AND cost > 0
            AND id <> 97',
-        56,
-        1141,
+        100,
+        281,
         directed := false
     )
 )
